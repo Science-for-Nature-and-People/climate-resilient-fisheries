@@ -1,0 +1,12 @@
+name: crf_support_tool
+title: crf_support_tool
+username:
+account: emlab-ucsb
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 1903787
+bundleId: 2851792
+url: https://emlab-ucsb.shinyapps.io/crf_support_tool/
+when: 1583357482.46667
+asMultiple: FALSE
+asStatic: FALSE

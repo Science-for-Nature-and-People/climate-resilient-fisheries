@@ -12,8 +12,8 @@ library(tidyverse)
 library(RColorBrewer)
 
 # Read data
-# datadir <- "data" # for actual app
-datadir <- "support_tool/data" # when testing
+datadir <- "data" # for actual app
+# datadir <- "support_tool/data" # when testing
 codedir <- "code"
 textdir <- "app_text"
 
@@ -22,12 +22,22 @@ textdir <- "app_text"
 ################################################################################
 
 # User interface
-ui <- navbarPage("Climate-resilient fisheries", position="fixed-top",
+ui <- navbarPage("Climate-resilient fisheries",
                  
-  # Panels
-  tabPanel("Overview"),
-  tabPanel("Data"),
+  # Overview
+  tabPanel("Overview",
+           mainPanel(includeHTML(file.path("app_text", "01_overview.html")))),
+  
+  # Data portal
+  navbarMenu("Data portal",
+             tabPanel("Oceanography"),
+             tabPanel("Fisheries"), 
+             tabPanel("Other indicators")),
+  
+  # Resilience checklist
   tabPanel("Resilience checklist"), 
+  
+  # Resilience enhancing tools
   tabPanel("Resilience enhancing tools")
 
   
