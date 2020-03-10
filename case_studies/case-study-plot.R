@@ -96,4 +96,4 @@ m <- leaflet(data = sites) %>%
 
 m # view
 
-saveWidget(m, file=here("case_studies","Case_study_sites_v2.html"))
+saveWidget(m, file=here("docs","Case_study_sites.html"))
