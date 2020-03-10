@@ -38,11 +38,11 @@ m <- leaflet(data = sites) %>%
 
 m # view
 
-saveWidget(m, file=here("case_studies","Case_study_sites.html"))
+# saveWidget(m, file=here("docs","Case_study_sites.html"))
 
 
 
-# V2: More complicated ----
+# V2: Slightly complicated ----
 world_shapefile_path = "/Users/friedman/Documents/Projects/Mapping/world_shape_file/"
 
 # Read the world shapefile with sf: 
