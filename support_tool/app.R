@@ -25,8 +25,7 @@ textdir <- "app_text"
 ui <- navbarPage("Climate-resilient fisheries",
                  
   # Overview
-  tabPanel("Overview",
-           mainPanel(includeHTML(file.path("app_text", "01_overview.html")))),
+  tabPanel("Overview"),
   
   # Data portal
   navbarMenu("Data portal",
