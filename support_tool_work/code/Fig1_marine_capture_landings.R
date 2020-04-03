@@ -10,6 +10,7 @@ library(tidyverse)
 
 # Directories
 plotdir <- "support_tool_work/figures"
+appdatadir <- "support_tool/data"
 
 # Read FAO data
 fao_orig <- readRDS("/Users/cfree/Dropbox/Chris/UCSB/data/fao/capture/processed/1950_2017_fao_landings_data.Rds")
@@ -36,9 +37,12 @@ fao <- fao_orig %>%
                         "Invertebrata aquatica"=0.21),
          meat_mt=catch_mt * pedible) %>% 
   # Sum catch and edible meat by country-group-year
-  group_by(country, iso3, isscaap, year) %>% 
+  group_by(country_use, iso3_use, isscaap, year) %>% 
   summarize(catch_mt=sum(catch_mt, na.rm=T),
             meat_mt=sum(meat_mt, na.rm=T))
+
+# Export data
+saveRDS(fao, file.path(appdatadir, "FAO_1950_2017_catch_data_by_country_isscaap.Rds"))
 
   
 # Plot data

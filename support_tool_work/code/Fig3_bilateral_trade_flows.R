@@ -12,6 +12,7 @@ library(rnaturalearth)
 
 # Directories
 plotdir <- "support_tool_work/figures"
+appdatadir <- "support_tool/data"
 
 # Read COMTRADE data
 comtrade_orig <- readRDS("/Users/cfree/Dropbox/Chris/UCSB/data/comtrade/data/BACI_HS12_2017_data.Rds")
@@ -47,6 +48,9 @@ world_centroids <- world_simple %>%
 country_key <- country_codes %>% 
   select(code, iso3_use, country_use) %>% 
   left_join(world_centroids %>% select(iso3_use, lat_dd, long_dd) %>% sf::st_drop_geometry(), by="iso3_use")
+
+# Export world
+save(world_simple, world_centroids, file=file.path(appdatadir, "rnaturalearth_world_data.Rdata"))
 
 
 # Build data
@@ -89,6 +93,9 @@ comtrade <- comtrade_orig %>%
   rename(importer_country=country_use, importer_iso3=iso3_use, 
          importer_lat_dd=lat_dd, importer_long_dd=long_dd) %>% 
   ungroup()
+
+# Export data
+saveRDS(comtrade, file=file.path(appdatadir, "Comtrade_2017_seafood_trade_data.Rds"))
 
 
 # Plot data

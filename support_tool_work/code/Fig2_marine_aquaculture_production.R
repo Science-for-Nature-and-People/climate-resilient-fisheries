@@ -10,6 +10,7 @@ library(tidyverse)
 
 # Directories
 plotdir <- "support_tool_work/figures"
+appdatadir <- "support_tool/data"
 
 # Read FAO data
 fao_orig <- readRDS("/Users/cfree/Dropbox/Chris/UCSB/data/fao/aquaculture/processed/1950_2017_fao_aquaculture_data.Rds")
@@ -35,9 +36,12 @@ fao <- fao_orig %>%
                         "Invertebrata aquatica"=0.21),
          meat_mt=prod_mt * pedible) %>% 
   # Sum catch and edible meat by country-group-year
-  group_by(country, iso3, isscaap, year) %>% 
+  group_by(country_use, iso3_use, isscaap, year) %>% 
   summarize(prod_mt=sum(prod_mt, na.rm=T),
             meat_mt=sum(meat_mt, na.rm=T))
+
+# Export data
+saveRDS(fao, file.path(appdatadir, "FAO_1950_2017_mariculture_data_by_country_isscaap.Rds"))
 
   
 # Plot data
@@ -56,7 +60,7 @@ my_theme <- theme(axis.text=element_text(size=8),
 # Subset data
 cntry <- "Colombia"
 sdata <- fao %>% 
-  filter(country==cntry) %>% 
+  filter(country_use==cntry) %>% 
   gather(key="prod_type", value="prod_mt", 5:6) %>% 
   mutate(prod_type=recode_factor(prod_type, "prod_mt"="Total production", meat_mt="Edible meat"))
 

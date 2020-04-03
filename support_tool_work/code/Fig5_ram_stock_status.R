@@ -11,6 +11,7 @@ library(countrycode)
 
 # Directories
 plotdir <- "support_tool_work/figures"
+appdatadir <- "support_tool/data"
 
 # Read RAM Legacy Database v4.491
 load("/Users/cfree/Dropbox/Chris/UCSB/data/ramldb/RAM v4.491 Files (1-14-20)/RAM v4.491/DB Files With Assessment Data/R Data/DBdata[asmt][v4.491].Rdata")
@@ -19,6 +20,7 @@ load("/Users/cfree/Dropbox/Chris/UCSB/data/ramldb/RAM v4.491 Files (1-14-20)/RAM
 # Build data
 ################################################################################
 
+# Build data
 data <- timeseries_values_views %>% 
   # Reduce to stocks/years with B/BMSY and U/UMSY
   select(stockid, year, BdivBmsypref, UdivUmsypref) %>% 
@@ -49,8 +51,12 @@ data <- timeseries_values_views %>%
          uumsy_cap=pmin(uumsy, 4))
 
 # Inspect
-colnames(data) 
 str(data)
+freeR::complete(data)
+
+# Export data
+saveRDS(data, file=file.path(appdatadir, "RAM_v4.491_stock_status.Rds"))
+
 
 # Plot data
 ################################################################################
