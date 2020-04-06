@@ -174,11 +174,28 @@ ui <- navbarPage("Climate-resilient fisheries",
            ##########################################################
            
            h2("Projected impacts of climate change and fisheries reform"),
-           p("Text coming to computers near you."),
-           br(),
-           br(),
-           br(),
-           br(),
+           
+           
+           p("Climate change is expected to result in shifts in both the spatial distribution of fish stocks (i.e., where fish can be caught and by whom) and the productivity of fish stocks (i.e., how much fish can be caught). In general, productivity is expected to decrease in tropical and temperate regions and increase towards the poles as species distributions shift to follow their preferred temperatures."),
+            
+           p("The impact of these changes on human society could be either limited or exacerbated by human responses to these changes. On one hand, fisheries management reforms that end overfishing, respond to shifts in productivity through adaptive harvest control rules, and promote better international cooperation to prevent stock degradation as species shift across boundaries could mitigate many of the negative impacts of climate change. On the other hand, business-as-usual management that maintains current levels of fishing pressure and increases overfishing as stocks shift into new jurisdictions could exacerbate the negative impacts of climate change."),
+            
+           p("Free et al. (2020) evaluated how catch and profits from national fisheries would change under climate change with and without the reforms described above. Specifically, they forecasted shifts in species distributions using a bioclimatic envelope model (i.e., assume that fish track their preferred temperatures) and assumed that changes in range size are proportional to changes in productivity. In this way, they were able to estimate how maximum sustainable yield might change in every country’s waters under four increasingly severe climate scenarios (RCPs 2.6, 4.5, 6.0, 8.5)."),
+            
+           p("The figure below shows how maximum sustainable yield (MSY) is projected to change in [country name] under climate change."),
+            
+           p("FIGURE HERE"),
+            
+           p("However, the change in catch from fisheries does not necessarily match in underlying productivity because few fisheries are managed precisely at MSY. By ending overfishing, overfished fisheries could see increases in catch if climate-driven losses are small. Similarly, by expanding undeveloped fisheries, underfished fisheries could see increases in catch if climate-driven losses are small. On the other hand, failing to correct over or underfishing could lead to even lower catches than would be predicted by the change in MSY alone."), 
+            
+           p("The figure below shows how Free et al. (2020) predict catch would change in [country name] under climate change and two management scenarios: (1) full adaptation that ends overfishing, responds to shifts in productivity, and promote better international cooperation to prevent stock degradation as species shift across boundaries and (2) business-as-usual management that maintains current levels of fishing pressure and increases overfishing as stocks shift into new jurisdictions."),
+            
+           p("FIGURE HERE"),
+            
+           p("The results of the “Full Adaptation” scenario represent the estimated maximum of what could be accomplished (in terms of catch) through the implementation of the resilience enhancement tools identified in this web application."),
+            
+           p("To explore the global- and country-level results of Free et al. (2020) in greater detail, please visit this web application: https://emlab-ucsb.shinyapps.io/fishcast2/"),
+
            
            # References
            ##########################################################
@@ -499,7 +516,7 @@ ui <- navbarPage("Climate-resilient fisheries",
            
            # Overview
            h2("Overview"),
-           p(""),
+           p("The table below lists tools for enhancing the resilience of fisheries to climate change by targeting the attributes indicated as “could be enhanced” on the resilience checklist page. The table provides a brief description of the tool, a link to learn more about the tool from its primary source, and the country in which the tool was implemented. These tools are drawn from our case studies of fisheries exhibiting resilience to climate change and from our systematic review of the literature for tools that enhance the resilience of marine fisheries to climate change."),
            br(),
            
            # Overview
