@@ -1,6 +1,6 @@
 
 # For testing: data <- fao_maq; cntry <- "United States"
-plot_natl_fao_mariculture_data <- function(data, cntry){
+plot_natl_fao_mariculture_data <- function(data, cntry, my_theme){
   
   # Subset data
   sdata <- data %>% 
@@ -14,7 +14,7 @@ plot_natl_fao_mariculture_data <- function(data, cntry){
     geom_area() + 
     labs(x="", y="Production (1000s mt)", title=paste("FAO reported production:", cntry)) +
     scale_x_continuous(limits=c(1950, 2020), breaks=seq(1950,2020,10)) +
-    theme_bw() +
+    theme_bw() + my_theme +
     theme(legend.title = element_blank(),
           axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=0))
   g

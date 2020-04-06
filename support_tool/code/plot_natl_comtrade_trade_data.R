@@ -30,7 +30,7 @@
 
 
 # For testing: data <- comtrade; cntry <- "United States"
-plot_natl_comtrade_trade_data <- function(data, world_simple, world_centroids, cntry){
+plot_natl_comtrade_trade_data <- function(data, world_simple, world_centroids, cntry, my_theme){
   
   # Subset/format exports
   sdata1 <- data %>% 
@@ -67,7 +67,7 @@ plot_natl_comtrade_trade_data <- function(data, world_simple, world_centroids, c
     scale_fill_gradientn(name="Marine seafood\ntrade volume (1000s mt)", 
                          colors=rev(RColorBrewer::brewer.pal(n=9, name="RdBu")), na.value="grey80") +
     guides(fill = guide_colorbar(ticks.colour = "black", frame.colour = "black")) +
-    theme_bw() +
+    theme_bw() + my_theme +
     theme(legend.position = "bottom")
   g
 

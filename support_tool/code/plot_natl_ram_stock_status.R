@@ -1,6 +1,6 @@
 
 # For testing: data <- ram; cntry <- "United States"
-plot_natl_ram_stock_status <- function(data, cntry){
+plot_natl_ram_stock_status <- function(data, cntry, my_theme){
   
   # Format data
   data <- data %>% 
@@ -18,7 +18,7 @@ plot_natl_ram_stock_status <- function(data, cntry){
     # Add lines
     geom_hline(yintercept = 1) +
     geom_vline(xintercept = 1) +
-    theme_bw() +
+    theme_bw() + my_theme + 
     theme(legend.position = "bottom",
           legend.title=element_blank())
   g

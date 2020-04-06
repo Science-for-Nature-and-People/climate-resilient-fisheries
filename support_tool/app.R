@@ -46,6 +46,18 @@ load(file.path(datadir, "rnaturalearth_world_data.Rdata"))
 # Countries
 fao_countries <- sort(unique(fao$country_use))
 
+# Plotting theme
+my_theme <- theme(axis.text=element_text(size=12),
+                  axis.title=element_text(size=14),
+                  plot.title=element_text(size=16),
+                  strip.text=element_text(size=14),
+                  legend.text=element_text(size=12),
+                  legend.title=element_text(size=14),
+                  panel.grid.major = element_blank(), 
+                  panel.grid.minor = element_blank(),
+                  panel.background = element_blank(), 
+                  axis.line = element_line(colour = "black"))
+
 
 # User interface
 ################################################################################
@@ -544,31 +556,36 @@ server <- function(input, output){
   
   # FAO catch data
   output$plot_natl_fao_catch_data <- renderPlot({
-    g <- plot_natl_fao_catch_data(data=fao, cntry=input$country2)
+    g <- plot_natl_fao_catch_data(data=fao, 
+                                  cntry=input$country2, my_theme=my_theme)
     g
   })
   
   # FAO mariculture data
   output$plot_natl_fao_mariculture_data <- renderPlot({
-    g <- plot_natl_fao_mariculture_data(data=fao_maq, cntry=input$country2)
+    g <- plot_natl_fao_mariculture_data(data=fao_maq, 
+                                        cntry=input$country2, my_theme=my_theme)
     g
   })
   
   # Comtrade trade data
   output$plot_natl_comtrade_trade_data <- renderPlot({
-    g <- plot_natl_comtrade_trade_data(data=comtrade, world_simple, world_centroids, cntry=input$country2)
+    g <- plot_natl_comtrade_trade_data(data=comtrade, world_simple, world_centroids, 
+                                       cntry=input$country2, my_theme=my_theme)
     g
   })
   
   # Genus nutrition data
   output$plot_natl_genus_nutrition_data <- renderPlot({
-    g <- plot_natl_genus_nutrition_data(genus_pdiet, genus_pnutrient, cntry=input$country2)
+    g <- plot_natl_genus_nutrition_data(genus_pdiet, genus_pnutrient, 
+                                        cntry=input$country2, my_theme=my_theme)
     g
   })
   
   # RAM stock status
   output$plot_natl_ram_stock_status <- renderPlot({
-    g <- plot_natl_ram_stock_status(data=ram, cntry=input$country2)
+    g <- plot_natl_ram_stock_status(data=ram, cntry=input$country2,
+                                    my_theme=my_theme)
     g
   })
   

@@ -5,8 +5,8 @@ account: sfg-ucsb
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 1903787
-bundleId: 2977125
+bundleId: 2977995
 url: https://emlab-ucsb.shinyapps.io/crf_support_tool/
-when: 1586198905.27745
+when: 1586212492.01168
 asMultiple: FALSE
 asStatic: FALSE
