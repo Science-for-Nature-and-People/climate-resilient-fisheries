@@ -6,7 +6,7 @@ plot_natl_fao_catch_data <- function(data, cntry, my_theme){
   sdata <- data %>% 
     filter(country_use==cntry) %>% 
     gather(key="prod_type", value="prod_mt", 5:6) %>% 
-    mutate(prod_type=recode_factor(prod_type, "catch_mt"="Landings", meat_mt="Edible meat"))
+    mutate(prod_type=recode_factor(prod_type, "catch_mt"="Total landings", meat_mt="Edible meat"))
   
   # Plot data
   g <- ggplot(sdata, aes(x=year, y=prod_mt/1000, fill=isscaap)) +

@@ -71,12 +71,13 @@ ui <- navbarPage("Climate-resilient fisheries",
   # Overview
   tabPanel("Overview",
            
-           p("This tool is designed to help marine fisheries stakeholders assess the resilience of their fishery to climate change and to identify strategies for further enhancing resilience. Throughout the tool, we define resilience as the ability of a fisheries system to resist, recover, adapt, and transform constructively. The tool provides three features:"),
+           p("This tool is designed to help marine fisheries stakeholders assess the resilience of their fishery to climate change and to identify strategies for further enhancing resilience. Throughout the tool, we define resilience as the ability of a fisheries system to resist, recover, adapt, and transform constructively. The tool provides four features:"),
           
            tags$ol(   
             tags$li("A data portal for the user to explore the projected impacts of climate change on the biogeochemistry of their waters and the projected impacts of these changes on their fisheries."),
             tags$li("A resilience checklist for the user to self-assess the ecological, social, economic, and governance attributes of their fishery that make it resilient to climate change and the attributes that could be targeted for enhanced resilience. This checklist seeks to guide the user in identifying barriers, bottlenecks, opportunities, and leverage points in enhancing the resilience of their fishery to climate change."),
-            tags$li("A menu of potential resilience enhancing tools that address the objectives of the user and the needs of the fishery. The tool seeks to present context-specific recommendations and case studies from similar contexts to provide operational guidance on enhancing climate resilience in fisheries.")
+            tags$li("A menu of potential resilience enhancing tools that address the objectives of the user and the needs of the fishery. The tool seeks to present context-specific recommendations and case studies from similar contexts to provide operational guidance on enhancing climate resilience in fisheries."),
+            tags$li("A list of case studies illustrating the use of the resilience checklist to diagnose the resilience of fisheries to climate change and identify opportunities for enhancing resilience to climate change. These case studies also detail the attributes and actions that make the case study fisheries resilient to climate change and provide useful examples for enhancing resilience in analogous fisheries.")
           ),
            
           p("This tool was developed as part of a Science for Nature and People Partnership (SNAPP) Working Group convened on Climate Resilient Fisheries. SNAPP Working Groups are funded by The Nature Conservancy, Wildlife Conservation Society, and the National Center for Ecological Analysis and Synthesis. All data and code for the tool are on GitHub here."),
@@ -117,7 +118,9 @@ ui <- navbarPage("Climate-resilient fisheries",
                        choices=paste("RCP", c("2.6", "4.5", "6.0", "8.5")), multiple=F, selectize=F),
            
            # Mao
-           leafletOutput("ocean_clim_proj_map", width=1000, height=600)
+           leafletOutput("ocean_clim_proj_map", width=1000, height=600),
+           br(),
+           br()
            
            ),
   
@@ -179,7 +182,7 @@ ui <- navbarPage("Climate-resilient fisheries",
            h3("Status of marine fisheries"),
            p("XX stocks representing approximately XX% of reported catch are managed using stock assessments available in the RAM Legacy Database (Ricard et al. 2012; Hilborn et al. 2020). Of these stocks, XX (XX%) are overfished (B/BMSY < 1.0) and XX (XX%) are experiencing overfishing (U/UMSY > 1.0). XX stocks (XX%) are neither overfished nor experiencing overfishing."),
            br(),
-           plotOutput(outputId = "plot_natl_ram_stock_status", width=600, height=600),
+           plotOutput(outputId = "plot_natl_ram_stock_status", width=750, height=600),
            p("Figure 5. A ‘Kobe plot’ showing the status of stocks in the RAM Legacy Stock Assessment Database (Ricard et al. 2012; Hilborn et al. 2020). Each point represents the status of stock in the most recent year with data and stocks from the nation of interest are shown in black (if any are available). The x-axis shows B/BMSY which is the ratio of the most recent biomass (B) relative to the target biomass (BMSY) and indicates whether a stock is overfished. Stocks with B/BMSY values less than 1.0 are at biomass levels below the target biomass. In the United States, stocks with B/BMSY values less than 0.5 are considered overfished. The FAO considers stocks with B/BMSY values less than 0.8 to be overfished. The y-axis shows U/UMSY which is the ratio of the most recent fishing mortality rate (U) relative to the target fishing mortality rate (UMSY) and indicates whether a stock is experiencing overfishing. Stocks with U/UMSY values greater than 1.0 are experiencing overfishing while stocks with U/UMSY values less than 1.0 are not experiencing overfishing. "),
            
            # Projected impacts of climate change and fisheries reform
@@ -536,7 +539,10 @@ ui <- navbarPage("Climate-resilient fisheries",
            p("Insert dynamic table here providing tool recommendations based on the results of the reslience checklist."),
            br()
            
-  )
+  ),
+  
+  # Case studies
+  tabPanel("Case studies")
 
   
 )

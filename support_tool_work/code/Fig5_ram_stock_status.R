@@ -14,8 +14,8 @@ plotdir <- "support_tool_work/figures"
 appdatadir <- "support_tool/data"
 
 # Read RAM Legacy Database v4.491
-load("/Users/cfree/Dropbox/Chris/UCSB/data/ramldb/RAM v4.491 Files (1-14-20)/RAM v4.491/DB Files With Assessment Data/R Data/DBdata[asmt][v4.491].Rdata")
-
+# load("/Users/cfree/Dropbox/Chris/UCSB/data/ramldb/RAM v4.491 Files (1-14-20)/RAM v4.491/DB Files With Assessment Data/R Data/DBdata[asmt][v4.491].Rdata")
+load("/Users/cfree/Dropbox/Chris/UCSB/data/ramldb/RAM v4.491 Files (1-14-20)/RAM v4.491/DB Files With Model Fit Data/R Data/DBdata[mdl][v4.491].RData")
 
 # Build data
 ################################################################################
@@ -48,7 +48,10 @@ data <- timeseries_values_views %>%
   select(stockid:country_orig, country_use, iso3_use, everything()) %>% 
   # Cap values
   mutate(bbmsy_cap=pmin(bbmsy, 4),
-         uumsy_cap=pmin(uumsy, 4))
+         uumsy_cap=pmin(uumsy, 4)) %>% 
+  # Add MSY
+  left_join(select(bioparams_values_views, stockid, MSYbest), by="stockid") %>% 
+  rename(msy_mt=MSYbest)
 
 # Inspect
 str(data)

@@ -62,7 +62,7 @@ plot_natl_comtrade_trade_data <- function(data, world_simple, world_centroids, c
   g <- ggplot(world_data, aes(fill=quantity_mt/1000)) +
     facet_wrap(~flow_dir, ncol=1) +
     geom_sf(color="white", lwd=0.1) +
-    geom_sf(data=world_centroids %>% filter(country_use==cntry), mapping=aes(fill=NULL), color="black") +
+    geom_sf(data=world_centroids %>% filter(country_use==cntry), mapping=aes(fill=NULL), color="black", size=3) +
     labs(title=paste("Comtrade bilateral trade:", cntry)) +
     scale_fill_gradientn(name="Marine seafood\ntrade volume (1000s mt)", 
                          colors=rev(RColorBrewer::brewer.pal(n=9, name="RdBu")), na.value="grey80") +
