@@ -4,9 +4,18 @@ plot_natl_fao_mariculture_data <- function(data, cntry, my_theme){
   
   # Subset data
   sdata <- data %>% 
+    # Subset
     filter(country_use==cntry) %>% 
+    # Convert wide to long
     gather(key="prod_type", value="prod_mt", 5:6) %>% 
-    mutate(prod_type=recode_factor(prod_type, "prod_mt"="Total production", meat_mt="Edible meat"))
+    # Spread and gather to add missing years
+    spread(key="year", value="prod_mt") %>% 
+    gather(key="year", value="prod_mt", 5:ncol(.)) %>% 
+    mutate(prod_mt=ifelse(!is.na(prod_mt), prod_mt, 0)) %>% 
+    # Rename production type
+    mutate(prod_type=recode_factor(prod_type, "prod_mt"="Total production", meat_mt="Edible meat"),
+           year=as.numeric(year)) %>% 
+    ungroup()
   
   # Plot data
   g <- ggplot(sdata, aes(x=year, y=prod_mt/1000, fill=isscaap)) +

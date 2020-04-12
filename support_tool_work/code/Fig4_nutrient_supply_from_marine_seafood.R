@@ -51,8 +51,11 @@ pdiet_seafood_cntry_yr <- food_cntry_yr_orig %>%
   # Summarize contribution of seafood vs. non-seafood
   group_by(iso3_use, country_use, year) %>% 
   summarize(total_g_person_day=sum(g_person_day, na.rm=T),
-            seafood_g_person_day=sum(g_person_day[seafood=="yes"], na.rm=T)) %>% 
-  mutate(prop_seafood=seafood_g_person_day/total_g_person_day)
+            seafood_g_person_day=sum(g_person_day[seafood=="yes"], na.rm=T),
+            total_g_person_day=ifelse(total_g_person_day==0, NA, total_g_person_day),
+            seafood_g_person_day=ifelse(total_g_person_day==0, NA, seafood_g_person_day)) %>% 
+  mutate(prop_seafood=seafood_g_person_day/total_g_person_day) %>% 
+  ungroup()
 
 # Example plot
 cntry <- "Colombia"
@@ -73,7 +76,8 @@ pnutrient_seafood_cntry_2011 <- nut_cntry_food_2011_orig %>%
   group_by(iso3_use, country_use, nutrient, units_long, units_short) %>% 
   summarize(total_amt_person_day=sum(value_med, na.rm=T),
             seafood_amt_person_day=sum(value_med[seafood=="yes"], na.rm=T)) %>% 
-  mutate(prop_seafood=seafood_amt_person_day/total_amt_person_day)
+  mutate(prop_seafood=seafood_amt_person_day/total_amt_person_day) %>% 
+  ungroup()
 
 
 # Example plot
