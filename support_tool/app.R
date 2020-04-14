@@ -21,9 +21,9 @@ library(rnaturalearth)
 # Read data
 datadir <- "data" # for actual app
 codedir <- "code"
+textdir <- "app_text"
 # datadir <- "support_tool/data" # when testing
 # codedir <- "support_tool/code" # when testing
-textdir <- "app_text"
 
 # Parameters
 ocean_vars <- c("Temperature", "pH", "Salinity", "Dissolved oxygen", "Primary productivity")
@@ -69,21 +69,8 @@ ui <- navbarPage("Climate-resilient fisheries",
   #############################################################      
   
   # Overview
-  tabPanel("Overview",
-           
-           p("This tool is designed to help marine fisheries stakeholders assess the resilience of their fishery to climate change and to identify strategies for further enhancing resilience. Throughout the tool, we define resilience as the ability of a fisheries system to resist, recover, adapt, and transform constructively. The tool provides four features:"),
-          
-           tags$ol(   
-            tags$li("A data portal for the user to explore the projected impacts of climate change on the biogeochemistry of their waters and the projected impacts of these changes on their fisheries."),
-            tags$li("A resilience checklist for the user to self-assess the ecological, social, economic, and governance attributes of their fishery that make it resilient to climate change and the attributes that could be targeted for enhanced resilience. This checklist seeks to guide the user in identifying barriers, bottlenecks, opportunities, and leverage points in enhancing the resilience of their fishery to climate change."),
-            tags$li("A menu of potential resilience enhancing tools that address the objectives of the user and the needs of the fishery. The tool seeks to present context-specific recommendations and case studies from similar contexts to provide operational guidance on enhancing climate resilience in fisheries."),
-            tags$li("A list of case studies illustrating the use of the resilience checklist to diagnose the resilience of fisheries to climate change and identify opportunities for enhancing resilience to climate change. These case studies also detail the attributes and actions that make the case study fisheries resilient to climate change and provide useful examples for enhancing resilience in analogous fisheries.")
-          ),
-           
-          p("This tool was developed as part of a Science for Nature and People Partnership (SNAPP) Working Group convened on Climate Resilient Fisheries. SNAPP Working Groups are funded by The Nature Conservancy, Wildlife Conservation Society, and the National Center for Ecological Analysis and Synthesis. All data and code for the tool are on GitHub here."),
-           
-          p("Recommended citation: SNAPP CRF Working Group (2020) Climate resilient fisheries support tool. Available online at: https://emlab-ucsb.shinyapps.io/crf_support_tool/")
-  ),
+  tabPanel("Overview", 
+           mainPanel(includeHTML(file.path(textdir, "01overview.html")))),
   
   # Data portal
   #############################################################
@@ -151,7 +138,7 @@ ui <- navbarPage("Climate-resilient fisheries",
            p("In 2016, [country name] landed XXXX mt of marine seafood yielding XXXX mt of edible meat. The five most important species by landed volume were: species name (Scientific name), species name (Scientific name), species name (Scientific name), species name (Scientific name), and species name (Scientific name)."),
            br(),
            plotOutput(outputId = "plot_natl_fao_catch_data", width=1000, height=400),
-           p("Figure 1. Historical (B) capture fisheries landings (FAO 2018) and B) the edible meat derived from these landings. Edible meat represents the edible portion of the cultured organism (i.e., weight without the head, bones, shells, guts, etc.) and was calculated using conversion factors from Edwards et al. (2017)."),
+           p("Figure 1. Historical (A) capture fisheries landings (FAO 2018) and (B) the edible meat derived from these landings. Edible meat represents the edible portion of the cultured organism (i.e., weight without the head, bones, shells, guts, etc.) and was calculated using conversion factors from Edwards et al. (2017)."),
            br(),
            
            # FAO mariculture
@@ -190,7 +177,6 @@ ui <- navbarPage("Climate-resilient fisheries",
            
            h2("Projected impacts of climate change and fisheries reform"),
            
-           
            p("Climate change is expected to result in shifts in both the spatial distribution of fish stocks (i.e., where fish can be caught and by whom) and the productivity of fish stocks (i.e., how much fish can be caught). In general, productivity is expected to decrease in tropical and temperate regions and increase towards the poles as species distributions shift to follow their preferred temperatures."),
             
            p("The impact of these changes on human society could be either limited or exacerbated by human responses to these changes. On one hand, fisheries management reforms that end overfishing, respond to shifts in productivity through adaptive harvest control rules, and promote better international cooperation to prevent stock degradation as species shift across boundaries could mitigate many of the negative impacts of climate change. On the other hand, business-as-usual management that maintains current levels of fishing pressure and increases overfishing as stocks shift into new jurisdictions could exacerbate the negative impacts of climate change."),
@@ -224,7 +210,7 @@ ui <- navbarPage("Climate-resilient fisheries",
            p("Smith, M.R., Micha, R., Golden, C.D., Mozaffarian, D., Myers, S.S. (2016) Global Expanded Nutrient Supply (GENuS) model: a new method for estimating the global dietary supply of nutrients. PLoS One 11(1): e0146976. https://doi.org/10.1371/journal.pone.0146976"),
            p("United Nations (2020) UN Comtrade database. United Nations (UN). Available online at: https://comtrade.un.org/"),
            br(),
-           br(),
+           br()
   
            ), 
   
@@ -542,8 +528,11 @@ ui <- navbarPage("Climate-resilient fisheries",
   ),
   
   # Case studies
-  tabPanel("Case studies")
-
+  navbarMenu("Case studies",
+           tabPanel("Cuba"),
+           tabPanel("Ghana"),
+           tabPanel("US Alaska")
+  )
   
 )
 
