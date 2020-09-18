@@ -23,7 +23,7 @@ library(janitor)
 
 ```{r}
 
-gs4_auth() # This allows access to the googlesheet
+#gs4_auth() # Run this in console with your email address. It allow R to access your google sheets
 
 ```
 
