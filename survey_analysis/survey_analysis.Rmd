@@ -29,7 +29,7 @@ library(janitor)
 
 ```{r}
 test_section1 <-read_sheet(ss = "https://docs.google.com/spreadsheets/d/1vcWRmro97z5HXzoKhaAK4nrhFJwghCI2oCLEAeHnwD4/edit?usp=drive_web", 
-                           sheet = 3,
+                           sheet = "S1_KeyCaseIdentifiers",
                            range = "A9:P18",
                            col_names = TRUE,
                            na = "",
@@ -39,7 +39,7 @@ test_section1 <-read_sheet(ss = "https://docs.google.com/spreadsheets/d/1vcWRmro
                            )
 
 test_section2 <- read_sheet(ss ="https://docs.google.com/spreadsheets/d/1vcWRmro97z5HXzoKhaAK4nrhFJwghCI2oCLEAeHnwD4/edit?usp=drive_web", 
-                           sheet = 4,
+                           sheet = "S2_ContextualDescription",
                            range = "A9:U91",
                            col_names = TRUE,
                            na = "",
@@ -49,7 +49,7 @@ test_section2 <- read_sheet(ss ="https://docs.google.com/spreadsheets/d/1vcWRmro
                            )
 
 test_section3 <- read_sheet(ss ="https://docs.google.com/spreadsheets/d/1vcWRmro97z5HXzoKhaAK4nrhFJwghCI2oCLEAeHnwD4/edit?usp=drive_web", 
-                           sheet = 5,
+                           sheet = "S3_ClimateResilientActions",
                            range = "A9:H29",
                            col_names = TRUE,
                            na = "",
@@ -59,7 +59,7 @@ test_section3 <- read_sheet(ss ="https://docs.google.com/spreadsheets/d/1vcWRmro
                            )
 
 test_section4 <- read_sheet(ss ="https://docs.google.com/spreadsheets/d/1vcWRmro97z5HXzoKhaAK4nrhFJwghCI2oCLEAeHnwD4/edit?usp=drive_web", 
-                           sheet = 6,
+                           sheet = "S4_ResilienceAttributes",
                            range = "A9:M61",
                            col_names = TRUE,
                            na = "",
@@ -69,7 +69,7 @@ test_section4 <- read_sheet(ss ="https://docs.google.com/spreadsheets/d/1vcWRmro
                            )
 
 test_section5 <- read_sheet(ss ="https://docs.google.com/spreadsheets/d/1vcWRmro97z5HXzoKhaAK4nrhFJwghCI2oCLEAeHnwD4/edit?usp=drive_web", 
-                           sheet = 7,
+                           sheet = "S5_CapacitytoImproveClimate",
                            range = "A9:H15",
                            col_names = TRUE,
                            na = "",
