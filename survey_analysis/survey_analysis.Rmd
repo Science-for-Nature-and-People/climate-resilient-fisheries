@@ -16,6 +16,7 @@ This document will be used to analyze survey responses
 library(tidyverse)
 library(googlesheets4)
 library(here)
+library(janitor)
 
 
 ```
@@ -27,6 +28,15 @@ gs4_auth() # This allows access to the googlesheet
 ```
 
 ```{r}
-read_sheet()
+test_section1 <-read_sheet(ss = "https://docs.google.com/spreadsheets/d/1vcWRmro97z5HXzoKhaAK4nrhFJwghCI2oCLEAeHnwD4/edit?usp=drive_web", 
+                           sheet = 3,
+                           range = "A9:P18",
+                           col_names = TRUE,
+                           na = "",
+                           guess_max = 10000,
+                           trim_ws = TRUE,
+                           col_types = "c"
+                           )
+
 ```
 
