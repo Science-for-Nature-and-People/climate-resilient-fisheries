@@ -28,6 +28,16 @@ library(janitor)
 ```
 
 ```{r}
+Test_section0 <- read_sheet(ss = "https://docs.google.com/spreadsheets/d/1vcWRmro97z5HXzoKhaAK4nrhFJwghCI2oCLEAeHnwD4/edit?usp=drive_web", 
+                           sheet = "0_YourName",
+                           range = "A4:C5",
+                           col_names = TRUE,
+                           na = "",
+                           guess_max = 10000,
+                           trim_ws = TRUE,
+                           col_types = "c"
+                           )
+
 test_section1 <-read_sheet(ss = "https://docs.google.com/spreadsheets/d/1vcWRmro97z5HXzoKhaAK4nrhFJwghCI2oCLEAeHnwD4/edit?usp=drive_web", 
                            sheet = "S1_KeyCaseIdentifiers",
                            range = "A9:P18",
@@ -36,7 +46,10 @@ test_section1 <-read_sheet(ss = "https://docs.google.com/spreadsheets/d/1vcWRmro
                            guess_max = 10000,
                            trim_ws = TRUE,
                            col_types = "c"
-                           )
+                           ) %>%
+  as_tibble() %>%
+  clean_names() #%>%
+  #remove_empty(which = c("rows", "cols")) #not sure if the remove will be best when analyzing multiple sheets
 
 test_section2 <- read_sheet(ss ="https://docs.google.com/spreadsheets/d/1vcWRmro97z5HXzoKhaAK4nrhFJwghCI2oCLEAeHnwD4/edit?usp=drive_web", 
                            sheet = "S2_ContextualDescription",
