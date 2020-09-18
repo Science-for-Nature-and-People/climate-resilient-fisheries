@@ -1,0 +1,32 @@
+---
+title: "Survey-Response-Analysis"
+author: "Robert Saldivar"
+date: "9/18/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+This document will be used to analyze survey responses
+
+```{r}
+#Loading the nessecary packages
+library(tidyverse)
+library(googlesheets4)
+library(here)
+
+
+```
+
+```{r}
+
+gs4_auth() # This allows access to the googlesheet
+
+```
+
+```{r}
+read_sheet()
+```
+
