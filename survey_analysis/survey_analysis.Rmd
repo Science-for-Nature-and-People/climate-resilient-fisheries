@@ -36,7 +36,9 @@ Test_section0 <- read_sheet(ss = "https://docs.google.com/spreadsheets/d/1vcWRmr
                            guess_max = 10000,
                            trim_ws = TRUE,
                            col_types = "c"
-                           )
+                           ) %>%
+  as_tibble() %>%
+  clean_names()
 
 test_section1 <-read_sheet(ss = "https://docs.google.com/spreadsheets/d/1vcWRmro97z5HXzoKhaAK4nrhFJwghCI2oCLEAeHnwD4/edit?usp=drive_web", 
                            sheet = "S1_KeyCaseIdentifiers",
@@ -59,7 +61,9 @@ test_section2 <- read_sheet(ss ="https://docs.google.com/spreadsheets/d/1vcWRmro
                            guess_max = 10000,
                            trim_ws = TRUE,
                            col_types = "c"
-                           )
+                           ) %>%
+  as_tibble() %>%
+  clean_names()
 
 test_section3 <- read_sheet(ss ="https://docs.google.com/spreadsheets/d/1vcWRmro97z5HXzoKhaAK4nrhFJwghCI2oCLEAeHnwD4/edit?usp=drive_web", 
                            sheet = "S3_ClimateResilientActions",
@@ -69,7 +73,9 @@ test_section3 <- read_sheet(ss ="https://docs.google.com/spreadsheets/d/1vcWRmro
                            guess_max = 10000,
                            trim_ws = TRUE,
                            col_types = "c"
-                           )
+                           ) %>%
+  as_tibble() %>%
+  clean_names()
 
 test_section4 <- read_sheet(ss ="https://docs.google.com/spreadsheets/d/1vcWRmro97z5HXzoKhaAK4nrhFJwghCI2oCLEAeHnwD4/edit?usp=drive_web", 
                            sheet = "S4_ResilienceAttributes",
@@ -79,7 +85,9 @@ test_section4 <- read_sheet(ss ="https://docs.google.com/spreadsheets/d/1vcWRmro
                            guess_max = 10000,
                            trim_ws = TRUE,
                            col_types = "c"
-                           )
+                           ) %>%
+  as_tibble() %>%
+  clean_names()
 
 test_section5 <- read_sheet(ss ="https://docs.google.com/spreadsheets/d/1vcWRmro97z5HXzoKhaAK4nrhFJwghCI2oCLEAeHnwD4/edit?usp=drive_web", 
                            sheet = "S5_CapacitytoImproveClimate",
@@ -89,7 +97,9 @@ test_section5 <- read_sheet(ss ="https://docs.google.com/spreadsheets/d/1vcWRmro
                            guess_max = 10000,
                            trim_ws = TRUE,
                            col_types = "c"
-                           )
+                           ) %>%
+  as_tibble() %>%
+  clean_names()
 
 ```
 
