@@ -467,6 +467,29 @@ s1_bind <- bind_rows(respondant1_s1, respondant2_s1, respondant3_s1, respondant4
 
 ```
 
+```{r}
+# Analysis of Questions 1.6.1. and 1.7.1.
+
+
+```
+
+```{r}
+#information Quality Analysis
+
+s1_data_quality_count <- count(s1_bind, s1_bind$information_quality)
+
+s1_data_quality_plot <- ggplot(s1_bind, aes(x = information_quality)) +
+  geom_bar()
+
+s1_data_quality_count
+s1_data_quality_plot
+
+```
+
+
+```{r}
+# Text Mining notes
+```
 
 
 ################################################################################################################################################
@@ -779,6 +802,18 @@ s2_bind <- bind_rows(respondant1_s2, respondant2_s2, respondant3_s2, respondant4
 
 ```
 
+```{r}
+#information Quality Analysis
+
+s2_data_quality_count <- count(s12_bind, s2_bind$information_quality)
+
+s2_data_quality_plot <- ggplot(s2_bind, aes(x = information_quality)) +
+  geom_bar()
+
+s2_data_quality_count
+s2_data_quality_plot
+
+```
 
 ################################################################################################################################################
 Section 3 Analysis
@@ -1090,6 +1125,18 @@ s3_bind <- bind_rows(respondant1_s3, respondant2_s3, respondant3_s3, respondant4
 
 ```
 
+```{r}
+#information Quality Analysis
+
+s3_data_quality_count <- count(s3_bind, s3_bind$information_quality)
+
+s3_data_quality_plot <- ggplot(s3_bind, aes(x = information_quality)) +
+  geom_bar()
+
+s3_data_quality_count
+s3_data_quality_plot
+
+```
 
 ################################################################################################################################################
 Section 4 Analysis
@@ -1402,6 +1449,19 @@ s4_bind <- bind_rows(respondant1_s4, respondant2_s4, respondant3_s4, respondant4
 ```
 
 
+```{r}
+#information Quality Analysis
+
+s4_data_quality_count <- count(s4_bind, s4_bind$information_quality)
+
+s4_data_quality_plot <- ggplot(s4_bind, aes(x = information_quality)) +
+  geom_bar()
+
+s4_data_quality_count
+s4_data_quality_plot
+
+```
+
 ################################################################################################################################################
 Section 5 Analysis
 
@@ -1709,5 +1769,18 @@ respondant25_s5 <-read_sheet(ss = "",
   clean_names()
 
 s5_bind <- bind_rows(respondant1_s5, respondant2_s5, respondant3_s5, respondant4_s5, respondant5_s5, respondant6_s5, respondant7_s5, respondant8_s5, respondant9_s5, respondant10_s5, respondant11_s5, respondant12_s5, respondant13_s5, respondant14_s5, respondant15_s5, respondant16_s5, respondant17_s5, respondant18_s5, respondant19_s5, respondant20_s5, respondant21_s5, respondant22_s5, respondant23_s5, respondant24_s5, respondant25_s5)
+
+```
+
+```{r}
+#information Quality Analysis
+
+s5_data_quality_count <- count(s5_bind, s5_bind$information_quality)
+
+s5_data_quality_plot <- ggplot(s5_bind, aes(x = information_quality)) +
+  geom_bar()
+
+s5_data_quality_count
+s5_data_quality_plot
 
 ```
