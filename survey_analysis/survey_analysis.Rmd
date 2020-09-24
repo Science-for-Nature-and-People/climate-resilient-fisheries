@@ -472,18 +472,1242 @@ s1_bind <- bind_rows(respondant1_s1, respondant2_s1, respondant3_s1, respondant4
 ################################################################################################################################################
 Section 2 Analysis
 
+```{r, include=FALSE}
+#This will read in all of the data for section 2
+
+respondant1_s2 <-read_sheet(ss = "", 
+                           sheet = "S2_ContextualDescription",
+                           range = "A9:U91",
+                           col_names = TRUE,
+                           na = "",
+                           guess_max = 10000,
+                           trim_ws = TRUE,
+                           col_types = "c"
+                           ) %>%
+  as_tibble() %>%
+  clean_names()
+
+respondant2_s2 <-read_sheet(ss = "", 
+                           sheet = "S2_ContextualDescription",
+                           range = "A9:U91",
+                           col_names = TRUE,
+                           na = "",
+                           guess_max = 10000,
+                           trim_ws = TRUE,
+                           col_types = "c"
+                           ) %>%
+  as_tibble() %>%
+  clean_names()
+
+respondant3_s2 <-read_sheet(ss = "", 
+                           sheet = "S2_ContextualDescription",
+                           range = "A9:U91",
+                           col_names = TRUE,
+                           na = "",
+                           guess_max = 10000,
+                           trim_ws = TRUE,
+                           col_types = "c"
+                           ) %>%
+  as_tibble() %>%
+  clean_names()
+
+respondant4_s2 <-read_sheet(ss = "", 
+                           sheet = "S2_ContextualDescription",
+                           range = "A9:U91",
+                           col_names = TRUE,
+                           na = "",
+                           guess_max = 10000,
+                           trim_ws = TRUE,
+                           col_types = "c"
+                           ) %>%
+  as_tibble() %>%
+  clean_names()
+
+respondant5_s2 <-read_sheet(ss = "", 
+                           sheet = "S2_ContextualDescription",
+                           range = "A9:U91",
+                           col_names = TRUE,
+                           na = "",
+                           guess_max = 10000,
+                           trim_ws = TRUE,
+                           col_types = "c"
+                           ) %>%
+  as_tibble() %>%
+  clean_names()
+
+respondant6_s2 <-read_sheet(ss = "", 
+                           sheet = "S2_ContextualDescription",
+                           range = "A9:U91",
+                           col_names = TRUE,
+                           na = "",
+                           guess_max = 10000,
+                           trim_ws = TRUE,
+                           col_types = "c"
+                           ) %>%
+  as_tibble() %>%
+  clean_names()
+
+respondant7_s2 <-read_sheet(ss = "", 
+                           sheet = "S2_ContextualDescription",
+                           range = "A9:U91",
+                           col_names = TRUE,
+                           na = "",
+                           guess_max = 10000,
+                           trim_ws = TRUE,
+                           col_types = "c"
+                           ) %>%
+  as_tibble() %>%
+  clean_names()
+
+respondant8_s2 <-read_sheet(ss = "", 
+                           sheet = "S2_ContextualDescription",
+                           range = "A9:U91",
+                           col_names = TRUE,
+                           na = "",
+                           guess_max = 10000,
+                           trim_ws = TRUE,
+                           col_types = "c"
+                           ) %>%
+  as_tibble() %>%
+  clean_names()
+
+respondant9_s2 <-read_sheet(ss = "", 
+                           sheet = "S2_ContextualDescription",
+                           range = "A9:U91",
+                           col_names = TRUE,
+                           na = "",
+                           guess_max = 10000,
+                           trim_ws = TRUE,
+                           col_types = "c"
+                           ) %>%
+  as_tibble() %>%
+  clean_names()
+
+respondant10_s2 <-read_sheet(ss = "", 
+                           sheet = "S2_ContextualDescription",
+                           range = "A9:U91",
+                           col_names = TRUE,
+                           na = "",
+                           guess_max = 10000,
+                           trim_ws = TRUE,
+                           col_types = "c"
+                           ) %>%
+  as_tibble() %>%
+  clean_names()
+
+respondant11_s2 <-read_sheet(ss = "", 
+                           sheet = "S2_ContextualDescription",
+                           range = "A9:U91",
+                           col_names = TRUE,
+                           na = "",
+                           guess_max = 10000,
+                           trim_ws = TRUE,
+                           col_types = "c"
+                           ) %>%
+  as_tibble() %>%
+  clean_names()
+
+respondant12_s2 <-read_sheet(ss = "", 
+                           sheet = "S2_ContextualDescription",
+                           range = "A9:U91",
+                           col_names = TRUE,
+                           na = "",
+                           guess_max = 10000,
+                           trim_ws = TRUE,
+                           col_types = "c"
+                           ) %>%
+  as_tibble() %>%
+  clean_names()
+
+respondant13_s2 <-read_sheet(ss = "", 
+                           sheet = "S2_ContextualDescription",
+                           range = "A9:U91",
+                           col_names = TRUE,
+                           na = "",
+                           guess_max = 10000,
+                           trim_ws = TRUE,
+                           col_types = "c"
+                           ) %>%
+  as_tibble() %>%
+  clean_names()
+
+respondant14_s2 <-read_sheet(ss = "", 
+                           sheet = "S2_ContextualDescription",
+                           range = "A9:U91",
+                           col_names = TRUE,
+                           na = "",
+                           guess_max = 10000,
+                           trim_ws = TRUE,
+                           col_types = "c"
+                           ) %>%
+  as_tibble() %>%
+  clean_names()
+
+respondant15_s2 <-read_sheet(ss = "", 
+                           sheet = "S2_ContextualDescription",
+                           range = "A9:U91",
+                           col_names = TRUE,
+                           na = "",
+                           guess_max = 10000,
+                           trim_ws = TRUE,
+                           col_types = "c"
+                           ) %>%
+  as_tibble() %>%
+  clean_names()
+
+respondant16_s2 <-read_sheet(ss = "", 
+                           sheet = "S2_ContextualDescription",
+                           range = "A9:U91",
+                           col_names = TRUE,
+                           na = "",
+                           guess_max = 10000,
+                           trim_ws = TRUE,
+                           col_types = "c"
+                           ) %>%
+  as_tibble() %>%
+  clean_names()
+
+respondant17_s2 <-read_sheet(ss = "", 
+                           sheet = "S2_ContextualDescription",
+                           range = "A9:U91",
+                           col_names = TRUE,
+                           na = "",
+                           guess_max = 10000,
+                           trim_ws = TRUE,
+                           col_types = "c"
+                           ) %>%
+  as_tibble() %>%
+  clean_names()
+
+respondant18_s2 <-read_sheet(ss = "", 
+                           sheet = "S2_ContextualDescription",
+                           range = "A9:U91",
+                           col_names = TRUE,
+                           na = "",
+                           guess_max = 10000,
+                           trim_ws = TRUE,
+                           col_types = "c"
+                           ) %>%
+  as_tibble() %>%
+  clean_names()
+
+respondant19_s2 <-read_sheet(ss = "", 
+                           sheet = "S2_ContextualDescription",
+                           range = "A9:U91",
+                           col_names = TRUE,
+                           na = "",
+                           guess_max = 10000,
+                           trim_ws = TRUE,
+                           col_types = "c"
+                           ) %>%
+  as_tibble() %>%
+  clean_names()
+
+respondant20_s2 <-read_sheet(ss = "", 
+                           sheet = "S2_ContextualDescription",
+                           range = "A9:U91",
+                           col_names = TRUE,
+                           na = "",
+                           guess_max = 10000,
+                           trim_ws = TRUE,
+                           col_types = "c"
+                           ) %>%
+  as_tibble() %>%
+  clean_names()
+
+respondant21_s2 <-read_sheet(ss = "", 
+                           sheet = "S2_ContextualDescription",
+                           range = "A9:U91",
+                           col_names = TRUE,
+                           na = "",
+                           guess_max = 10000,
+                           trim_ws = TRUE,
+                           col_types = "c"
+                           ) %>%
+  as_tibble() %>%
+  clean_names()
+
+respondant22_s2 <-read_sheet(ss = "", 
+                           sheet = "S2_ContextualDescription",
+                           range = "A9:U91",
+                           col_names = TRUE,
+                           na = "",
+                           guess_max = 10000,
+                           trim_ws = TRUE,
+                           col_types = "c"
+                           ) %>%
+  as_tibble() %>%
+  clean_names()
+
+respondant23_s2 <-read_sheet(ss = "", 
+                           sheet = "S2_ContextualDescription",
+                           range = "A9:U91",
+                           col_names = TRUE,
+                           na = "",
+                           guess_max = 10000,
+                           trim_ws = TRUE,
+                           col_types = "c"
+                           ) %>%
+  as_tibble() %>%
+  clean_names()
+
+respondant24_s2 <-read_sheet(ss = "", 
+                           sheet = "S2_ContextualDescription",
+                           range = "A9:U91",
+                           col_names = TRUE,
+                           na = "",
+                           guess_max = 10000,
+                           trim_ws = TRUE,
+                           col_types = "c"
+                           ) %>%
+  as_tibble() %>%
+  clean_names()
+
+respondant25_s2 <-read_sheet(ss = "", 
+                           sheet = "S2_ContextualDescription",
+                           range = "A9:U91",
+                           col_names = TRUE,
+                           na = "",
+                           guess_max = 10000,
+                           trim_ws = TRUE,
+                           col_types = "c"
+                           ) %>%
+  as_tibble() %>%
+  clean_names()
+
+s2_bind <- bind_rows(respondant1_s2, respondant2_s2, respondant3_s2, respondant4_s2, respondant5_s2, respondant6_s2, respondant7_s2, respondant8_s2, respondant9_s2, respondant10_s2, respondant11_s2, respondant12_s2, respondant13_s2, respondant14_s2, respondant15_s2, respondant16_s2, respondant17_s2, respondant18_s2, respondant19_s2, respondant20_s2, respondant21_s2, respondant22_s2, respondant23_s2, respondant24_s2, respondant25_s2)
+
+```
 
 
 ################################################################################################################################################
 Section 3 Analysis
 
+```{r, include=FALSE}
+#This will read in all of the data for section 3
+
+respondant1_s3 <-read_sheet(ss = "", 
+                           sheet = "S3_ClimateResilientActions",
+                           range = "A9:H29",
+                           col_names = TRUE,
+                           na = "",
+                           guess_max = 10000,
+                           trim_ws = TRUE,
+                           col_types = "c"
+                           ) %>%
+  as_tibble() %>%
+  clean_names()
+
+respondant2_s3 <-read_sheet(ss = "", 
+                           sheet = "S3_ClimateResilientActions",
+                           range = "A9:H29",
+                           col_names = TRUE,
+                           na = "",
+                           guess_max = 10000,
+                           trim_ws = TRUE,
+                           col_types = "c"
+                           ) %>%
+  as_tibble() %>%
+  clean_names()
+
+respondant3_s3 <-read_sheet(ss = "", 
+                           sheet = "S3_ClimateResilientActions",
+                           range = "A9:H29",
+                           col_names = TRUE,
+                           na = "",
+                           guess_max = 10000,
+                           trim_ws = TRUE,
+                           col_types = "c"
+                           ) %>%
+  as_tibble() %>%
+  clean_names()
+
+respondant4_s3 <-read_sheet(ss = "", 
+                           sheet = "S3_ClimateResilientActions",
+                           range = "A9:H29",
+                           col_names = TRUE,
+                           na = "",
+                           guess_max = 10000,
+                           trim_ws = TRUE,
+                           col_types = "c"
+                           ) %>%
+  as_tibble() %>%
+  clean_names()
+
+respondant5_s3 <-read_sheet(ss = "", 
+                           sheet = "S3_ClimateResilientActions",
+                           range = "A9:H29",
+                           col_names = TRUE,
+                           na = "",
+                           guess_max = 10000,
+                           trim_ws = TRUE,
+                           col_types = "c"
+                           ) %>%
+  as_tibble() %>%
+  clean_names()
+
+respondant6_s3 <-read_sheet(ss = "", 
+                           sheet = "S3_ClimateResilientActions",
+                           range = "A9:H29",
+                           col_names = TRUE,
+                           na = "",
+                           guess_max = 10000,
+                           trim_ws = TRUE,
+                           col_types = "c"
+                           ) %>%
+  as_tibble() %>%
+  clean_names()
+
+respondant7_s3 <-read_sheet(ss = "", 
+                           sheet = "S3_ClimateResilientActions",
+                           range = "A9:H29",
+                           col_names = TRUE,
+                           na = "",
+                           guess_max = 10000,
+                           trim_ws = TRUE,
+                           col_types = "c"
+                           ) %>%
+  as_tibble() %>%
+  clean_names()
+
+respondant8_s3 <-read_sheet(ss = "", 
+                           sheet = "S3_ClimateResilientActions",
+                           range = "A9:H29",
+                           col_names = TRUE,
+                           na = "",
+                           guess_max = 10000,
+                           trim_ws = TRUE,
+                           col_types = "c"
+                           ) %>%
+  as_tibble() %>%
+  clean_names()
+
+respondant9_s3 <-read_sheet(ss = "", 
+                           sheet = "S3_ClimateResilientActions",
+                           range = "A9:H29",
+                           col_names = TRUE,
+                           na = "",
+                           guess_max = 10000,
+                           trim_ws = TRUE,
+                           col_types = "c"
+                           ) %>%
+  as_tibble() %>%
+  clean_names()
+
+respondant10_s3 <-read_sheet(ss = "", 
+                           sheet = "S3_ClimateResilientActions",
+                           range = "A9:H29",
+                           col_names = TRUE,
+                           na = "",
+                           guess_max = 10000,
+                           trim_ws = TRUE,
+                           col_types = "c"
+                           ) %>%
+  as_tibble() %>%
+  clean_names()
+
+respondant11_s3 <-read_sheet(ss = "", 
+                           sheet = "S3_ClimateResilientActions",
+                           range = "A9:H29",
+                           col_names = TRUE,
+                           na = "",
+                           guess_max = 10000,
+                           trim_ws = TRUE,
+                           col_types = "c"
+                           ) %>%
+  as_tibble() %>%
+  clean_names()
+
+respondant12_s3 <-read_sheet(ss = "", 
+                           sheet = "S3_ClimateResilientActions",
+                           range = "A9:H29",
+                           col_names = TRUE,
+                           na = "",
+                           guess_max = 10000,
+                           trim_ws = TRUE,
+                           col_types = "c"
+                           ) %>%
+  as_tibble() %>%
+  clean_names()
+
+respondant13_s3 <-read_sheet(ss = "", 
+                           sheet = "S3_ClimateResilientActions",
+                           range = "A9:H29",
+                           col_names = TRUE,
+                           na = "",
+                           guess_max = 10000,
+                           trim_ws = TRUE,
+                           col_types = "c"
+                           ) %>%
+  as_tibble() %>%
+  clean_names()
+
+respondant14_s3 <-read_sheet(ss = "", 
+                           sheet = "S3_ClimateResilientActions",
+                           range = "A9:H29",
+                           col_names = TRUE,
+                           na = "",
+                           guess_max = 10000,
+                           trim_ws = TRUE,
+                           col_types = "c"
+                           ) %>%
+  as_tibble() %>%
+  clean_names()
+
+respondant15_s3 <-read_sheet(ss = "", 
+                           sheet = "S3_ClimateResilientActions",
+                           range = "A9:H29",
+                           col_names = TRUE,
+                           na = "",
+                           guess_max = 10000,
+                           trim_ws = TRUE,
+                           col_types = "c"
+                           ) %>%
+  as_tibble() %>%
+  clean_names()
+
+respondant16_s3 <-read_sheet(ss = "", 
+                           sheet = "S3_ClimateResilientActions",
+                           range = "A9:H29",
+                           col_names = TRUE,
+                           na = "",
+                           guess_max = 10000,
+                           trim_ws = TRUE,
+                           col_types = "c"
+                           ) %>%
+  as_tibble() %>%
+  clean_names()
+
+respondant17_s3 <-read_sheet(ss = "", 
+                           sheet = "S3_ClimateResilientActions",
+                           range = "A9:H29",
+                           col_names = TRUE,
+                           na = "",
+                           guess_max = 10000,
+                           trim_ws = TRUE,
+                           col_types = "c"
+                           ) %>%
+  as_tibble() %>%
+  clean_names()
+
+respondant18_s3 <-read_sheet(ss = "", 
+                           sheet = "S3_ClimateResilientActions",
+                           range = "A9:H29",
+                           col_names = TRUE,
+                           na = "",
+                           guess_max = 10000,
+                           trim_ws = TRUE,
+                           col_types = "c"
+                           ) %>%
+  as_tibble() %>%
+  clean_names()
+
+respondant19_s3 <-read_sheet(ss = "", 
+                           sheet = "S3_ClimateResilientActions",
+                           range = "A9:H29",
+                           col_names = TRUE,
+                           na = "",
+                           guess_max = 10000,
+                           trim_ws = TRUE,
+                           col_types = "c"
+                           ) %>%
+  as_tibble() %>%
+  clean_names()
+
+respondant20_s3 <-read_sheet(ss = "", 
+                           sheet = "S3_ClimateResilientActions",
+                           range = "A9:H29",
+                           col_names = TRUE,
+                           na = "",
+                           guess_max = 10000,
+                           trim_ws = TRUE,
+                           col_types = "c"
+                           ) %>%
+  as_tibble() %>%
+  clean_names()
+
+respondant21_s3 <-read_sheet(ss = "", 
+                           sheet = "S3_ClimateResilientActions",
+                           range = "A9:H29",
+                           col_names = TRUE,
+                           na = "",
+                           guess_max = 10000,
+                           trim_ws = TRUE,
+                           col_types = "c"
+                           ) %>%
+  as_tibble() %>%
+  clean_names()
+
+respondant22_s3 <-read_sheet(ss = "", 
+                           sheet = "S3_ClimateResilientActions",
+                           range = "A9:H29",
+                           col_names = TRUE,
+                           na = "",
+                           guess_max = 10000,
+                           trim_ws = TRUE,
+                           col_types = "c"
+                           ) %>%
+  as_tibble() %>%
+  clean_names()
+
+respondant23_s3 <-read_sheet(ss = "", 
+                           sheet = "S3_ClimateResilientActions",
+                           range = "A9:H29",
+                           col_names = TRUE,
+                           na = "",
+                           guess_max = 10000,
+                           trim_ws = TRUE,
+                           col_types = "c"
+                           ) %>%
+  as_tibble() %>%
+  clean_names()
+
+respondant24_s3 <-read_sheet(ss = "", 
+                           sheet = "S3_ClimateResilientActions",
+                           range = "A9:H29",
+                           col_names = TRUE,
+                           na = "",
+                           guess_max = 10000,
+                           trim_ws = TRUE,
+                           col_types = "c"
+                           ) %>%
+  as_tibble() %>%
+  clean_names()
+
+respondant25_s3 <-read_sheet(ss = "", 
+                           sheet = "S3_ClimateResilientActions",
+                           range = "A9:H29",
+                           col_names = TRUE,
+                           na = "",
+                           guess_max = 10000,
+                           trim_ws = TRUE,
+                           col_types = "c"
+                           ) %>%
+  as_tibble() %>%
+  clean_names()
+
+s3_bind <- bind_rows(respondant1_s3, respondant2_s3, respondant3_s3, respondant4_s3, respondant5_s3, respondant6_s3, respondant7_s3, respondant8_s3, respondant9_s3, respondant10_s3, respondant11_s3, respondant12_s3, respondant13_s3, respondant14_s3, respondant15_s3, respondant16_s3, respondant17_s3, respondant18_s3, respondant19_s3, respondant20_s3, respondant21_s3, respondant22_s3, respondant23_s3, respondant24_s3, respondant25_s3)
+
+```
 
 
 ################################################################################################################################################
 Section 4 Analysis
 
+```{r, include=FALSE}
+#This will read in all of the data for section 4
+
+respondant1_s4 <-read_sheet(ss = "", 
+                           sheet = "S4_ResilienceAttributes",
+                           range = "A9:M61",
+                           col_names = TRUE,
+                           na = "",
+                           guess_max = 10000,
+                           trim_ws = TRUE,
+                           col_types = "c"
+                           ) %>%
+  as_tibble() %>%
+  clean_names()
+
+respondant2_s4 <-read_sheet(ss = "", 
+                           sheet = "S4_ResilienceAttributes",
+                           range = "A9:M61",
+                           col_names = TRUE,
+                           na = "",
+                           guess_max = 10000,
+                           trim_ws = TRUE,
+                           col_types = "c"
+                           ) %>%
+  as_tibble() %>%
+  clean_names()
+
+respondant3_s4 <-read_sheet(ss = "", 
+                           sheet = "S4_ResilienceAttributes",
+                           range = "A9:M61",
+                           col_names = TRUE,
+                           na = "",
+                           guess_max = 10000,
+                           trim_ws = TRUE,
+                           col_types = "c"
+                           ) %>%
+  as_tibble() %>%
+  clean_names()
+
+respondant4_s4 <-read_sheet(ss = "", 
+                           sheet = "S4_ResilienceAttributes",
+                           range = "A9:M61",
+                           col_names = TRUE,
+                           na = "",
+                           guess_max = 10000,
+                           trim_ws = TRUE,
+                           col_types = "c"
+                           ) %>%
+  as_tibble() %>%
+  clean_names()
+
+respondant5_s4 <-read_sheet(ss = "", 
+                           sheet = "S4_ResilienceAttributes",
+                           range = "A9:M61",
+                           col_names = TRUE,
+                           na = "",
+                           guess_max = 10000,
+                           trim_ws = TRUE,
+                           col_types = "c"
+                           ) %>%
+  as_tibble() %>%
+  clean_names()
+
+respondant6_s4 <-read_sheet(ss = "", 
+                           sheet = "S4_ResilienceAttributes",
+                           range = "A9:M61",
+                           col_names = TRUE,
+                           na = "",
+                           guess_max = 10000,
+                           trim_ws = TRUE,
+                           col_types = "c"
+                           ) %>%
+  as_tibble() %>%
+  clean_names()
+
+respondant7_s4 <-read_sheet(ss = "", 
+                           sheet = "S4_ResilienceAttributes",
+                           range = "A9:M61",
+                           col_names = TRUE,
+                           na = "",
+                           guess_max = 10000,
+                           trim_ws = TRUE,
+                           col_types = "c"
+                           ) %>%
+  as_tibble() %>%
+  clean_names()
+
+respondant8_s4 <-read_sheet(ss = "", 
+                           sheet = "S4_ResilienceAttributes",
+                           range = "A9:M61",
+                           col_names = TRUE,
+                           na = "",
+                           guess_max = 10000,
+                           trim_ws = TRUE,
+                           col_types = "c"
+                           ) %>%
+  as_tibble() %>%
+  clean_names()
+
+respondant9_s4 <-read_sheet(ss = "", 
+                           sheet = "S4_ResilienceAttributes",
+                           range = "A9:M61",
+                           col_names = TRUE,
+                           na = "",
+                           guess_max = 10000,
+                           trim_ws = TRUE,
+                           col_types = "c"
+                           ) %>%
+  as_tibble() %>%
+  clean_names()
+
+respondant10_s4 <-read_sheet(ss = "", 
+                           sheet = "S4_ResilienceAttributes",
+                           range = "A9:M61",
+                           col_names = TRUE,
+                           na = "",
+                           guess_max = 10000,
+                           trim_ws = TRUE,
+                           col_types = "c"
+                           ) %>%
+  as_tibble() %>%
+  clean_names()
+
+respondant11_s4 <-read_sheet(ss = "", 
+                           sheet = "S4_ResilienceAttributes",
+                           range = "A9:M61",
+                           col_names = TRUE,
+                           na = "",
+                           guess_max = 10000,
+                           trim_ws = TRUE,
+                           col_types = "c"
+                           ) %>%
+  as_tibble() %>%
+  clean_names()
+
+respondant12_s4 <-read_sheet(ss = "", 
+                           sheet = "S4_ResilienceAttributes",
+                           range = "A9:M61",
+                           col_names = TRUE,
+                           na = "",
+                           guess_max = 10000,
+                           trim_ws = TRUE,
+                           col_types = "c"
+                           ) %>%
+  as_tibble() %>%
+  clean_names()
+
+respondant13_s4 <-read_sheet(ss = "", 
+                           sheet = "S4_ResilienceAttributes",
+                           range = "A9:M61",
+                           col_names = TRUE,
+                           na = "",
+                           guess_max = 10000,
+                           trim_ws = TRUE,
+                           col_types = "c"
+                           ) %>%
+  as_tibble() %>%
+  clean_names()
+
+respondant14_s4 <-read_sheet(ss = "", 
+                           sheet = "S4_ResilienceAttributes",
+                           range = "A9:M61",
+                           col_names = TRUE,
+                           na = "",
+                           guess_max = 10000,
+                           trim_ws = TRUE,
+                           col_types = "c"
+                           ) %>%
+  as_tibble() %>%
+  clean_names()
+
+respondant15_s4 <-read_sheet(ss = "", 
+                           sheet = "S4_ResilienceAttributes",
+                           range = "A9:M61",
+                           col_names = TRUE,
+                           na = "",
+                           guess_max = 10000,
+                           trim_ws = TRUE,
+                           col_types = "c"
+                           ) %>%
+  as_tibble() %>%
+  clean_names()
+
+respondant16_s4 <-read_sheet(ss = "", 
+                           sheet = "S4_ResilienceAttributes",
+                           range = "A9:M61",
+                           col_names = TRUE,
+                           na = "",
+                           guess_max = 10000,
+                           trim_ws = TRUE,
+                           col_types = "c"
+                           ) %>%
+  as_tibble() %>%
+  clean_names()
+
+respondant17_s4 <-read_sheet(ss = "", 
+                           sheet = "S4_ResilienceAttributes",
+                           range = "A9:M61",
+                           col_names = TRUE,
+                           na = "",
+                           guess_max = 10000,
+                           trim_ws = TRUE,
+                           col_types = "c"
+                           ) %>%
+  as_tibble() %>%
+  clean_names()
+
+respondant18_s4 <-read_sheet(ss = "", 
+                           sheet = "S4_ResilienceAttributes",
+                           range = "A9:M61",
+                           col_names = TRUE,
+                           na = "",
+                           guess_max = 10000,
+                           trim_ws = TRUE,
+                           col_types = "c"
+                           ) %>%
+  as_tibble() %>%
+  clean_names()
+
+respondant19_s4 <-read_sheet(ss = "", 
+                           sheet = "S4_ResilienceAttributes",
+                           range = "A9:M61",
+                           col_names = TRUE,
+                           na = "",
+                           guess_max = 10000,
+                           trim_ws = TRUE,
+                           col_types = "c"
+                           ) %>%
+  as_tibble() %>%
+  clean_names()
+
+respondant20_s4 <-read_sheet(ss = "", 
+                           sheet = "S4_ResilienceAttributes",
+                           range = "A9:M61",
+                           col_names = TRUE,
+                           na = "",
+                           guess_max = 10000,
+                           trim_ws = TRUE,
+                           col_types = "c"
+                           ) %>%
+  as_tibble() %>%
+  clean_names()
+
+respondant21_s4 <-read_sheet(ss = "", 
+                           sheet = "S4_ResilienceAttributes",
+                           range = "A9:M61",
+                           col_names = TRUE,
+                           na = "",
+                           guess_max = 10000,
+                           trim_ws = TRUE,
+                           col_types = "c"
+                           ) %>%
+  as_tibble() %>%
+  clean_names()
+
+respondant22_s4 <-read_sheet(ss = "", 
+                           sheet = "S4_ResilienceAttributes",
+                           range = "A9:M61",
+                           col_names = TRUE,
+                           na = "",
+                           guess_max = 10000,
+                           trim_ws = TRUE,
+                           col_types = "c"
+                           ) %>%
+  as_tibble() %>%
+  clean_names()
+
+respondant23_s4 <-read_sheet(ss = "", 
+                           sheet = "S4_ResilienceAttributes",
+                           range = "A9:M61",
+                           col_names = TRUE,
+                           na = "",
+                           guess_max = 10000,
+                           trim_ws = TRUE,
+                           col_types = "c"
+                           ) %>%
+  as_tibble() %>%
+  clean_names()
+
+respondant24_s4 <-read_sheet(ss = "", 
+                           sheet = "S4_ResilienceAttributes",
+                           range = "A9:M61",
+                           col_names = TRUE,
+                           na = "",
+                           guess_max = 10000,
+                           trim_ws = TRUE,
+                           col_types = "c"
+                           ) %>%
+  as_tibble() %>%
+  clean_names()
+
+respondant25_s4 <-read_sheet(ss = "", 
+                           sheet = "S4_ResilienceAttributes",
+                           range = "A9:M61",
+                           col_names = TRUE,
+                           na = "",
+                           guess_max = 10000,
+                           trim_ws = TRUE,
+                           col_types = "c"
+                           ) %>%
+  as_tibble() %>%
+  clean_names()
+
+s4_bind <- bind_rows(respondant1_s4, respondant2_s4, respondant3_s4, respondant4_s4, respondant5_s4, respondant6_s4, respondant7_s4, respondant8_s4, respondant9_s4, respondant10_s4, respondant11_s4, respondant12_s4, respondant13_s4, respondant14_s4, respondant15_s4, respondant16_s4, respondant17_s4, respondant18_s4, respondant19_s4, respondant20_s4, respondant21_s4, respondant22_s4, respondant23_s4, respondant24_s4, respondant25_s4)
+
+```
 
 
 ################################################################################################################################################
 Section 5 Analysis
 
+```{r, include=FALSE}
+#This will read in all of the data for section 5
+
+respondant1_s5 <-read_sheet(ss = "", 
+                           sheet = "S5_CapacitytoImproveClimate",
+                           range = "A9:U91",
+                           col_names = TRUE,
+                           na = "",
+                           guess_max = 10000,
+                           trim_ws = TRUE,
+                           col_types = "c"
+                           ) %>%
+  as_tibble() %>%
+  clean_names()
+
+respondant2_s5 <-read_sheet(ss = "", 
+                           sheet = "S5_CapacitytoImproveClimate",
+                           range = "A9:U91",
+                           col_names = TRUE,
+                           na = "",
+                           guess_max = 10000,
+                           trim_ws = TRUE,
+                           col_types = "c"
+                           ) %>%
+  as_tibble() %>%
+  clean_names()
+
+respondant3_s5 <-read_sheet(ss = "", 
+                           sheet = "S5_CapacitytoImproveClimate",
+                           range = "A9:U91",
+                           col_names = TRUE,
+                           na = "",
+                           guess_max = 10000,
+                           trim_ws = TRUE,
+                           col_types = "c"
+                           ) %>%
+  as_tibble() %>%
+  clean_names()
+
+respondant4_s5 <-read_sheet(ss = "", 
+                           sheet = "S5_CapacitytoImproveClimate",
+                           range = "A9:U91",
+                           col_names = TRUE,
+                           na = "",
+                           guess_max = 10000,
+                           trim_ws = TRUE,
+                           col_types = "c"
+                           ) %>%
+  as_tibble() %>%
+  clean_names()
+
+respondant5_s5 <-read_sheet(ss = "", 
+                           sheet = "S5_CapacitytoImproveClimate",
+                           range = "A9:U91",
+                           col_names = TRUE,
+                           na = "",
+                           guess_max = 10000,
+                           trim_ws = TRUE,
+                           col_types = "c"
+                           ) %>%
+  as_tibble() %>%
+  clean_names()
+
+respondant6_s5 <-read_sheet(ss = "", 
+                           sheet = "S5_CapacitytoImproveClimate",
+                           range = "A9:U91",
+                           col_names = TRUE,
+                           na = "",
+                           guess_max = 10000,
+                           trim_ws = TRUE,
+                           col_types = "c"
+                           ) %>%
+  as_tibble() %>%
+  clean_names()
+
+respondant7_s5 <-read_sheet(ss = "", 
+                           sheet = "S5_CapacitytoImproveClimate",
+                           range = "A9:U91",
+                           col_names = TRUE,
+                           na = "",
+                           guess_max = 10000,
+                           trim_ws = TRUE,
+                           col_types = "c"
+                           ) %>%
+  as_tibble() %>%
+  clean_names()
+
+respondant8_s5 <-read_sheet(ss = "", 
+                           sheet = "S5_CapacitytoImproveClimate",
+                           range = "A9:U91",
+                           col_names = TRUE,
+                           na = "",
+                           guess_max = 10000,
+                           trim_ws = TRUE,
+                           col_types = "c"
+                           ) %>%
+  as_tibble() %>%
+  clean_names()
+
+respondant9_s5 <-read_sheet(ss = "", 
+                           sheet = "S5_CapacitytoImproveClimate",
+                           range = "A9:U91",
+                           col_names = TRUE,
+                           na = "",
+                           guess_max = 10000,
+                           trim_ws = TRUE,
+                           col_types = "c"
+                           ) %>%
+  as_tibble() %>%
+  clean_names()
+
+respondant10_s5 <-read_sheet(ss = "", 
+                           sheet = "S5_CapacitytoImproveClimate",
+                           range = "A9:U91",
+                           col_names = TRUE,
+                           na = "",
+                           guess_max = 10000,
+                           trim_ws = TRUE,
+                           col_types = "c"
+                           ) %>%
+  as_tibble() %>%
+  clean_names()
+
+respondant11_s5 <-read_sheet(ss = "", 
+                           sheet = "S5_CapacitytoImproveClimate",
+                           range = "A9:U91",
+                           col_names = TRUE,
+                           na = "",
+                           guess_max = 10000,
+                           trim_ws = TRUE,
+                           col_types = "c"
+                           ) %>%
+  as_tibble() %>%
+  clean_names()
+
+respondant12_s5 <-read_sheet(ss = "", 
+                           sheet = "S5_CapacitytoImproveClimate",
+                           range = "A9:U91",
+                           col_names = TRUE,
+                           na = "",
+                           guess_max = 10000,
+                           trim_ws = TRUE,
+                           col_types = "c"
+                           ) %>%
+  as_tibble() %>%
+  clean_names()
+
+respondant13_s5 <-read_sheet(ss = "", 
+                           sheet = "S5_CapacitytoImproveClimate",
+                           range = "A9:U91",
+                           col_names = TRUE,
+                           na = "",
+                           guess_max = 10000,
+                           trim_ws = TRUE,
+                           col_types = "c"
+                           ) %>%
+  as_tibble() %>%
+  clean_names()
+
+respondant14_s5 <-read_sheet(ss = "", 
+                           sheet = "S5_CapacitytoImproveClimate",
+                           range = "A9:U91",
+                           col_names = TRUE,
+                           na = "",
+                           guess_max = 10000,
+                           trim_ws = TRUE,
+                           col_types = "c"
+                           ) %>%
+  as_tibble() %>%
+  clean_names()
+
+respondant15_s5 <-read_sheet(ss = "", 
+                           sheet = "S5_CapacitytoImproveClimate",
+                           range = "A9:U91",
+                           col_names = TRUE,
+                           na = "",
+                           guess_max = 10000,
+                           trim_ws = TRUE,
+                           col_types = "c"
+                           ) %>%
+  as_tibble() %>%
+  clean_names()
+
+respondant16_s5 <-read_sheet(ss = "", 
+                           sheet = "S5_CapacitytoImproveClimate",
+                           range = "A9:U91",
+                           col_names = TRUE,
+                           na = "",
+                           guess_max = 10000,
+                           trim_ws = TRUE,
+                           col_types = "c"
+                           ) %>%
+  as_tibble() %>%
+  clean_names()
+
+respondant17_s5 <-read_sheet(ss = "", 
+                           sheet = "S5_CapacitytoImproveClimate",
+                           range = "A9:U91",
+                           col_names = TRUE,
+                           na = "",
+                           guess_max = 10000,
+                           trim_ws = TRUE,
+                           col_types = "c"
+                           ) %>%
+  as_tibble() %>%
+  clean_names()
+
+respondant18_s5 <-read_sheet(ss = "", 
+                           sheet = "S5_CapacitytoImproveClimate",
+                           range = "A9:U91",
+                           col_names = TRUE,
+                           na = "",
+                           guess_max = 10000,
+                           trim_ws = TRUE,
+                           col_types = "c"
+                           ) %>%
+  as_tibble() %>%
+  clean_names()
+
+respondant19_s5 <-read_sheet(ss = "", 
+                           sheet = "S5_CapacitytoImproveClimate",
+                           range = "A9:U91",
+                           col_names = TRUE,
+                           na = "",
+                           guess_max = 10000,
+                           trim_ws = TRUE,
+                           col_types = "c"
+                           ) %>%
+  as_tibble() %>%
+  clean_names()
+
+respondant20_s5 <-read_sheet(ss = "", 
+                           sheet = "S5_CapacitytoImproveClimate",
+                           range = "A9:U91",
+                           col_names = TRUE,
+                           na = "",
+                           guess_max = 10000,
+                           trim_ws = TRUE,
+                           col_types = "c"
+                           ) %>%
+  as_tibble() %>%
+  clean_names()
+
+respondant21_s5 <-read_sheet(ss = "", 
+                           sheet = "S5_CapacitytoImproveClimate",
+                           range = "A9:U91",
+                           col_names = TRUE,
+                           na = "",
+                           guess_max = 10000,
+                           trim_ws = TRUE,
+                           col_types = "c"
+                           ) %>%
+  as_tibble() %>%
+  clean_names()
+
+respondant22_s5 <-read_sheet(ss = "", 
+                           sheet = "S5_CapacitytoImproveClimate",
+                           range = "A9:U91",
+                           col_names = TRUE,
+                           na = "",
+                           guess_max = 10000,
+                           trim_ws = TRUE,
+                           col_types = "c"
+                           ) %>%
+  as_tibble() %>%
+  clean_names()
+
+respondant23_s5 <-read_sheet(ss = "", 
+                           sheet = "S5_CapacitytoImproveClimate",
+                           range = "A9:U91",
+                           col_names = TRUE,
+                           na = "",
+                           guess_max = 10000,
+                           trim_ws = TRUE,
+                           col_types = "c"
+                           ) %>%
+  as_tibble() %>%
+  clean_names()
+
+respondant24_s5 <-read_sheet(ss = "", 
+                           sheet = "S5_CapacitytoImproveClimate",
+                           range = "A9:U91",
+                           col_names = TRUE,
+                           na = "",
+                           guess_max = 10000,
+                           trim_ws = TRUE,
+                           col_types = "c"
+                           ) %>%
+  as_tibble() %>%
+  clean_names()
+
+respondant25_s5 <-read_sheet(ss = "", 
+                           sheet = "S5_CapacitytoImproveClimate",
+                           range = "A9:U91",
+                           col_names = TRUE,
+                           na = "",
+                           guess_max = 10000,
+                           trim_ws = TRUE,
+                           col_types = "c"
+                           ) %>%
+  as_tibble() %>%
+  clean_names()
+
+s5_bind <- bind_rows(respondant1_s5, respondant2_s5, respondant3_s5, respondant4_s5, respondant5_s5, respondant6_s5, respondant7_s5, respondant8_s5, respondant9_s5, respondant10_s5, respondant11_s5, respondant12_s5, respondant13_s5, respondant14_s5, respondant15_s5, respondant16_s5, respondant17_s5, respondant18_s5, respondant19_s5, respondant20_s5, respondant21_s5, respondant22_s5, respondant23_s5, respondant24_s5, respondant25_s5)
+
+```
