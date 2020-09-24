@@ -468,6 +468,10 @@ s1_bind <- bind_rows(respondant1_s1, respondant2_s1, respondant3_s1, respondant4
 ```
 
 ```{r}
+# Text mining the species of fish that are fished
+```
+
+```{r}
 # Analysis of Questions 1.6.1. and 1.7.1.
 
 
@@ -485,7 +489,6 @@ s1_data_quality_count
 s1_data_quality_plot
 
 ```
-
 
 ```{r}
 # Text Mining notes
@@ -815,6 +818,10 @@ s2_data_quality_plot
 
 ```
 
+```{r}
+# Text Mining notes
+```
+
 ################################################################################################################################################
 Section 3 Analysis
 
@@ -1126,6 +1133,11 @@ s3_bind <- bind_rows(respondant1_s3, respondant2_s3, respondant3_s3, respondant4
 ```
 
 ```{r}
+# Text mining the Response
+
+```
+
+```{r}
 #information Quality Analysis
 
 s3_data_quality_count <- count(s3_bind, s3_bind$information_quality)
@@ -1136,6 +1148,10 @@ s3_data_quality_plot <- ggplot(s3_bind, aes(x = information_quality)) +
 s3_data_quality_count
 s3_data_quality_plot
 
+```
+
+```{r}
+# Text Mining notes
 ```
 
 ################################################################################################################################################
@@ -1462,6 +1478,24 @@ s4_data_quality_plot
 
 ```
 
+```{r}
+# Analyzing if the mechanisms are generally working
+
+s4_mechanism_count <- count(s4_bind, s4_bind$does_the_mechanism_work_as_described_in_your_system)
+
+s4_mechanism_plot <- ggplot(s4_bind, aes(x = does_the_mechanism_work_as_described_in_your_system)) + 
+  geom_bar()
+
+s4_mechanism_count
+s4_mechanism_plot
+
+```
+
+```{r}
+# Text Mining notes
+
+```
+
 ################################################################################################################################################
 Section 5 Analysis
 
@@ -1773,6 +1807,11 @@ s5_bind <- bind_rows(respondant1_s5, respondant2_s5, respondant3_s5, respondant4
 ```
 
 ```{r}
+# Text mining response
+
+```
+
+```{r}
 #information Quality Analysis
 
 s5_data_quality_count <- count(s5_bind, s5_bind$information_quality)
@@ -1783,4 +1822,8 @@ s5_data_quality_plot <- ggplot(s5_bind, aes(x = information_quality)) +
 s5_data_quality_count
 s5_data_quality_plot
 
+```
+
+```{r}
+# Text Mining notes
 ```
