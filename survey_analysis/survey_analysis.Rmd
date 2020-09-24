@@ -159,3 +159,331 @@ s4_data_quality_plot
 
 ################################################################################################################################################
 Section 1 Analysis
+
+```{r, include=FALSE}
+#This will read in all of the data for section 1
+
+respondant1_s1 <-read_sheet(ss = "", 
+                           sheet = "S1_KeyCaseIdentifiers",
+                           range = "A9:P18",
+                           col_names = TRUE,
+                           na = "",
+                           guess_max = 10000,
+                           trim_ws = TRUE,
+                           col_types = "c"
+                           ) %>%
+  as_tibble() %>%
+  clean_names()
+
+respondant2_s1 <-read_sheet(ss = "", 
+                           sheet = "S1_KeyCaseIdentifiers",
+                           range = "A9:P18",
+                           col_names = TRUE,
+                           na = "",
+                           guess_max = 10000,
+                           trim_ws = TRUE,
+                           col_types = "c"
+                           ) %>%
+  as_tibble() %>%
+  clean_names()
+
+respondant3_s1 <-read_sheet(ss = "", 
+                           sheet = "S1_KeyCaseIdentifiers",
+                           range = "A9:P18",
+                           col_names = TRUE,
+                           na = "",
+                           guess_max = 10000,
+                           trim_ws = TRUE,
+                           col_types = "c"
+                           ) %>%
+  as_tibble() %>%
+  clean_names()
+
+respondant4_s1 <-read_sheet(ss = "", 
+                           sheet = "S1_KeyCaseIdentifiers",
+                           range = "A9:P18",
+                           col_names = TRUE,
+                           na = "",
+                           guess_max = 10000,
+                           trim_ws = TRUE,
+                           col_types = "c"
+                           ) %>%
+  as_tibble() %>%
+  clean_names()
+
+respondant5_s1 <-read_sheet(ss = "", 
+                           sheet = "S1_KeyCaseIdentifiers",
+                           range = "A9:P18",
+                           col_names = TRUE,
+                           na = "",
+                           guess_max = 10000,
+                           trim_ws = TRUE,
+                           col_types = "c"
+                           ) %>%
+  as_tibble() %>%
+  clean_names()
+
+respondant6_s1 <-read_sheet(ss = "", 
+                           sheet = "S1_KeyCaseIdentifiers",
+                           range = "A9:P18",
+                           col_names = TRUE,
+                           na = "",
+                           guess_max = 10000,
+                           trim_ws = TRUE,
+                           col_types = "c"
+                           ) %>%
+  as_tibble() %>%
+  clean_names()
+
+respondant7_s1 <-read_sheet(ss = "", 
+                           sheet = "S1_KeyCaseIdentifiers",
+                           range = "A9:P18",
+                           col_names = TRUE,
+                           na = "",
+                           guess_max = 10000,
+                           trim_ws = TRUE,
+                           col_types = "c"
+                           ) %>%
+  as_tibble() %>%
+  clean_names()
+
+respondant8_s1 <-read_sheet(ss = "", 
+                           sheet = "S1_KeyCaseIdentifiers",
+                           range = "A9:P18",
+                           col_names = TRUE,
+                           na = "",
+                           guess_max = 10000,
+                           trim_ws = TRUE,
+                           col_types = "c"
+                           ) %>%
+  as_tibble() %>%
+  clean_names()
+
+respondant9_s1 <-read_sheet(ss = "", 
+                           sheet = "S1_KeyCaseIdentifiers",
+                           range = "A9:P18",
+                           col_names = TRUE,
+                           na = "",
+                           guess_max = 10000,
+                           trim_ws = TRUE,
+                           col_types = "c"
+                           ) %>%
+  as_tibble() %>%
+  clean_names()
+
+respondant10_s1 <-read_sheet(ss = "", 
+                           sheet = "S1_KeyCaseIdentifiers",
+                           range = "A9:P18",
+                           col_names = TRUE,
+                           na = "",
+                           guess_max = 10000,
+                           trim_ws = TRUE,
+                           col_types = "c"
+                           ) %>%
+  as_tibble() %>%
+  clean_names()
+
+respondant11_s1 <-read_sheet(ss = "", 
+                           sheet = "S1_KeyCaseIdentifiers",
+                           range = "A9:P18",
+                           col_names = TRUE,
+                           na = "",
+                           guess_max = 10000,
+                           trim_ws = TRUE,
+                           col_types = "c"
+                           ) %>%
+  as_tibble() %>%
+  clean_names()
+
+respondant12_s1 <-read_sheet(ss = "", 
+                           sheet = "S1_KeyCaseIdentifiers",
+                           range = "A9:P18",
+                           col_names = TRUE,
+                           na = "",
+                           guess_max = 10000,
+                           trim_ws = TRUE,
+                           col_types = "c"
+                           ) %>%
+  as_tibble() %>%
+  clean_names()
+
+respondant13_s1 <-read_sheet(ss = "", 
+                           sheet = "S1_KeyCaseIdentifiers",
+                           range = "A9:P18",
+                           col_names = TRUE,
+                           na = "",
+                           guess_max = 10000,
+                           trim_ws = TRUE,
+                           col_types = "c"
+                           ) %>%
+  as_tibble() %>%
+  clean_names()
+
+respondant14_s1 <-read_sheet(ss = "", 
+                           sheet = "S1_KeyCaseIdentifiers",
+                           range = "A9:P18",
+                           col_names = TRUE,
+                           na = "",
+                           guess_max = 10000,
+                           trim_ws = TRUE,
+                           col_types = "c"
+                           ) %>%
+  as_tibble() %>%
+  clean_names()
+
+respondant15_s1 <-read_sheet(ss = "", 
+                           sheet = "S1_KeyCaseIdentifiers",
+                           range = "A9:P18",
+                           col_names = TRUE,
+                           na = "",
+                           guess_max = 10000,
+                           trim_ws = TRUE,
+                           col_types = "c"
+                           ) %>%
+  as_tibble() %>%
+  clean_names()
+
+respondant16_s1 <-read_sheet(ss = "", 
+                           sheet = "S1_KeyCaseIdentifiers",
+                           range = "A9:P18",
+                           col_names = TRUE,
+                           na = "",
+                           guess_max = 10000,
+                           trim_ws = TRUE,
+                           col_types = "c"
+                           ) %>%
+  as_tibble() %>%
+  clean_names()
+
+respondant17_s1 <-read_sheet(ss = "", 
+                           sheet = "S1_KeyCaseIdentifiers",
+                           range = "A9:P18",
+                           col_names = TRUE,
+                           na = "",
+                           guess_max = 10000,
+                           trim_ws = TRUE,
+                           col_types = "c"
+                           ) %>%
+  as_tibble() %>%
+  clean_names()
+
+respondant18_s1 <-read_sheet(ss = "", 
+                           sheet = "S1_KeyCaseIdentifiers",
+                           range = "A9:P18",
+                           col_names = TRUE,
+                           na = "",
+                           guess_max = 10000,
+                           trim_ws = TRUE,
+                           col_types = "c"
+                           ) %>%
+  as_tibble() %>%
+  clean_names()
+
+respondant19_s1 <-read_sheet(ss = "", 
+                           sheet = "S1_KeyCaseIdentifiers",
+                           range = "A9:P18",
+                           col_names = TRUE,
+                           na = "",
+                           guess_max = 10000,
+                           trim_ws = TRUE,
+                           col_types = "c"
+                           ) %>%
+  as_tibble() %>%
+  clean_names()
+
+respondant20_s1 <-read_sheet(ss = "", 
+                           sheet = "S1_KeyCaseIdentifiers",
+                           range = "A9:P18",
+                           col_names = TRUE,
+                           na = "",
+                           guess_max = 10000,
+                           trim_ws = TRUE,
+                           col_types = "c"
+                           ) %>%
+  as_tibble() %>%
+  clean_names()
+
+respondant21_s1 <-read_sheet(ss = "", 
+                           sheet = "S1_KeyCaseIdentifiers",
+                           range = "A9:P18",
+                           col_names = TRUE,
+                           na = "",
+                           guess_max = 10000,
+                           trim_ws = TRUE,
+                           col_types = "c"
+                           ) %>%
+  as_tibble() %>%
+  clean_names()
+
+respondant22_s1 <-read_sheet(ss = "", 
+                           sheet = "S1_KeyCaseIdentifiers",
+                           range = "A9:P18",
+                           col_names = TRUE,
+                           na = "",
+                           guess_max = 10000,
+                           trim_ws = TRUE,
+                           col_types = "c"
+                           ) %>%
+  as_tibble() %>%
+  clean_names()
+
+respondant23_s1 <-read_sheet(ss = "", 
+                           sheet = "S1_KeyCaseIdentifiers",
+                           range = "A9:P18",
+                           col_names = TRUE,
+                           na = "",
+                           guess_max = 10000,
+                           trim_ws = TRUE,
+                           col_types = "c"
+                           ) %>%
+  as_tibble() %>%
+  clean_names()
+
+respondant24_s1 <-read_sheet(ss = "", 
+                           sheet = "S1_KeyCaseIdentifiers",
+                           range = "A9:P18",
+                           col_names = TRUE,
+                           na = "",
+                           guess_max = 10000,
+                           trim_ws = TRUE,
+                           col_types = "c"
+                           ) %>%
+  as_tibble() %>%
+  clean_names()
+
+respondant25_s1 <-read_sheet(ss = "", 
+                           sheet = "S1_KeyCaseIdentifiers",
+                           range = "A9:P18",
+                           col_names = TRUE,
+                           na = "",
+                           guess_max = 10000,
+                           trim_ws = TRUE,
+                           col_types = "c"
+                           ) %>%
+  as_tibble() %>%
+  clean_names()
+
+s1_bind <- bind_rows(respondant1_s1, respondant2_s1, respondant3_s1, respondant4_s1, respondant5_s1, respondant6_s1, respondant7_s1, respondant8_s1, respondant9_s1, respondant10_s1, respondant11_s1, respondant12_s1, respondant13_s1, respondant14_s1, respondant15_s1, respondant16_s1, respondant17_s1, respondant18_s1, respondant19_s1, respondant20_s1, respondant21_s1, respondant22_s1, respondant23_s1, respondant24_s1, respondant25_s1)
+
+```
+
+
+
+################################################################################################################################################
+Section 2 Analysis
+
+
+
+################################################################################################################################################
+Section 3 Analysis
+
+
+
+################################################################################################################################################
+Section 4 Analysis
+
+
+
+################################################################################################################################################
+Section 5 Analysis
+
