@@ -140,22 +140,31 @@ test_analysis2 <- read_sheet(ss ="https://docs.google.com/spreadsheets/d/16WgYKt
 
 ```{r}
 #Analysing data
+
+#This is binding the response sheets together into one sheet so it will be easier to analyze
 test_section4_bind <- bind_rows(test_analysis1, test_analysis2, test_section4)
 
+#This is filtering to a specific question so that the question can be analyzed
 test_section4_bind_filter1 <- test_section4_bind %>%
   filter(question_id == "4.1.1.1")
 
+# Analyzing a multiple choice questions performinging  a count
 s4q1_count <- count(test_section4_bind_filter1, test_section4_bind_filter1$score_1_4)
 
 s4_data_quality_count <- count(test_section4_bind, test_section4_bind$information_quality)
 
 s4_mechanism <- count(test_section4_bind, test_section4_bind$does_the_mechanism_work_as_described_in_your_system)
 
-mechanism_plot <- ggplot(test_section4_bind, aes(x = does_the_mechanism_work_as_described_in_your_system))
+
+# This is making bar graphs of the counts.
+mechanism_plot <- ggplot(test_section4_bind, aes(x = does_the_mechanism_work_as_described_in_your_system)) +
+  geom_bar
 
 s4_data_quality_plot <- ggplot(test_section4_bind, aes(x = information_quality)) +
   geom_bar()
 
+
+#This calling the counts and plots to be displayed
 s4q1_count
 s4_data_quality_count
 s4_mechanism
@@ -168,27 +177,32 @@ s4_data_quality_plot
 ```{r echo=FALSE}
 # This will be for testing text analysis
 
-s4_notes_tokens <- test_section4_bind %>%
+#This gives each word used in the notes column its own cell for further analysis
+s4_notes_tokens_test <- test_section4_bind %>%
   unnest_tokens(word, notes) %>%
   select(word) %>%
   drop_na()
 
-s4_notes_wc <- s4_notes_tokens %>%
+#This is creating a count from highest to lowest of all the words
+s4_notes_wc_test <- s4_notes_tokens_test %>%
   count(word) %>%
   arrange(-n) 
 
-s4_notes_no_stop_numeric <- s4_notes_tokens %>%
+#This removes numbers and stop words (e.g. the, and, ect.)
+s4_notes_no_stop_numeric_test <- s4_notes_tokens_test %>%
   anti_join(stop_words) %>%
   dplyr::filter(is.na(as.numeric(word)))
 
 #Below here will be making a word cloud
 
-s4_notes_100 <- s4_notes_no_stop_numeric %>%
+#This code chunk is taking the top 100 words from this columns
+s4_notes_100_test <- s4_notes_no_stop_numeric_test %>%
   count(word) %>%
   arrange(-n) %>%
   head(100)
 
-notes_cloud <- ggplot(data = s4_notes_100, aes(label = word, size = n)) +
+#This creates a word cloud of the 100 words
+notes_cloud_test <- ggplot(data = s4_notes_100_test, aes(label = word, size = n)) +
   geom_text_wordcloud(aes(color = n), shape = "diamond") +
   scale_size_area(max_size = 15) +
   #scale_color_gradient(colors = c("darkgreen", "blue", "purple")) +
@@ -200,7 +214,7 @@ notes_cloud
 ```
 
 
-################################################################################################################################################
+###############################################################################################################################################
 Section 1 Analysis
 
 ```{r, include=FALSE}
@@ -581,7 +595,7 @@ s1_notes_cloud
 ```
 
 
-################################################################################################################################################
+###############################################################################################################################################
 Section 2 Analysis
 
 ```{r, include=FALSE}
@@ -938,7 +952,7 @@ s2_notes_cloud
 
 ```
 
-################################################################################################################################################
+###############################################################################################################################################
 Section 3 Analysis
 
 ```{r, include=FALSE}
@@ -1300,7 +1314,7 @@ s3_notes_cloud
 
 ```
 
-################################################################################################################################################
+###############################################################################################################################################
 Section 4 Analysis
 
 ```{r, include=FALSE}
@@ -1671,7 +1685,7 @@ s4_notes_cloud
 
 ```
 
-################################################################################################################################################
+###############################################################################################################################################
 Section 5 Analysis
 
 ```{r, include=FALSE}
