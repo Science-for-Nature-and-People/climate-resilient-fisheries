@@ -158,7 +158,7 @@ s4_mechanism <- count(test_section4_bind, test_section4_bind$does_the_mechanism_
 
 # This is making bar graphs of the counts.
 mechanism_plot <- ggplot(test_section4_bind, aes(x = does_the_mechanism_work_as_described_in_your_system)) +
-  geom_bar
+  geom_bar()
 
 s4_data_quality_plot <- ggplot(test_section4_bind, aes(x = information_quality)) +
   geom_bar()
@@ -208,7 +208,7 @@ notes_cloud_test <- ggplot(data = s4_notes_100_test, aes(label = word, size = n)
   #scale_color_gradient(colors = c("darkgreen", "blue", "purple")) +
   theme_minimal()
 
-notes_cloud
+notes_cloud_test
 
 
 ```
@@ -586,7 +586,7 @@ s1_notes_100 <- s1_notes_no_stop_numeric %>%
 s1_notes_cloud <- ggplot(data = s1_notes_100, aes(label = word, size = n)) +
   geom_text_wordcloud(aes(color = n), shape = "diamond") +
   scale_size_area(max_size = 15) +
-  scale_color_gradient(colors = c("darkgreen", "blue", "purple")) +
+  #scale_color_gradient(colors = c("darkgreen", "blue", "purple")) +
   theme_minimal()
 
 s1_notes_cloud
@@ -944,7 +944,7 @@ s2_notes_100 <- s2_notes_no_stop_numeric %>%
 s2_notes_cloud <- ggplot(data = s2_notes_100, aes(label = word, size = n)) +
   geom_text_wordcloud(aes(color = n), shape = "diamond") +
   scale_size_area(max_size = 15) +
-  scale_color_gradient(colors = c("darkgreen", "blue", "purple")) +
+  #scale_color_gradient(colors = c("darkgreen", "blue", "purple")) +
   theme_minimal()
 
 s2_notes_cloud
@@ -1306,7 +1306,7 @@ s3_notes_100 <- s3_notes_no_stop_numeric %>%
 s3_notes_cloud <- ggplot(data = s3_notes_100, aes(label = word, size = n)) +
   geom_text_wordcloud(aes(color = n), shape = "diamond") +
   scale_size_area(max_size = 15) +
-  scale_color_gradient(colors = c("darkgreen", "blue", "purple")) +
+  #scale_color_gradient(colors = c("darkgreen", "blue", "purple")) +
   theme_minimal()
 
 s3_notes_cloud
@@ -1677,7 +1677,7 @@ s4_notes_100 <- s4_notes_no_stop_numeric %>%
 s4_notes_cloud <- ggplot(data = s4_notes_100, aes(label = word, size = n)) +
   geom_text_wordcloud(aes(color = n), shape = "diamond") +
   scale_size_area(max_size = 15) +
-  scale_color_gradient(colors = c("darkgreen", "blue", "purple")) +
+  #scale_color_gradient(colors = c("darkgreen", "blue", "purple")) +
   theme_minimal()
 
 s4_notes_cloud
@@ -2039,7 +2039,7 @@ s5_notes_100 <- s5_notes_no_stop_numeric %>%
 s5_notes_cloud <- ggplot(data = s5_notes_100, aes(label = word, size = n)) +
   geom_text_wordcloud(aes(color = n), shape = "diamond") +
   scale_size_area(max_size = 15) +
-  scale_color_gradient(colors = c("darkgreen", "blue", "purple")) +
+  #scale_color_gradient(colors = c("darkgreen", "blue", "purple")) +
   theme_minimal()
 
 s5_notes_cloud
