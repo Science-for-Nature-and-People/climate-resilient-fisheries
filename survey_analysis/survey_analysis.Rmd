@@ -23,7 +23,6 @@ library(tidytext)
 library(textdata)
 library(ggwordcloud)
 
-
 ```
 
 ```{r}
@@ -511,8 +510,21 @@ s1_bind <- bind_rows(respondant1_s1, respondant2_s1, respondant3_s1, respondant4
 
 ```
 
-```{r}
+```{r, echo=FALSE}
 # Text mining the species of fish that are fished
+
+species_count <- s1_bind %>%
+  filter(question_id = "1.2.1.") %>%
+  unnest_tokens(species, if_describe_write_here) %>%
+  select(species) %>%
+  count(species) %>%
+  arrange(-n)
+
+species_plot <- ggplot(species_count, aes(x = species)) +
+  geom_bar()
+    
+species_plot
+
 ```
 
 ```{r}
