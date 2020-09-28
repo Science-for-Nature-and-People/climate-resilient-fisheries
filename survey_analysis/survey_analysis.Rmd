@@ -153,8 +153,10 @@ s4q1_count <- count(test_section4_bind_filter1, test_section4_bind_filter1$score
 
 s4q1_plot <- ggplot(test_section4_bind_filter1, aes(x = score_1_4)) +
   geom_bar() +
-  labs(caption = test_section4_bind_filter1$definition_questions[1], x = "Reponses", y = "Count", title = test_section4_bind_filter1$definition_questions[1])
-  #ggtitle(test_section4_bind_filter1$definition_questions[1]) 
+  labs(caption = test_section4_bind_filter1$definition_questions[1], x = "Reponses", y = "Count") +
+  ggtitle(test_section4_bind_filter1$definition_questions[1]) +
+  theme(plot.title = element_text(size = rel(1)),
+        plot.caption = element_text(size = rel(1)))
   
 
 s4_data_quality_count <- count(test_section4_bind, test_section4_bind$information_quality)
@@ -174,6 +176,8 @@ s4_data_quality_plot <- ggplot(test_section4_bind, aes(x = information_quality))
 s4q1_count
 s4_data_quality_count
 s4_mechanism
+
+test_section4_bind_filter1$definition_questions[1]
 s4q1_plot #I'm having trouble getting the full question to render and it would be good to have the columns be the actual responses instead of just a,b,c.
 mechanism_plot
 s4_data_quality_plot
