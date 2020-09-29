@@ -22,6 +22,7 @@ library(janitor)
 library(tidytext)
 library(textdata)
 library(ggwordcloud)
+library(quanteda)
 
 ```
 
@@ -74,7 +75,7 @@ test_section2 <- read_sheet(ss ="https://docs.google.com/spreadsheets/d/1vcWRmro
 
 test_section3 <- read_sheet(ss ="https://docs.google.com/spreadsheets/d/1vcWRmro97z5HXzoKhaAK4nrhFJwghCI2oCLEAeHnwD4/edit?usp=drive_web", 
                            sheet = "S3_ClimateResilientActions",
-                           range = "A9:J29",
+                           range = "A9:I23",
                            col_names = TRUE,
                            na = "",
                            guess_max = 10000,
@@ -225,6 +226,22 @@ notes_cloud_test
 
 ```
 
+```{r echo=FALSE}
+#This section will be for co occurence analysis
+
+corpus_notes_test <- corpus(test_section4_bind$notes)
+
+corpus_notes_sentence_test <- corpus_reshape(corpus_notes_test, to = "sentences")
+
+corpus_notes_tokens_test <- corpus_notes_sentence_test %>%
+  tokens(remove_punct = TRUE, remove_numbers = TRUE, remove_symbols = TRUE) %>%
+  tokens_tolower() 
+
+corpus_notes_collection_test <- textstat_collocations(corpus_notes_tokens_test, min_count = 20)
+
+corpus_notes_collection_test <- corpus_notes_collection_test[1:156]
+
+```
 
 ###############################################################################################################################################
 Section 1 Analysis
@@ -232,7 +249,7 @@ Section 1 Analysis
 ```{r, include=FALSE}
 #This will read in all of the data for section 1
 
-respondant1_s1 <-read_sheet(ss = "", 
+respondant1_s1 <-read_sheet(ss = "Response_a", 
                            sheet = "S1_KeyCaseIdentifiers",
                            range = "A9:Q18",
                            col_names = TRUE,
@@ -244,7 +261,7 @@ respondant1_s1 <-read_sheet(ss = "",
   as_tibble() %>%
   clean_names()
 
-respondant2_s1 <-read_sheet(ss = "", 
+respondant2_s1 <-read_sheet(ss = "Response_b", 
                            sheet = "S1_KeyCaseIdentifiers",
                            range = "A9:Q18",
                            col_names = TRUE,
@@ -256,7 +273,7 @@ respondant2_s1 <-read_sheet(ss = "",
   as_tibble() %>%
   clean_names()
 
-respondant3_s1 <-read_sheet(ss = "", 
+respondant3_s1 <-read_sheet(ss = "Response_c", 
                            sheet = "S1_KeyCaseIdentifiers",
                            range = "A9:Q18",
                            col_names = TRUE,
@@ -268,7 +285,7 @@ respondant3_s1 <-read_sheet(ss = "",
   as_tibble() %>%
   clean_names()
 
-respondant4_s1 <-read_sheet(ss = "", 
+respondant4_s1 <-read_sheet(ss = "Response_d", 
                            sheet = "S1_KeyCaseIdentifiers",
                            range = "A9:Q18",
                            col_names = TRUE,
@@ -280,7 +297,7 @@ respondant4_s1 <-read_sheet(ss = "",
   as_tibble() %>%
   clean_names()
 
-respondant5_s1 <-read_sheet(ss = "", 
+respondant5_s1 <-read_sheet(ss = "Response_e", 
                            sheet = "S1_KeyCaseIdentifiers",
                            range = "A9:Q18",
                            col_names = TRUE,
@@ -292,7 +309,7 @@ respondant5_s1 <-read_sheet(ss = "",
   as_tibble() %>%
   clean_names()
 
-respondant6_s1 <-read_sheet(ss = "", 
+respondant6_s1 <-read_sheet(ss = "Response_f", 
                            sheet = "S1_KeyCaseIdentifiers",
                            range = "A9:Q18",
                            col_names = TRUE,
@@ -304,7 +321,7 @@ respondant6_s1 <-read_sheet(ss = "",
   as_tibble() %>%
   clean_names()
 
-respondant7_s1 <-read_sheet(ss = "", 
+respondant7_s1 <-read_sheet(ss = "Response_g", 
                            sheet = "S1_KeyCaseIdentifiers",
                            range = "A9:Q18",
                            col_names = TRUE,
@@ -316,7 +333,7 @@ respondant7_s1 <-read_sheet(ss = "",
   as_tibble() %>%
   clean_names()
 
-respondant8_s1 <-read_sheet(ss = "", 
+respondant8_s1 <-read_sheet(ss = "Response_h", 
                            sheet = "S1_KeyCaseIdentifiers",
                            range = "A9:Q18",
                            col_names = TRUE,
@@ -328,7 +345,7 @@ respondant8_s1 <-read_sheet(ss = "",
   as_tibble() %>%
   clean_names()
 
-respondant9_s1 <-read_sheet(ss = "", 
+respondant9_s1 <-read_sheet(ss = "Response_i", 
                            sheet = "S1_KeyCaseIdentifiers",
                            range = "A9:Q18",
                            col_names = TRUE,
@@ -340,7 +357,7 @@ respondant9_s1 <-read_sheet(ss = "",
   as_tibble() %>%
   clean_names()
 
-respondant10_s1 <-read_sheet(ss = "", 
+respondant10_s1 <-read_sheet(ss = "Response_j", 
                            sheet = "S1_KeyCaseIdentifiers",
                            range = "A9:Q18",
                            col_names = TRUE,
@@ -352,7 +369,7 @@ respondant10_s1 <-read_sheet(ss = "",
   as_tibble() %>%
   clean_names()
 
-respondant11_s1 <-read_sheet(ss = "", 
+respondant11_s1 <-read_sheet(ss = "Response_k", 
                            sheet = "S1_KeyCaseIdentifiers",
                            range = "A9:Q18",
                            col_names = TRUE,
@@ -364,7 +381,7 @@ respondant11_s1 <-read_sheet(ss = "",
   as_tibble() %>%
   clean_names()
 
-respondant12_s1 <-read_sheet(ss = "", 
+respondant12_s1 <-read_sheet(ss = "Response_l", 
                            sheet = "S1_KeyCaseIdentifiers",
                            range = "A9:Q18",
                            col_names = TRUE,
@@ -376,7 +393,7 @@ respondant12_s1 <-read_sheet(ss = "",
   as_tibble() %>%
   clean_names()
 
-respondant13_s1 <-read_sheet(ss = "", 
+respondant13_s1 <-read_sheet(ss = "Response_m", 
                            sheet = "S1_KeyCaseIdentifiers",
                            range = "A9:Q18",
                            col_names = TRUE,
@@ -388,7 +405,7 @@ respondant13_s1 <-read_sheet(ss = "",
   as_tibble() %>%
   clean_names()
 
-respondant14_s1 <-read_sheet(ss = "", 
+respondant14_s1 <-read_sheet(ss = "Response_n", 
                            sheet = "S1_KeyCaseIdentifiers",
                            range = "A9:Q18",
                            col_names = TRUE,
@@ -400,7 +417,7 @@ respondant14_s1 <-read_sheet(ss = "",
   as_tibble() %>%
   clean_names()
 
-respondant15_s1 <-read_sheet(ss = "", 
+respondant15_s1 <-read_sheet(ss = "Response_o", 
                            sheet = "S1_KeyCaseIdentifiers",
                            range = "A9:Q18",
                            col_names = TRUE,
@@ -412,7 +429,7 @@ respondant15_s1 <-read_sheet(ss = "",
   as_tibble() %>%
   clean_names()
 
-respondant16_s1 <-read_sheet(ss = "", 
+respondant16_s1 <-read_sheet(ss = "Response_p", 
                            sheet = "S1_KeyCaseIdentifiers",
                            range = "A9:Q18",
                            col_names = TRUE,
@@ -424,7 +441,7 @@ respondant16_s1 <-read_sheet(ss = "",
   as_tibble() %>%
   clean_names()
 
-respondant17_s1 <-read_sheet(ss = "", 
+respondant17_s1 <-read_sheet(ss = "Response_q", 
                            sheet = "S1_KeyCaseIdentifiers",
                            range = "A9:Q18",
                            col_names = TRUE,
@@ -436,7 +453,7 @@ respondant17_s1 <-read_sheet(ss = "",
   as_tibble() %>%
   clean_names()
 
-respondant18_s1 <-read_sheet(ss = "", 
+respondant18_s1 <-read_sheet(ss = "Response_r", 
                            sheet = "S1_KeyCaseIdentifiers",
                            range = "A9:Q18",
                            col_names = TRUE,
@@ -448,7 +465,7 @@ respondant18_s1 <-read_sheet(ss = "",
   as_tibble() %>%
   clean_names()
 
-respondant19_s1 <-read_sheet(ss = "", 
+respondant19_s1 <-read_sheet(ss = "Response_s", 
                            sheet = "S1_KeyCaseIdentifiers",
                            range = "A9:Q18",
                            col_names = TRUE,
@@ -460,7 +477,7 @@ respondant19_s1 <-read_sheet(ss = "",
   as_tibble() %>%
   clean_names()
 
-respondant20_s1 <-read_sheet(ss = "", 
+respondant20_s1 <-read_sheet(ss = "Response_t", 
                            sheet = "S1_KeyCaseIdentifiers",
                            range = "A9:Q18",
                            col_names = TRUE,
@@ -472,7 +489,7 @@ respondant20_s1 <-read_sheet(ss = "",
   as_tibble() %>%
   clean_names()
 
-respondant21_s1 <-read_sheet(ss = "", 
+respondant21_s1 <-read_sheet(ss = "Response_u", 
                            sheet = "S1_KeyCaseIdentifiers",
                            range = "A9:Q18",
                            col_names = TRUE,
@@ -484,7 +501,7 @@ respondant21_s1 <-read_sheet(ss = "",
   as_tibble() %>%
   clean_names()
 
-respondant22_s1 <-read_sheet(ss = "", 
+respondant22_s1 <-read_sheet(ss = "Response_v", 
                            sheet = "S1_KeyCaseIdentifiers",
                            range = "A9:Q18",
                            col_names = TRUE,
@@ -496,7 +513,7 @@ respondant22_s1 <-read_sheet(ss = "",
   as_tibble() %>%
   clean_names()
 
-respondant23_s1 <-read_sheet(ss = "", 
+respondant23_s1 <-read_sheet(ss = "Response_w", 
                            sheet = "S1_KeyCaseIdentifiers",
                            range = "A9:Q18",
                            col_names = TRUE,
@@ -508,7 +525,7 @@ respondant23_s1 <-read_sheet(ss = "",
   as_tibble() %>%
   clean_names()
 
-respondant24_s1 <-read_sheet(ss = "", 
+respondant24_s1 <-read_sheet(ss = "Response_x", 
                            sheet = "S1_KeyCaseIdentifiers",
                            range = "A9:Q18",
                            col_names = TRUE,
@@ -520,7 +537,7 @@ respondant24_s1 <-read_sheet(ss = "",
   as_tibble() %>%
   clean_names()
 
-respondant25_s1 <-read_sheet(ss = "", 
+respondant25_s1 <-read_sheet(ss = "Response_y", 
                            sheet = "S1_KeyCaseIdentifiers",
                            range = "A9:Q18",
                            col_names = TRUE,
@@ -613,7 +630,7 @@ Section 2 Analysis
 ```{r, include=FALSE}
 #This will read in all of the data for section 2
 
-respondant1_s2 <-read_sheet(ss = "", 
+respondant1_s2 <-read_sheet(ss = "Response_a", 
                            sheet = "S2_ContextualDescription",
                            range = "A9:V84",
                            col_names = TRUE,
@@ -625,7 +642,7 @@ respondant1_s2 <-read_sheet(ss = "",
   as_tibble() %>%
   clean_names()
 
-respondant2_s2 <-read_sheet(ss = "", 
+respondant2_s2 <-read_sheet(ss = "Response_b", 
                            sheet = "S2_ContextualDescription",
                            range = "A9:V84",
                            col_names = TRUE,
@@ -637,7 +654,7 @@ respondant2_s2 <-read_sheet(ss = "",
   as_tibble() %>%
   clean_names()
 
-respondant3_s2 <-read_sheet(ss = "", 
+respondant3_s2 <-read_sheet(ss = "Response_c", 
                            sheet = "S2_ContextualDescription",
                            range = "A9:V84",
                            col_names = TRUE,
@@ -649,7 +666,7 @@ respondant3_s2 <-read_sheet(ss = "",
   as_tibble() %>%
   clean_names()
 
-respondant4_s2 <-read_sheet(ss = "", 
+respondant4_s2 <-read_sheet(ss = "Response_d", 
                            sheet = "S2_ContextualDescription",
                            range = "A9:V84",
                            col_names = TRUE,
@@ -661,7 +678,7 @@ respondant4_s2 <-read_sheet(ss = "",
   as_tibble() %>%
   clean_names()
 
-respondant5_s2 <-read_sheet(ss = "", 
+respondant5_s2 <-read_sheet(ss = "Response_e", 
                            sheet = "S2_ContextualDescription",
                            range = "A9:V84",
                            col_names = TRUE,
@@ -673,7 +690,7 @@ respondant5_s2 <-read_sheet(ss = "",
   as_tibble() %>%
   clean_names()
 
-respondant6_s2 <-read_sheet(ss = "", 
+respondant6_s2 <-read_sheet(ss = "Response_f", 
                            sheet = "S2_ContextualDescription",
                            range = "A9:V84",
                            col_names = TRUE,
@@ -685,7 +702,7 @@ respondant6_s2 <-read_sheet(ss = "",
   as_tibble() %>%
   clean_names()
 
-respondant7_s2 <-read_sheet(ss = "", 
+respondant7_s2 <-read_sheet(ss = "Response_g", 
                            sheet = "S2_ContextualDescription",
                            range = "A9:V84",
                            col_names = TRUE,
@@ -697,7 +714,7 @@ respondant7_s2 <-read_sheet(ss = "",
   as_tibble() %>%
   clean_names()
 
-respondant8_s2 <-read_sheet(ss = "", 
+respondant8_s2 <-read_sheet(ss = "Response_h", 
                            sheet = "S2_ContextualDescription",
                            range = "A9:V84",
                            col_names = TRUE,
@@ -709,7 +726,7 @@ respondant8_s2 <-read_sheet(ss = "",
   as_tibble() %>%
   clean_names()
 
-respondant9_s2 <-read_sheet(ss = "", 
+respondant9_s2 <-read_sheet(ss = "Response_i", 
                            sheet = "S2_ContextualDescription",
                            range = "A9:V84",
                            col_names = TRUE,
@@ -721,7 +738,7 @@ respondant9_s2 <-read_sheet(ss = "",
   as_tibble() %>%
   clean_names()
 
-respondant10_s2 <-read_sheet(ss = "", 
+respondant10_s2 <-read_sheet(ss = "Response_j", 
                            sheet = "S2_ContextualDescription",
                            range = "A9:V84",
                            col_names = TRUE,
@@ -733,7 +750,7 @@ respondant10_s2 <-read_sheet(ss = "",
   as_tibble() %>%
   clean_names()
 
-respondant11_s2 <-read_sheet(ss = "", 
+respondant11_s2 <-read_sheet(ss = "Response_k", 
                            sheet = "S2_ContextualDescription",
                            range = "A9:V84",
                            col_names = TRUE,
@@ -745,7 +762,7 @@ respondant11_s2 <-read_sheet(ss = "",
   as_tibble() %>%
   clean_names()
 
-respondant12_s2 <-read_sheet(ss = "", 
+respondant12_s2 <-read_sheet(ss = "Response_l", 
                            sheet = "S2_ContextualDescription",
                            range = "A9:V84",
                            col_names = TRUE,
@@ -757,7 +774,7 @@ respondant12_s2 <-read_sheet(ss = "",
   as_tibble() %>%
   clean_names()
 
-respondant13_s2 <-read_sheet(ss = "", 
+respondant13_s2 <-read_sheet(ss = "Response_m", 
                            sheet = "S2_ContextualDescription",
                            range = "A9:V84",
                            col_names = TRUE,
@@ -769,7 +786,7 @@ respondant13_s2 <-read_sheet(ss = "",
   as_tibble() %>%
   clean_names()
 
-respondant14_s2 <-read_sheet(ss = "", 
+respondant14_s2 <-read_sheet(ss = "Response_n", 
                            sheet = "S2_ContextualDescription",
                            range = "A9:V84",
                            col_names = TRUE,
@@ -781,7 +798,7 @@ respondant14_s2 <-read_sheet(ss = "",
   as_tibble() %>%
   clean_names()
 
-respondant15_s2 <-read_sheet(ss = "", 
+respondant15_s2 <-read_sheet(ss = "Response_o", 
                            sheet = "S2_ContextualDescription",
                            range = "A9:V84",
                            col_names = TRUE,
@@ -793,7 +810,7 @@ respondant15_s2 <-read_sheet(ss = "",
   as_tibble() %>%
   clean_names()
 
-respondant16_s2 <-read_sheet(ss = "", 
+respondant16_s2 <-read_sheet(ss = "Response_p", 
                            sheet = "S2_ContextualDescription",
                            range = "A9:V84",
                            col_names = TRUE,
@@ -805,7 +822,7 @@ respondant16_s2 <-read_sheet(ss = "",
   as_tibble() %>%
   clean_names()
 
-respondant17_s2 <-read_sheet(ss = "", 
+respondant17_s2 <-read_sheet(ss = "Response_q", 
                            sheet = "S2_ContextualDescription",
                            range = "A9:V84",
                            col_names = TRUE,
@@ -817,7 +834,7 @@ respondant17_s2 <-read_sheet(ss = "",
   as_tibble() %>%
   clean_names()
 
-respondant18_s2 <-read_sheet(ss = "", 
+respondant18_s2 <-read_sheet(ss = "Response_r", 
                            sheet = "S2_ContextualDescription",
                            range = "A9:V84",
                            col_names = TRUE,
@@ -829,7 +846,7 @@ respondant18_s2 <-read_sheet(ss = "",
   as_tibble() %>%
   clean_names()
 
-respondant19_s2 <-read_sheet(ss = "", 
+respondant19_s2 <-read_sheet(ss = "Response_s", 
                            sheet = "S2_ContextualDescription",
                            range = "A9:V84",
                            col_names = TRUE,
@@ -841,7 +858,7 @@ respondant19_s2 <-read_sheet(ss = "",
   as_tibble() %>%
   clean_names()
 
-respondant20_s2 <-read_sheet(ss = "", 
+respondant20_s2 <-read_sheet(ss = "Response_t", 
                            sheet = "S2_ContextualDescription",
                            range = "A9:V84",
                            col_names = TRUE,
@@ -853,7 +870,7 @@ respondant20_s2 <-read_sheet(ss = "",
   as_tibble() %>%
   clean_names()
 
-respondant21_s2 <-read_sheet(ss = "", 
+respondant21_s2 <-read_sheet(ss = "Response_u", 
                            sheet = "S2_ContextualDescription",
                            range = "A9:V84",
                            col_names = TRUE,
@@ -865,7 +882,7 @@ respondant21_s2 <-read_sheet(ss = "",
   as_tibble() %>%
   clean_names()
 
-respondant22_s2 <-read_sheet(ss = "", 
+respondant22_s2 <-read_sheet(ss = "Response_v", 
                            sheet = "S2_ContextualDescription",
                            range = "A9:V84",
                            col_names = TRUE,
@@ -877,7 +894,7 @@ respondant22_s2 <-read_sheet(ss = "",
   as_tibble() %>%
   clean_names()
 
-respondant23_s2 <-read_sheet(ss = "", 
+respondant23_s2 <-read_sheet(ss = "Response_w", 
                            sheet = "S2_ContextualDescription",
                            range = "A9:V84",
                            col_names = TRUE,
@@ -889,7 +906,7 @@ respondant23_s2 <-read_sheet(ss = "",
   as_tibble() %>%
   clean_names()
 
-respondant24_s2 <-read_sheet(ss = "", 
+respondant24_s2 <-read_sheet(ss = "Response_x", 
                            sheet = "S2_ContextualDescription",
                            range = "A9:V84",
                            col_names = TRUE,
@@ -901,7 +918,7 @@ respondant24_s2 <-read_sheet(ss = "",
   as_tibble() %>%
   clean_names()
 
-respondant25_s2 <-read_sheet(ss = "", 
+respondant25_s2 <-read_sheet(ss = "Response_y", 
                            sheet = "S2_ContextualDescription",
                            range = "A9:V84",
                            col_names = TRUE,
@@ -970,9 +987,9 @@ Section 3 Analysis
 ```{r, include=FALSE}
 #This will read in all of the data for section 3
 
-respondant1_s3 <-read_sheet(ss = "", 
+respondant1_s3 <-read_sheet(ss = "Response_a", 
                            sheet = "S3_ClimateResilientActions",
-                           range = "A9:J29",
+                           range = "A9:I23",
                            col_names = TRUE,
                            na = "",
                            guess_max = 10000,
@@ -982,9 +999,9 @@ respondant1_s3 <-read_sheet(ss = "",
   as_tibble() %>%
   clean_names()
 
-respondant2_s3 <-read_sheet(ss = "", 
+respondant2_s3 <-read_sheet(ss = "Response_b", 
                            sheet = "S3_ClimateResilientActions",
-                           range = "A9:J29",
+                           range = "A9:I23",
                            col_names = TRUE,
                            na = "",
                            guess_max = 10000,
@@ -994,9 +1011,9 @@ respondant2_s3 <-read_sheet(ss = "",
   as_tibble() %>%
   clean_names()
 
-respondant3_s3 <-read_sheet(ss = "", 
+respondant3_s3 <-read_sheet(ss = "Response_c", 
                            sheet = "S3_ClimateResilientActions",
-                           range = "A9:J29",
+                           range = "A9:I23",
                            col_names = TRUE,
                            na = "",
                            guess_max = 10000,
@@ -1006,9 +1023,9 @@ respondant3_s3 <-read_sheet(ss = "",
   as_tibble() %>%
   clean_names()
 
-respondant4_s3 <-read_sheet(ss = "", 
+respondant4_s3 <-read_sheet(ss = "Response_d", 
                            sheet = "S3_ClimateResilientActions",
-                           range = "A9:J29",
+                           range = "A9:I23",
                            col_names = TRUE,
                            na = "",
                            guess_max = 10000,
@@ -1018,9 +1035,9 @@ respondant4_s3 <-read_sheet(ss = "",
   as_tibble() %>%
   clean_names()
 
-respondant5_s3 <-read_sheet(ss = "", 
+respondant5_s3 <-read_sheet(ss = "Response_e", 
                            sheet = "S3_ClimateResilientActions",
-                           range = "A9:J29",
+                           range = "A9:I23",
                            col_names = TRUE,
                            na = "",
                            guess_max = 10000,
@@ -1030,9 +1047,9 @@ respondant5_s3 <-read_sheet(ss = "",
   as_tibble() %>%
   clean_names()
 
-respondant6_s3 <-read_sheet(ss = "", 
+respondant6_s3 <-read_sheet(ss = "Response_f", 
                            sheet = "S3_ClimateResilientActions",
-                           range = "A9:J29",
+                           range = "A9:I23",
                            col_names = TRUE,
                            na = "",
                            guess_max = 10000,
@@ -1042,9 +1059,9 @@ respondant6_s3 <-read_sheet(ss = "",
   as_tibble() %>%
   clean_names()
 
-respondant7_s3 <-read_sheet(ss = "", 
+respondant7_s3 <-read_sheet(ss = "Response_g", 
                            sheet = "S3_ClimateResilientActions",
-                           range = "A9:J29",
+                           range = "A9:I23",
                            col_names = TRUE,
                            na = "",
                            guess_max = 10000,
@@ -1054,9 +1071,9 @@ respondant7_s3 <-read_sheet(ss = "",
   as_tibble() %>%
   clean_names()
 
-respondant8_s3 <-read_sheet(ss = "", 
+respondant8_s3 <-read_sheet(ss = "Response_h", 
                            sheet = "S3_ClimateResilientActions",
-                           range = "A9:J29",
+                           range = "A9:I23",
                            col_names = TRUE,
                            na = "",
                            guess_max = 10000,
@@ -1066,9 +1083,9 @@ respondant8_s3 <-read_sheet(ss = "",
   as_tibble() %>%
   clean_names()
 
-respondant9_s3 <-read_sheet(ss = "", 
+respondant9_s3 <-read_sheet(ss = "Response_i", 
                            sheet = "S3_ClimateResilientActions",
-                           range = "A9:J29",
+                           range = "A9:I23",
                            col_names = TRUE,
                            na = "",
                            guess_max = 10000,
@@ -1078,9 +1095,9 @@ respondant9_s3 <-read_sheet(ss = "",
   as_tibble() %>%
   clean_names()
 
-respondant10_s3 <-read_sheet(ss = "", 
+respondant10_s3 <-read_sheet(ss = "Response_j", 
                            sheet = "S3_ClimateResilientActions",
-                           range = "A9:J29",
+                           range = "A9:I23",
                            col_names = TRUE,
                            na = "",
                            guess_max = 10000,
@@ -1090,9 +1107,9 @@ respondant10_s3 <-read_sheet(ss = "",
   as_tibble() %>%
   clean_names()
 
-respondant11_s3 <-read_sheet(ss = "", 
+respondant11_s3 <-read_sheet(ss = "Response_k", 
                            sheet = "S3_ClimateResilientActions",
-                           range = "A9:J29",
+                           range = "A9:I23",
                            col_names = TRUE,
                            na = "",
                            guess_max = 10000,
@@ -1102,9 +1119,9 @@ respondant11_s3 <-read_sheet(ss = "",
   as_tibble() %>%
   clean_names()
 
-respondant12_s3 <-read_sheet(ss = "", 
+respondant12_s3 <-read_sheet(ss = "Response_l", 
                            sheet = "S3_ClimateResilientActions",
-                           range = "A9:J29",
+                           range = "A9:I23",
                            col_names = TRUE,
                            na = "",
                            guess_max = 10000,
@@ -1114,9 +1131,9 @@ respondant12_s3 <-read_sheet(ss = "",
   as_tibble() %>%
   clean_names()
 
-respondant13_s3 <-read_sheet(ss = "", 
+respondant13_s3 <-read_sheet(ss = "Response_m", 
                            sheet = "S3_ClimateResilientActions",
-                           range = "A9:J29",
+                           range = "A9:I23",
                            col_names = TRUE,
                            na = "",
                            guess_max = 10000,
@@ -1126,9 +1143,9 @@ respondant13_s3 <-read_sheet(ss = "",
   as_tibble() %>%
   clean_names()
 
-respondant14_s3 <-read_sheet(ss = "", 
+respondant14_s3 <-read_sheet(ss = "Response_n", 
                            sheet = "S3_ClimateResilientActions",
-                           range = "A9:J29",
+                           range = "A9:I23",
                            col_names = TRUE,
                            na = "",
                            guess_max = 10000,
@@ -1138,9 +1155,9 @@ respondant14_s3 <-read_sheet(ss = "",
   as_tibble() %>%
   clean_names()
 
-respondant15_s3 <-read_sheet(ss = "", 
+respondant15_s3 <-read_sheet(ss = "Response_o", 
                            sheet = "S3_ClimateResilientActions",
-                           range = "A9:J29",
+                           range = "A9:I23",
                            col_names = TRUE,
                            na = "",
                            guess_max = 10000,
@@ -1150,9 +1167,9 @@ respondant15_s3 <-read_sheet(ss = "",
   as_tibble() %>%
   clean_names()
 
-respondant16_s3 <-read_sheet(ss = "", 
+respondant16_s3 <-read_sheet(ss = "Response_p", 
                            sheet = "S3_ClimateResilientActions",
-                           range = "A9:J29",
+                           range = "A9:I23",
                            col_names = TRUE,
                            na = "",
                            guess_max = 10000,
@@ -1162,9 +1179,9 @@ respondant16_s3 <-read_sheet(ss = "",
   as_tibble() %>%
   clean_names()
 
-respondant17_s3 <-read_sheet(ss = "", 
+respondant17_s3 <-read_sheet(ss = "Response_q", 
                            sheet = "S3_ClimateResilientActions",
-                           range = "A9:J29",
+                           range = "A9:I23",
                            col_names = TRUE,
                            na = "",
                            guess_max = 10000,
@@ -1174,9 +1191,9 @@ respondant17_s3 <-read_sheet(ss = "",
   as_tibble() %>%
   clean_names()
 
-respondant18_s3 <-read_sheet(ss = "", 
+respondant18_s3 <-read_sheet(ss = "Response_r", 
                            sheet = "S3_ClimateResilientActions",
-                           range = "A9:J29",
+                           range = "A9:I23",
                            col_names = TRUE,
                            na = "",
                            guess_max = 10000,
@@ -1186,9 +1203,9 @@ respondant18_s3 <-read_sheet(ss = "",
   as_tibble() %>%
   clean_names()
 
-respondant19_s3 <-read_sheet(ss = "", 
+respondant19_s3 <-read_sheet(ss = "Response_s", 
                            sheet = "S3_ClimateResilientActions",
-                           range = "A9:J29",
+                           range = "A9:I23",
                            col_names = TRUE,
                            na = "",
                            guess_max = 10000,
@@ -1198,9 +1215,9 @@ respondant19_s3 <-read_sheet(ss = "",
   as_tibble() %>%
   clean_names()
 
-respondant20_s3 <-read_sheet(ss = "", 
+respondant20_s3 <-read_sheet(ss = "Response_t", 
                            sheet = "S3_ClimateResilientActions",
-                           range = "A9:J29",
+                           range = "A9:I23",
                            col_names = TRUE,
                            na = "",
                            guess_max = 10000,
@@ -1210,9 +1227,9 @@ respondant20_s3 <-read_sheet(ss = "",
   as_tibble() %>%
   clean_names()
 
-respondant21_s3 <-read_sheet(ss = "", 
+respondant21_s3 <-read_sheet(ss = "Response_u", 
                            sheet = "S3_ClimateResilientActions",
-                           range = "A9:J29",
+                           range = "A9:I23",
                            col_names = TRUE,
                            na = "",
                            guess_max = 10000,
@@ -1222,9 +1239,9 @@ respondant21_s3 <-read_sheet(ss = "",
   as_tibble() %>%
   clean_names()
 
-respondant22_s3 <-read_sheet(ss = "", 
+respondant22_s3 <-read_sheet(ss = "Response_v", 
                            sheet = "S3_ClimateResilientActions",
-                           range = "A9:J29",
+                           range = "A9:I23",
                            col_names = TRUE,
                            na = "",
                            guess_max = 10000,
@@ -1234,9 +1251,9 @@ respondant22_s3 <-read_sheet(ss = "",
   as_tibble() %>%
   clean_names()
 
-respondant23_s3 <-read_sheet(ss = "", 
+respondant23_s3 <-read_sheet(ss = "Response_w", 
                            sheet = "S3_ClimateResilientActions",
-                           range = "A9:J29",
+                           range = "A9:I23",
                            col_names = TRUE,
                            na = "",
                            guess_max = 10000,
@@ -1246,9 +1263,9 @@ respondant23_s3 <-read_sheet(ss = "",
   as_tibble() %>%
   clean_names()
 
-respondant24_s3 <-read_sheet(ss = "", 
+respondant24_s3 <-read_sheet(ss = "Response_x", 
                            sheet = "S3_ClimateResilientActions",
-                           range = "A9:J29",
+                           range = "A9:I23",
                            col_names = TRUE,
                            na = "",
                            guess_max = 10000,
@@ -1258,9 +1275,9 @@ respondant24_s3 <-read_sheet(ss = "",
   as_tibble() %>%
   clean_names()
 
-respondant25_s3 <-read_sheet(ss = "", 
+respondant25_s3 <-read_sheet(ss = "Response_y", 
                            sheet = "S3_ClimateResilientActions",
-                           range = "A9:J29",
+                           range = "A9:I23",
                            col_names = TRUE,
                            na = "",
                            guess_max = 10000,
@@ -1332,7 +1349,7 @@ Section 4 Analysis
 ```{r, include=FALSE}
 #This will read in all of the data for section 4
 
-respondant1_s4 <-read_sheet(ss = "", 
+respondant1_s4 <-read_sheet(ss = "Response_a", 
                            sheet = "S4_ResilienceAttributes",
                            range = "A9:O61",
                            col_names = TRUE,
@@ -1344,7 +1361,7 @@ respondant1_s4 <-read_sheet(ss = "",
   as_tibble() %>%
   clean_names()
 
-respondant2_s4 <-read_sheet(ss = "", 
+respondant2_s4 <-read_sheet(ss = "Response_b", 
                            sheet = "S4_ResilienceAttributes",
                            range = "A9:O61",
                            col_names = TRUE,
@@ -1356,7 +1373,7 @@ respondant2_s4 <-read_sheet(ss = "",
   as_tibble() %>%
   clean_names()
 
-respondant3_s4 <-read_sheet(ss = "", 
+respondant3_s4 <-read_sheet(ss = "Response_c", 
                            sheet = "S4_ResilienceAttributes",
                            range = "A9:O61",
                            col_names = TRUE,
@@ -1368,7 +1385,7 @@ respondant3_s4 <-read_sheet(ss = "",
   as_tibble() %>%
   clean_names()
 
-respondant4_s4 <-read_sheet(ss = "", 
+respondant4_s4 <-read_sheet(ss = "Response_d", 
                            sheet = "S4_ResilienceAttributes",
                            range = "A9:O61",
                            col_names = TRUE,
@@ -1380,7 +1397,7 @@ respondant4_s4 <-read_sheet(ss = "",
   as_tibble() %>%
   clean_names()
 
-respondant5_s4 <-read_sheet(ss = "", 
+respondant5_s4 <-read_sheet(ss = "Response_e", 
                            sheet = "S4_ResilienceAttributes",
                            range = "A9:O61",
                            col_names = TRUE,
@@ -1392,7 +1409,7 @@ respondant5_s4 <-read_sheet(ss = "",
   as_tibble() %>%
   clean_names()
 
-respondant6_s4 <-read_sheet(ss = "", 
+respondant6_s4 <-read_sheet(ss = "Response_f", 
                            sheet = "S4_ResilienceAttributes",
                            range = "A9:O61",
                            col_names = TRUE,
@@ -1404,7 +1421,7 @@ respondant6_s4 <-read_sheet(ss = "",
   as_tibble() %>%
   clean_names()
 
-respondant7_s4 <-read_sheet(ss = "", 
+respondant7_s4 <-read_sheet(ss = "Response_g", 
                            sheet = "S4_ResilienceAttributes",
                            range = "A9:O61",
                            col_names = TRUE,
@@ -1416,7 +1433,7 @@ respondant7_s4 <-read_sheet(ss = "",
   as_tibble() %>%
   clean_names()
 
-respondant8_s4 <-read_sheet(ss = "", 
+respondant8_s4 <-read_sheet(ss = "Response_h", 
                            sheet = "S4_ResilienceAttributes",
                            range = "A9:O61",
                            col_names = TRUE,
@@ -1428,7 +1445,7 @@ respondant8_s4 <-read_sheet(ss = "",
   as_tibble() %>%
   clean_names()
 
-respondant9_s4 <-read_sheet(ss = "", 
+respondant9_s4 <-read_sheet(ss = "Response_i", 
                            sheet = "S4_ResilienceAttributes",
                            range = "A9:O61",
                            col_names = TRUE,
@@ -1440,7 +1457,7 @@ respondant9_s4 <-read_sheet(ss = "",
   as_tibble() %>%
   clean_names()
 
-respondant10_s4 <-read_sheet(ss = "", 
+respondant10_s4 <-read_sheet(ss = "Response_j", 
                            sheet = "S4_ResilienceAttributes",
                            range = "A9:O61",
                            col_names = TRUE,
@@ -1452,7 +1469,7 @@ respondant10_s4 <-read_sheet(ss = "",
   as_tibble() %>%
   clean_names()
 
-respondant11_s4 <-read_sheet(ss = "", 
+respondant11_s4 <-read_sheet(ss = "Response_k", 
                            sheet = "S4_ResilienceAttributes",
                            range = "A9:O61",
                            col_names = TRUE,
@@ -1464,7 +1481,7 @@ respondant11_s4 <-read_sheet(ss = "",
   as_tibble() %>%
   clean_names()
 
-respondant12_s4 <-read_sheet(ss = "", 
+respondant12_s4 <-read_sheet(ss = "Response_l", 
                            sheet = "S4_ResilienceAttributes",
                            range = "A9:O61",
                            col_names = TRUE,
@@ -1476,7 +1493,7 @@ respondant12_s4 <-read_sheet(ss = "",
   as_tibble() %>%
   clean_names()
 
-respondant13_s4 <-read_sheet(ss = "", 
+respondant13_s4 <-read_sheet(ss = "Response_m", 
                            sheet = "S4_ResilienceAttributes",
                            range = "A9:O61",
                            col_names = TRUE,
@@ -1488,7 +1505,7 @@ respondant13_s4 <-read_sheet(ss = "",
   as_tibble() %>%
   clean_names()
 
-respondant14_s4 <-read_sheet(ss = "", 
+respondant14_s4 <-read_sheet(ss = "Response_n", 
                            sheet = "S4_ResilienceAttributes",
                            range = "A9:O61",
                            col_names = TRUE,
@@ -1500,7 +1517,7 @@ respondant14_s4 <-read_sheet(ss = "",
   as_tibble() %>%
   clean_names()
 
-respondant15_s4 <-read_sheet(ss = "", 
+respondant15_s4 <-read_sheet(ss = "Response_o", 
                            sheet = "S4_ResilienceAttributes",
                            range = "A9:O61",
                            col_names = TRUE,
@@ -1512,7 +1529,7 @@ respondant15_s4 <-read_sheet(ss = "",
   as_tibble() %>%
   clean_names()
 
-respondant16_s4 <-read_sheet(ss = "", 
+respondant16_s4 <-read_sheet(ss = "Response_p", 
                            sheet = "S4_ResilienceAttributes",
                            range = "A9:O61",
                            col_names = TRUE,
@@ -1524,7 +1541,7 @@ respondant16_s4 <-read_sheet(ss = "",
   as_tibble() %>%
   clean_names()
 
-respondant17_s4 <-read_sheet(ss = "", 
+respondant17_s4 <-read_sheet(ss = "Response_q", 
                            sheet = "S4_ResilienceAttributes",
                            range = "A9:O61",
                            col_names = TRUE,
@@ -1536,7 +1553,7 @@ respondant17_s4 <-read_sheet(ss = "",
   as_tibble() %>%
   clean_names()
 
-respondant18_s4 <-read_sheet(ss = "", 
+respondant18_s4 <-read_sheet(ss = "Response_r", 
                            sheet = "S4_ResilienceAttributes",
                            range = "A9:O61",
                            col_names = TRUE,
@@ -1548,7 +1565,7 @@ respondant18_s4 <-read_sheet(ss = "",
   as_tibble() %>%
   clean_names()
 
-respondant19_s4 <-read_sheet(ss = "", 
+respondant19_s4 <-read_sheet(ss = "Response_s", 
                            sheet = "S4_ResilienceAttributes",
                            range = "A9:O61",
                            col_names = TRUE,
@@ -1560,7 +1577,7 @@ respondant19_s4 <-read_sheet(ss = "",
   as_tibble() %>%
   clean_names()
 
-respondant20_s4 <-read_sheet(ss = "", 
+respondant20_s4 <-read_sheet(ss = "Response_t", 
                            sheet = "S4_ResilienceAttributes",
                            range = "A9:O61",
                            col_names = TRUE,
@@ -1572,7 +1589,7 @@ respondant20_s4 <-read_sheet(ss = "",
   as_tibble() %>%
   clean_names()
 
-respondant21_s4 <-read_sheet(ss = "", 
+respondant21_s4 <-read_sheet(ss = "Response_u", 
                            sheet = "S4_ResilienceAttributes",
                            range = "A9:O61",
                            col_names = TRUE,
@@ -1584,7 +1601,7 @@ respondant21_s4 <-read_sheet(ss = "",
   as_tibble() %>%
   clean_names()
 
-respondant22_s4 <-read_sheet(ss = "", 
+respondant22_s4 <-read_sheet(ss = "Response_v", 
                            sheet = "S4_ResilienceAttributes",
                            range = "A9:O61",
                            col_names = TRUE,
@@ -1596,7 +1613,7 @@ respondant22_s4 <-read_sheet(ss = "",
   as_tibble() %>%
   clean_names()
 
-respondant23_s4 <-read_sheet(ss = "", 
+respondant23_s4 <-read_sheet(ss = "Response_w", 
                            sheet = "S4_ResilienceAttributes",
                            range = "A9:O61",
                            col_names = TRUE,
@@ -1608,7 +1625,7 @@ respondant23_s4 <-read_sheet(ss = "",
   as_tibble() %>%
   clean_names()
 
-respondant24_s4 <-read_sheet(ss = "", 
+respondant24_s4 <-read_sheet(ss = "Response_x", 
                            sheet = "S4_ResilienceAttributes",
                            range = "A9:O61",
                            col_names = TRUE,
@@ -1620,7 +1637,7 @@ respondant24_s4 <-read_sheet(ss = "",
   as_tibble() %>%
   clean_names()
 
-respondant25_s4 <-read_sheet(ss = "", 
+respondant25_s4 <-read_sheet(ss = "Response_y", 
                            sheet = "S4_ResilienceAttributes",
                            range = "A9:O61",
                            col_names = TRUE,
@@ -1703,7 +1720,7 @@ Section 5 Analysis
 ```{r, include=FALSE}
 #This will read in all of the data for section 5
 
-respondant1_s5 <-read_sheet(ss = "", 
+respondant1_s5 <-read_sheet(ss = "Response_a", 
                            sheet = "S5_CapacitytoImproveClimate",
                            range = "A9:J15",
                            col_names = TRUE,
@@ -1715,7 +1732,7 @@ respondant1_s5 <-read_sheet(ss = "",
   as_tibble() %>%
   clean_names()
 
-respondant2_s5 <-read_sheet(ss = "", 
+respondant2_s5 <-read_sheet(ss = "Response_b", 
                            sheet = "S5_CapacitytoImproveClimate",
                            range = "A9:J15",
                            col_names = TRUE,
@@ -1727,7 +1744,7 @@ respondant2_s5 <-read_sheet(ss = "",
   as_tibble() %>%
   clean_names()
 
-respondant3_s5 <-read_sheet(ss = "", 
+respondant3_s5 <-read_sheet(ss = "Response_c", 
                            sheet = "S5_CapacitytoImproveClimate",
                            range = "A9:J15",
                            col_names = TRUE,
@@ -1739,7 +1756,7 @@ respondant3_s5 <-read_sheet(ss = "",
   as_tibble() %>%
   clean_names()
 
-respondant4_s5 <-read_sheet(ss = "", 
+respondant4_s5 <-read_sheet(ss = "Response_d", 
                            sheet = "S5_CapacitytoImproveClimate",
                            range = "A9:J15",
                            col_names = TRUE,
@@ -1751,7 +1768,7 @@ respondant4_s5 <-read_sheet(ss = "",
   as_tibble() %>%
   clean_names()
 
-respondant5_s5 <-read_sheet(ss = "", 
+respondant5_s5 <-read_sheet(ss = "Response_e", 
                            sheet = "S5_CapacitytoImproveClimate",
                            range = "A9:J15",
                            col_names = TRUE,
@@ -1763,7 +1780,7 @@ respondant5_s5 <-read_sheet(ss = "",
   as_tibble() %>%
   clean_names()
 
-respondant6_s5 <-read_sheet(ss = "", 
+respondant6_s5 <-read_sheet(ss = "Response_f", 
                            sheet = "S5_CapacitytoImproveClimate",
                            range = "A9:J15",
                            col_names = TRUE,
@@ -1775,7 +1792,7 @@ respondant6_s5 <-read_sheet(ss = "",
   as_tibble() %>%
   clean_names()
 
-respondant7_s5 <-read_sheet(ss = "", 
+respondant7_s5 <-read_sheet(ss = "Response_g", 
                            sheet = "S5_CapacitytoImproveClimate",
                            range = "A9:J15",
                            col_names = TRUE,
@@ -1787,7 +1804,7 @@ respondant7_s5 <-read_sheet(ss = "",
   as_tibble() %>%
   clean_names()
 
-respondant8_s5 <-read_sheet(ss = "", 
+respondant8_s5 <-read_sheet(ss = "Response_h", 
                            sheet = "S5_CapacitytoImproveClimate",
                            range = "A9:J15",
                            col_names = TRUE,
@@ -1799,7 +1816,7 @@ respondant8_s5 <-read_sheet(ss = "",
   as_tibble() %>%
   clean_names()
 
-respondant9_s5 <-read_sheet(ss = "", 
+respondant9_s5 <-read_sheet(ss = "Response_i", 
                            sheet = "S5_CapacitytoImproveClimate",
                            range = "A9:J15",
                            col_names = TRUE,
@@ -1811,7 +1828,7 @@ respondant9_s5 <-read_sheet(ss = "",
   as_tibble() %>%
   clean_names()
 
-respondant10_s5 <-read_sheet(ss = "", 
+respondant10_s5 <-read_sheet(ss = "Response_j", 
                            sheet = "S5_CapacitytoImproveClimate",
                            range = "A9:J15",
                            col_names = TRUE,
@@ -1823,7 +1840,7 @@ respondant10_s5 <-read_sheet(ss = "",
   as_tibble() %>%
   clean_names()
 
-respondant11_s5 <-read_sheet(ss = "", 
+respondant11_s5 <-read_sheet(ss = "Response_k", 
                            sheet = "S5_CapacitytoImproveClimate",
                            range = "A9:J15",
                            col_names = TRUE,
@@ -1835,7 +1852,7 @@ respondant11_s5 <-read_sheet(ss = "",
   as_tibble() %>%
   clean_names()
 
-respondant12_s5 <-read_sheet(ss = "", 
+respondant12_s5 <-read_sheet(ss = "Response_l", 
                            sheet = "S5_CapacitytoImproveClimate",
                            range = "A9:J15",
                            col_names = TRUE,
@@ -1847,7 +1864,7 @@ respondant12_s5 <-read_sheet(ss = "",
   as_tibble() %>%
   clean_names()
 
-respondant13_s5 <-read_sheet(ss = "", 
+respondant13_s5 <-read_sheet(ss = "Response_m", 
                            sheet = "S5_CapacitytoImproveClimate",
                            range = "A9:J15",
                            col_names = TRUE,
@@ -1859,7 +1876,7 @@ respondant13_s5 <-read_sheet(ss = "",
   as_tibble() %>%
   clean_names()
 
-respondant14_s5 <-read_sheet(ss = "", 
+respondant14_s5 <-read_sheet(ss = "Response_n", 
                            sheet = "S5_CapacitytoImproveClimate",
                            range = "A9:J15",
                            col_names = TRUE,
@@ -1871,7 +1888,7 @@ respondant14_s5 <-read_sheet(ss = "",
   as_tibble() %>%
   clean_names()
 
-respondant15_s5 <-read_sheet(ss = "", 
+respondant15_s5 <-read_sheet(ss = "Response_o", 
                            sheet = "S5_CapacitytoImproveClimate",
                            range = "A9:J15",
                            col_names = TRUE,
@@ -1883,7 +1900,7 @@ respondant15_s5 <-read_sheet(ss = "",
   as_tibble() %>%
   clean_names()
 
-respondant16_s5 <-read_sheet(ss = "", 
+respondant16_s5 <-read_sheet(ss = "Response_p", 
                            sheet = "S5_CapacitytoImproveClimate",
                            range = "A9:J15",
                            col_names = TRUE,
@@ -1895,7 +1912,7 @@ respondant16_s5 <-read_sheet(ss = "",
   as_tibble() %>%
   clean_names()
 
-respondant17_s5 <-read_sheet(ss = "", 
+respondant17_s5 <-read_sheet(ss = "Response_q", 
                            sheet = "S5_CapacitytoImproveClimate",
                            range = "A9:J15",
                            col_names = TRUE,
@@ -1907,7 +1924,7 @@ respondant17_s5 <-read_sheet(ss = "",
   as_tibble() %>%
   clean_names()
 
-respondant18_s5 <-read_sheet(ss = "", 
+respondant18_s5 <-read_sheet(ss = "Response_r", 
                            sheet = "S5_CapacitytoImproveClimate",
                            range = "A9:J15",
                            col_names = TRUE,
@@ -1919,7 +1936,7 @@ respondant18_s5 <-read_sheet(ss = "",
   as_tibble() %>%
   clean_names()
 
-respondant19_s5 <-read_sheet(ss = "", 
+respondant19_s5 <-read_sheet(ss = "Response_s", 
                            sheet = "S5_CapacitytoImproveClimate",
                            range = "A9:J15",
                            col_names = TRUE,
@@ -1931,7 +1948,7 @@ respondant19_s5 <-read_sheet(ss = "",
   as_tibble() %>%
   clean_names()
 
-respondant20_s5 <-read_sheet(ss = "", 
+respondant20_s5 <-read_sheet(ss = "Response_t", 
                            sheet = "S5_CapacitytoImproveClimate",
                            range = "A9:J15",
                            col_names = TRUE,
@@ -1943,7 +1960,7 @@ respondant20_s5 <-read_sheet(ss = "",
   as_tibble() %>%
   clean_names()
 
-respondant21_s5 <-read_sheet(ss = "", 
+respondant21_s5 <-read_sheet(ss = "Response_u", 
                            sheet = "S5_CapacitytoImproveClimate",
                            range = "A9:J15",
                            col_names = TRUE,
@@ -1955,7 +1972,7 @@ respondant21_s5 <-read_sheet(ss = "",
   as_tibble() %>%
   clean_names()
 
-respondant22_s5 <-read_sheet(ss = "", 
+respondant22_s5 <-read_sheet(ss = "Response_v", 
                            sheet = "S5_CapacitytoImproveClimate",
                            range = "A9:J15",
                            col_names = TRUE,
@@ -1967,7 +1984,7 @@ respondant22_s5 <-read_sheet(ss = "",
   as_tibble() %>%
   clean_names()
 
-respondant23_s5 <-read_sheet(ss = "", 
+respondant23_s5 <-read_sheet(ss = "Response_w", 
                            sheet = "S5_CapacitytoImproveClimate",
                            range = "A9:J15",
                            col_names = TRUE,
@@ -1979,7 +1996,7 @@ respondant23_s5 <-read_sheet(ss = "",
   as_tibble() %>%
   clean_names()
 
-respondant24_s5 <-read_sheet(ss = "", 
+respondant24_s5 <-read_sheet(ss = "Response_x", 
                            sheet = "S5_CapacitytoImproveClimate",
                            range = "A9:J15",
                            col_names = TRUE,
@@ -1991,7 +2008,7 @@ respondant24_s5 <-read_sheet(ss = "",
   as_tibble() %>%
   clean_names()
 
-respondant25_s5 <-read_sheet(ss = "", 
+respondant25_s5 <-read_sheet(ss = "Response_y", 
                            sheet = "S5_CapacitytoImproveClimate",
                            range = "A9:J15",
                            col_names = TRUE,
@@ -2008,7 +2025,7 @@ s5_bind <- bind_rows(respondant1_s5, respondant2_s5, respondant3_s5, respondant4
 ```
 
 ```{r}
-# Text mining response
+# Text mining responses
 
 ```
 
