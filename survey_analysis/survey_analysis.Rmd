@@ -17,6 +17,7 @@ library(tidyverse)
 library(googlesheets4)
 library(here)
 library(janitor)
+library(unpivotr)
 
 #for text mining open responses
 library(tidytext)
@@ -119,7 +120,7 @@ test_section5 <- read_sheet(ss ="https://docs.google.com/spreadsheets/d/1vcWRmro
 This will be for testing analysis
 ```{r}
 #Reading in test data
-test_analysis1 <- read_sheet(ss ="https://docs.google.com/spreadsheets/d/16WgYKtJSccJ9Fk0qOmD-CuCRO8NH1DBYfes6Fcdlkn8/edit?usp=sharing", 
+test_analysis1 <- read_sheet(ss ="https://docs.google.com/spreadsheets/d/1D-ktJpRK8qHCU1HtcyiUZVP6G6fhSE4Pfm5W12KMYB8/edit?usp=sharing", 
                            sheet = "S4_ResilienceAttributes",
                            range = "A9:O61",
                            col_names = TRUE,
@@ -157,7 +158,7 @@ test_section4_bind_filter1 <- test_section4_bind %>%
 # Analyzing a multiple choice questions performinging  a count
 s4q1_count <- count(test_section4_bind_filter1, test_section4_bind_filter1$score_1_4)
 
-s4q1_plot <- ggplot(test_section4_bind_filter1, aes(x = score_1_4)) +
+s4q1_bar_plot <- ggplot(test_section4_bind_filter1, aes(x = score_1_4)) +
   geom_bar() +
   labs(caption = test_section4_bind_filter1$definition_questions[1], x = "Reponses", y = "Count") +
   ggtitle(test_section4_bind_filter1$definition_questions[1]) +
@@ -234,6 +235,10 @@ notes_cloud_test
 ```{r echo=FALSE}
 #This section will be for co occurence analysis
 
+# The co occurence analysis is not working 
+
+# The code is based on the following tutorial: https://tm4ss.github.io/docs/Tutorial_5_Co-occurrence.html
+
 corpus_notes_test <- corpus(test_section4_bind$notes)
 
 corpus_notes_sentence_test <- corpus_reshape(corpus_notes_test, to = "sentences")
@@ -257,6 +262,46 @@ binDTM <- corpus_notes_collection_test %>%
   dfm_weight("boolean")
 
 ```
+
+```{r}
+#Test Analysis for section 2
+
+test_section2_a <- read_sheet(ss ="https://docs.google.com/spreadsheets/d/1D-ktJpRK8qHCU1HtcyiUZVP6G6fhSE4Pfm5W12KMYB8/edit?usp=sharing", 
+                           sheet = "S2_ContextualDescription",
+                           range = "A9:V84",
+                           col_names = TRUE,
+                           na = "",
+                           guess_max = 10000,
+                           trim_ws = TRUE,
+                           col_types = "c"
+                           ) %>%
+  as_tibble() %>%
+  clean_names()
+
+
+test_section2_b <- read_sheet(ss ="https://docs.google.com/spreadsheets/d/16WgYKtJSccJ9Fk0qOmD-CuCRO8NH1DBYfes6Fcdlkn8/edit?usp=sharing", 
+                           sheet = "S2_ContextualDescription",
+                           range = "A9:V84",
+                           col_names = TRUE,
+                           na = "",
+                           guess_max = 10000,
+                           trim_ws = TRUE,
+                           col_types = "c"
+                           ) %>%
+  as_tibble() %>%
+  clean_names()
+
+
+s2_test_analysis <- bind_rows(test_section2_a, test_section2_b) 
+
+s2_test_analysis_filter <- s2_test_analysis %>%
+  filter(question_id=="2.1.1.1.") %>%
+  merge_rows(., 5:16, "chr")
+
+s2_test_pie_plot <- ggplot(s2_test_analysis_filter, aes())
+
+```
+
 
 ###############################################################################################################################################
 Section 1 Analysis
