@@ -108,3 +108,40 @@ g
 ggsave(g, filename=file.path(plotdir, "case_study_attribute_scores_dcrab.png"), 
        width=6.5, height=6.5, units="in", dpi=600)
 
+
+
+# Other plots for new spreadsheet
+################################################################################
+
+# Scores by dimension
+g1 <- ggplot(data, aes(x=dimension, y=score)) +
+  geom_boxplot() +
+  theme_bw()
+g1
+
+# Importance by dimension
+stats1 <- count(data, dimension, importance)
+g1 <- ggplot(stats1, aes(x=dimension, y=n, fill=importance)) +
+  geom_bar(stat="identity", position = "fill") +
+  theme_bw()
+g1
+
+# Importance by domain+dimension
+stats2 <- count(data, dimension, domain, importance)
+g1 <- ggplot(stats2, aes(x=domain, y=n, fill=importance)) +
+  facet_grid(dimension~., space="free_y", scales="free_y") +
+  coord_flip() +
+  labs(y="Proportion of attributes", x="") +
+  geom_bar(stat="identity", position = "fill") +
+  theme_bw()
+g1
+
+# Importance by attribute
+g1 <- ggplot(data, aes(x=importance, y=reorder(attribute, desc(importance)))) +
+  facet_grid(dimension~., space="free_y", scales="free_y") +
+  geom_point() +
+  theme_bw()
+g1
+
+
+
