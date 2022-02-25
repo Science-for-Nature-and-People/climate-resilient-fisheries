@@ -75,6 +75,84 @@ ggsave(g, filename=file.path(plotdir, "case_study_attribute_scores.png"),
        width=5, height=5, units="in", dpi=600)
 
 
+# Attribute scores
+################################################################################
+
+n_cases <- n_distinct(data_orig$case_study)
+
+# Importance stats
+stats_score <- data_orig %>% 
+  # Complete importance
+  mutate(score=as.character(score)) %>% 
+  complete(attribute, case_study, fill=list(score="Not provided")) %>%
+  # Fill dimensions
+  group_by(attribute) %>%
+  mutate(dimension=dimension %>% na.omit() %>% unique()) %>%
+  # Summarize
+  group_by(domain, dimension, attribute, score) %>% 
+  summarise(n=n()) %>% 
+  ungroup() %>% 
+  # Calculate prop
+  mutate(prop=n/n_cases) %>% 
+  # Order importance
+  mutate(score=factor(score, levels=c("Not provided", "1", "2", "3", "4")))
+
+my_theme <-  theme(axis.text=element_text(size=6),
+                   axis.title=element_text(size=8),
+                   plot.tag=element_text(size=8),
+                   axis.title.y=element_blank(),
+                   legend.text=element_text(size=6),
+                   legend.title=element_text(size=8),
+                   strip.text=element_text(size=8),
+                   plot.title=element_text(size=10),
+                   # Gridlines
+                   panel.grid.major = element_blank(), 
+                   panel.grid.minor = element_blank(),
+                   panel.background = element_blank(), 
+                   axis.line = element_line(colour = "black"),
+                   # Legend
+                   legend.position="bottom",
+                   legend.background = element_rect(fill=alpha('blue', 0)))
+
+
+# Plot data
+g1 <- ggplot(data1, aes(y=attribute, x=case_study, fill=score)) +
+  facet_grid(dimension~., space="free_y", scale="free_y") +
+  geom_tile() +
+  # Labels
+  labs(x="", y="", tag="A") +
+  # Legend
+  scale_fill_gradientn(name="Score",
+                       colors=RColorBrewer::brewer.pal(9, "Blues")) +
+  guides(fill = guide_colorbar(ticks.colour = "black", frame.colour = "black")) +
+  # Theme
+  theme_bw() + my_theme +
+  theme(legend.position = "none",
+        axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
+g1 
+
+# Plot data
+g2 <- ggplot(stats_score, aes(y=factor(attribute, levels=stats_attr$attribute), x=prop, fill=score)) +
+  facet_grid(dimension~., space="free_y", scale="free_y") +
+  geom_bar(stat="identity") +
+  # Labels
+  labs(x="Proportion of case studies", y="", tag="B") +
+  # Legend
+  scale_fill_manual(name="Importance", values=c("grey80", RColorBrewer::brewer.pal(4, "Blues"))) +
+  guides(fill = guide_legend(title.position="top")) +
+  # Theme
+  theme_bw() + my_theme +
+  theme(axis.text.y=element_blank(),
+        legend.key.size = unit(0.3, "cm"))
+g2
+
+# Merge data
+g <- gridExtra::grid.arrange(g1, g2, ncol=2, widths=c(0.7, 0.3))
+g
+
+ggsave(g, filename=file.path(plotdir, "case_study_attribute_importance_v2.png"), 
+       width=6.5, height=4.5, units="in", dpi=600)
+
 # Attribute importance
 ################################################################################
 
