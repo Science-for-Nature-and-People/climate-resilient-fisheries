@@ -138,7 +138,7 @@ g2 <- ggplot(stats_score, aes(y=factor(attribute, levels=stats_attr$attribute), 
   # Labels
   labs(x="Proportion of case studies", y="", tag="B") +
   # Legend
-  scale_fill_manual(name="Importance", values=c("grey80", RColorBrewer::brewer.pal(4, "Blues"))) +
+  scale_fill_manual(name="Score", values=c("grey80", RColorBrewer::brewer.pal(4, "Blues"))) +
   guides(fill = guide_legend(title.position="top")) +
   # Theme
   theme_bw() + my_theme +
