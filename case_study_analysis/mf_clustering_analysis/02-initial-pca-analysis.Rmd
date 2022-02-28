@@ -1,0 +1,387 @@
+---
+title: "CRF PCA Analysis"
+author: "Meghan Fletcher"
+date: "2/15/2022"
+output: 
+  html_document:
+    theme: flatly
+    code_folding: hide
+    toc: true
+    toc_float: true
+---
+
+```{r setup, include=FALSE, message = FALSE, warning=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
+
+```
+
+# Load data
+
+```{r}
+library(here)
+source(here("00-load-libraries.R"))
+load(here("data","attribs.Rdata")) # from 01-prep-attribute-tables.Rmd
+load(here("data","attributes_merged_clean.Rdata"))
+
+```
+
+
+#####################################################################################################################################
+
+# Prepare initial datasets for PCA Analysis
+
+```{r}
+# Make attributes row 1
+attributes_clustering <- attributes_merged_clean %>% 
+  select(case_study, dimension, domain, attribute, official_score) %>% 
+  # Use `pivot_wider` function to decrease the number of rows and increase the number of columns
+  # Also do values_fill = 0 to convert NA values to 0
+  pivot_wider(names_from = case_study, values_from = official_score, values_fill = 0) %>% 
+  # Rename dimension and domain to be capital
+  rename(Dimension = dimension, Domain = domain)
+  
+
+
+# Make case studies row 1
+case_clustering <- attributes_merged_clean %>% 
+  select(case_study, dimension, domain, attribute, official_score) %>% 
+  # Use `pivot_wider` function to decrease the number of rows and increase the number of columns
+  # Also do values_fill = 0 to convert NA values to 0
+  pivot_wider(names_from = attribute, values_from = official_score, values_fill = 0)%>% 
+  # Rename dimension and domain to be capital
+  rename(Dimension = dimension, Domain = domain)
+```
+
+
+# PCA Analysis for all attributes (colored by dimension)
+
+
+```{r}
+# Prep data for PCA analysis
+attributes_dimension_pca <- attributes_clustering %>%
+  select(c(4:16)) %>% 
+  scale() %>% 
+  prcomp()
+
+
+# Create PCA plot
+autoplot(attributes_dimension_pca,
+         data = attributes_clustering,
+         colour = "Dimension",
+         loadings = TRUE,
+         loadings.label = TRUE,
+         loadings.colour = "black",
+         loadings.label.colour = "black",
+         loadings.label.vjust = 1.2,
+         loadings.label.hjust = 0.8,
+         frame = TRUE) +
+  theme_bw() +
+  theme(legend.background = element_rect(fill="lightblue",
+                                  size=0.5, linetype="solid", 
+                                  colour ="black")) +
+  labs(title = "PCA Analysis of Case Study Attributes (by Dimension)")
+```
+
+
+# PCA Analysis for all attributes (colored by domain)
+
+```{r}
+# Prep data for PCA analysis
+attributes_domain_pca <- attributes_clustering %>%
+  select(c(4:16)) %>% 
+  scale() %>% 
+  prcomp()
+
+
+# Create PCA plot
+autoplot(attributes_domain_pca,
+         data = attributes_clustering,
+         colour = "Domain",
+         loadings = TRUE,
+         loadings.label = TRUE,
+         loadings.colour = "black",
+         loadings.label.colour = "black",
+         loadings.label.hjust = 1,
+         loadings.label.vjust = 0.5,
+         frame = TRUE) +
+  theme_bw() +
+  theme(legend.background = element_rect(fill="lightblue",
+                                  size=0.5, linetype="solid", 
+                                  colour ="black")) +
+  labs(title = "PCA Analysis of Case Study Attributes (by Domain)")
+```
+
+##################################################################################################################################
+
+
+# Breaking the PCA Analyses Down by Dimension
+
+## PCA Analysis for Ecological Dimension (Comparing Case Studies)
+
+```{r}
+# prepare data for ecological dimension PCA analysis
+ecological_data <- attributes_merged_clean %>% 
+  filter(dimension == "Ecological") %>% 
+  select(case_study, domain, attribute, official_score) %>% 
+  # Use `pivot_wider` function to decrease the number of rows and increase the number of columns
+  # Also do values_fill = 0 to convert NA values to 0
+  pivot_wider(names_from = case_study, values_from = official_score, values_fill = 0)%>% 
+  # Rename dimension and domain to be capital
+  rename(Domain = domain)
+```
+
+
+```{r}
+# Prep data for PCA analysis
+ecological_pca <- ecological_data %>%
+  select(c(3:15)) %>% 
+  scale() %>% 
+  prcomp()
+
+# Create PCA plot
+autoplot(ecological_pca,
+         data = ecological_data,
+         colour = "Domain",
+         loadings = TRUE,
+         loadings.label = TRUE,
+         loadings.colour = "black",
+         loadings.label.colour = "darkgreen",
+         loadings.label.hjust = 1,
+         frame = TRUE) +
+  theme_bw() +
+  theme(legend.background = element_rect(fill="lightblue",
+                                  size=0.5, 
+                                  linetype="solid", 
+                                  colour ="black")) +
+  labs(title = "Ecologcial Dimension PCA Analysis (Comparing Case Studies)")
+```
+
+
+## PCA Analysis for Socio-Economic Dimension (Comparing Case Studies)
+
+```{r}
+# prepare data for ecological dimension PCA analysis
+socio_data <- attributes_merged_clean %>% 
+  filter(dimension == "Social-economic") %>% 
+  select(case_study, domain, attribute, official_score) %>% 
+  # Use `pivot_wider` function to decrease the number of rows and increase the number of columns
+  # Also do values_fill = 0 to convert NA values to 0
+  pivot_wider(names_from = case_study, values_from = official_score, values_fill = 0) %>% 
+  # Rename dimension and domain to be capital
+  rename(Domain = domain)
+```
+
+
+```{r}
+# Prep data for PCA analysis
+socio_pca <- socio_data %>%
+  select(c(3:14)) %>% 
+  scale() %>% 
+  prcomp()
+
+# Create PCA plot
+autoplot(socio_pca,
+         data = socio_data,
+         colour = "Domain",
+         loadings = TRUE,
+         loadings.label = TRUE,
+         loadings.colour = "black",
+         loadings.label.colour = "navy",
+         loadings.label.hjust = 1,
+         frame = TRUE) +
+  theme_bw() +
+  theme(legend.background = element_rect(fill="lightblue",
+                                  size=0.5, linetype="solid", 
+                                  colour ="black")) +
+  labs(title = "Socio-Economic Dimension PCA Analysis (Comparing Case Studies)")
+```
+
+
+## PCA Analysis for Governance Dimension (Comparing Case Studies)
+
+```{r}
+# prepare data for governance dimension PCA analysis
+goverance_data <- attributes_merged_clean %>% 
+  filter(dimension == "Goverance") %>% 
+  select(case_study, domain, attribute, official_score) %>% 
+  # Use `pivot_wider` function to decrease the number of rows and increase the number of columns
+  # Also do values_fill = 0 to convert NA values to 0
+  pivot_wider(names_from = case_study, values_from = official_score, values_fill = 0)%>% 
+  rename(Domain = domain)
+```
+
+
+```{r}
+# Prep data for PCA analysis
+goverance_pca <- goverance_data %>%
+  select(c(3:14)) %>% 
+  scale() %>% 
+  prcomp()
+
+# Create PCA plot
+autoplot(goverance_pca,
+         data = goverance_data,
+         colour = "Domain",
+         loadings = TRUE,
+         loadings.label = TRUE,
+         loadings.colour = "black",
+         loadings.label.colour = "purple",
+         loadings.label.hjust = -0.2,
+         frame = TRUE) +
+  theme_bw() +
+  theme(legend.background = element_rect(fill="lightblue",
+                                  size=0.5, linetype="solid", 
+                                  colour ="black")) +
+  labs(title = "Governance Dimension PCA Analysis (Comparing Case Studies)")
+```
+
+#################################################################################################################################
+
+
+# PCA with Attributes as the lines and cases as the points (Comparing Attributes)
+
+```{r}
+# Prep data for PCA analysis
+case_pca <- case_clustering %>%
+  select(c(4:41)) %>% 
+  scale() %>% 
+  prcomp()
+
+
+# Create PCA plot
+autoplot(case_pca,
+         data = case_clustering,
+         colour = "case_study",
+         loadings = TRUE,
+         loadings.label = TRUE,
+         loadings.colour = "black",
+         loadings.label.colour = "black",
+         loadings.label.vjust = 1.2,
+         loadings.label.hjust = 0.8) +
+  theme_bw() +
+  theme(legend.background = element_rect(fill="lightblue",
+                                  size=0.5, linetype="solid", 
+                                  colour ="black")) +
+  labs(colour = "Case Studies", title = "PCA Analysis using Case Studies as Points")
+```
+
+## Case Study PCA Analysis of Ecological Dimension (Comparing Attributes)
+
+```{r}
+# prepare data for ecological dimension PCA analysis
+ecological_data2 <- attributes_merged_clean %>% 
+  filter(dimension == "Ecological") %>% 
+  select(case_study, attribute, official_score) %>% 
+  # Use `pivot_wider` function to decrease the number of rows and increase the number of columns
+  # Also do values_fill = 0 to convert NA values to 0
+  pivot_wider(names_from = attribute, values_from = official_score, values_fill = 0)
+```
+
+```{r}
+# Prep data for PCA analysis
+ecological_pca2 <- ecological_data2 %>%
+  select(c(2:14)) %>% 
+  scale() %>% 
+  prcomp()
+
+# Create PCA plot
+autoplot(ecological_pca2,
+         data = ecological_data2,
+         colour = "case_study",
+         loadings = TRUE,
+         loadings.label = TRUE,
+         loadings.colour = "black",
+         loadings.label.colour = "darkgreen",
+         loadings.label.vjust = -0.5) +
+  theme_bw() +
+  theme(legend.background = element_rect(fill="lightblue",
+                                  size=0.5, linetype="solid", 
+                                  colour ="black")) +
+  labs(colour = "Case Studies", title = "Ecologcial Dimension PCA Analysis (Comparing Attributes)")
+```
+
+
+## Case Study PCA Analysis of Socio-Economic Dimension (Comparing Attributes)
+
+```{r}
+# prepare data for ecological dimension PCA analysis
+socio_data2 <- attributes_merged_clean %>% 
+  filter(dimension == "Social-economic") %>% 
+  select(case_study, attribute, official_score) %>% 
+  # Use `pivot_wider` function to decrease the number of rows and increase the number of columns
+  # Also do values_fill = 0 to convert NA values to 0
+  pivot_wider(names_from = attribute, values_from = official_score, values_fill = 0)
+```
+
+```{r}
+# Prep data for PCA analysis
+socio_pca2 <- socio_data2 %>%
+  select(c(2:11)) %>% 
+  scale() %>% 
+  prcomp()
+
+# Create PCA plot
+autoplot(socio_pca2,
+         data = socio_data2,
+         colour = "case_study",
+         loadings = TRUE,
+         loadings.label = TRUE,
+         loadings.colour = "black",
+         loadings.label.colour = "navy") +
+  theme_bw() +
+  theme(legend.background = element_rect(fill="lightblue",
+                                  size=0.5, linetype="solid", 
+                                  colour ="black")) +
+  labs(colour = "Case Studies", title = "Socio-Economic Dimension PCA Analysis (Comparing Attributes)")
+```
+
+
+## Case Study PCA Analysis of Socio-Economic Dimension (Comparing Attributes)
+
+```{r}
+# prepare data for ecological dimension PCA analysis
+goverance_data2 <- attributes_merged_clean %>% 
+  filter(dimension == "Goverance") %>% 
+  select(case_study,  attribute, official_score) %>% 
+  # Use `pivot_wider` function to decrease the number of rows and increase the number of columns
+  # Also do values_fill = 0 to convert NA values to 0
+  pivot_wider(names_from = attribute, values_from = official_score, values_fill = 0)
+```
+
+```{r}
+# Prep data for PCA analysis
+goverance_pca2 <- goverance_data2 %>%
+  select(c(2:11)) %>% 
+  scale() %>% 
+  prcomp()
+
+# Create PCA plot
+autoplot(goverance_pca2,
+         data = goverance_data2,
+         colour = "case_study",
+         label.size = 4,
+         loadings = TRUE,
+         loadings.label = TRUE,
+         loadings.colour = "black",
+         loadings.label.colour = "purple",
+         loadings.label.hjust = -1) +
+  theme_bw() +
+  theme(legend.background = element_rect(fill="lightblue",
+                                  size=0.5, linetype="solid", 
+                                  colour ="black")) +
+  labs(colour = "Case Studies", title = "Governance Dimension PCA Analysis")
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+

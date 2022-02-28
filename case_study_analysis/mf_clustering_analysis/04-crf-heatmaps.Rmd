@@ -1,0 +1,191 @@
+---
+title: "CRf Heatmaps"
+author: "Meghan Fletcher"
+date: "2/15/2022"
+output: 
+  html_document:
+    theme: flatly
+    code_folding: hide
+    toc: true
+    toc_float: true
+---
+
+```{r setup, include=FALSE, message = FALSE, warning=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
+
+```
+
+# Load data
+
+```{r}
+library(here)
+source(here("00-load-libraries.R"))
+load(here("data","attribs.Rdata")) # from 01-prep-attribute-tables.Rmd
+load(here("data","attributes_merged_clean.Rdata"))
+
+```
+
+######################################################################################################
+
+# Attribute Score Dendrograms & Heatmap
+
+```{r}
+# Dendrogram based on hclust
+score_clust <- attribs %>% 
+  select(case_study, attribute_id, score) %>% 
+  pivot_wider(names_from = attribute_id ,values_from = score)
+ 
+score_hc <- score_clust %>% 
+  column_to_rownames(var = "case_study") %>% 
+  mutate(across(everything(),~scale(.x))) %>% 
+  mutate(across(everything(), ~replace_na(.x, 0))) %>% # REVIEW
+  as.matrix() %>% 
+  dist() %>% hclust(method = "ward.D2")
+
+
+plot(score_hc)
+
+library(ape)
+plot(as.phylo(score_hc), type = "unrooted", cex = 0.6,
+     no.margin = TRUE)
+
+library(ggdendro)
+ggdendrogram(score_hc, rotate = TRUE, theme_dendro = FALSE)
+
+
+# Heatmaps based on hc
+```
+
+
+### Helpful resources
+https://jokergoo.github.io/ComplexHeatmap-reference/book/a-single-heatmap.html#clustering-methods
+https://www.biostars.org/p/273155/
+
+```{r}
+# Heatmap based on raw values
+score_heatmap <- score_clust %>% 
+  column_to_rownames(var = "case_study") %>% 
+  mutate(across(everything(),~scale(.x))) %>% 
+  mutate(across(everything(), ~replace_na(.x, 0))) %>%
+  as.matrix() %>% t() %>% 
+  Heatmap(clustering_distance_rows = "euclidean",
+        clustering_method_rows ="ward.D2",
+        clustering_distance_columns = "euclidean",
+        clustering_method_columns = "ward.D2",
+        col = brewer.pal(9,"RdYlBu"),
+        row_names_gp = gpar(fontsize = 8),
+        column_names_gp = gpar(fontsize = 10),
+        column_names_rot = 45,
+        show_heatmap_legend = TRUE,
+        heatmap_legend_param = list(title = "Score")) 
+
+score_heatmap
+```
+
+
+######################################################################################################
+
+# Importance Dendrograms & Heatmap
+
+```{r}
+# Dendrogram based on hclust
+importance_clust <- attribs %>% 
+  select(case_study, attribute_id, numeric_importance) %>% 
+  pivot_wider(names_from = attribute_id ,values_from = numeric_importance)
+ 
+importance_hc <- importance_clust %>% 
+  column_to_rownames(var = "case_study") %>% 
+  mutate(across(everything(),~scale(.x))) %>% 
+  mutate(across(everything(), ~replace_na(.x, 0))) %>% # REVIEW
+  as.matrix() %>% 
+  dist() %>% hclust(method = "ward.D2")
+
+
+plot(importance_hc)
+
+library(ape)
+plot(as.phylo(importance_hc), type = "unrooted", cex = 0.6,
+     no.margin = TRUE)
+
+library(ggdendro)
+ggdendrogram(importance_hc, rotate = TRUE, theme_dendro = FALSE)
+
+
+# Heatmaps based on hc
+```
+
+
+```{r}
+# Heatmap based on raw values
+importance_heatmap <- importance_clust %>% 
+  column_to_rownames(var = "case_study") %>% 
+  mutate(across(everything(),~scale(.x))) %>% 
+  mutate(across(everything(), ~replace_na(.x, 0))) %>%
+  as.matrix() %>% t() %>% 
+  Heatmap(clustering_distance_rows = "euclidean",
+        clustering_method_rows ="ward.D2",
+        clustering_distance_columns = "euclidean",
+        clustering_method_columns = "ward.D2",
+        col = brewer.pal(9,"RdYlBu"),
+        row_names_gp = gpar(fontsize = 8),
+        column_names_gp = gpar(fontsize = 10),
+        column_names_rot = 45,
+        show_heatmap_legend = TRUE,
+        heatmap_legend_param = list(title = "Importance")) 
+
+importance_heatmap
+```
+
+
+######################################################################################################
+
+# Data Quality Dendrograms & Heatmap
+
+```{r}
+# Dendrogram based on hclust
+quality_clust <- attribs %>% 
+  select(case_study, attribute_id, numeric_quality) %>% 
+  pivot_wider(names_from = attribute_id ,values_from = numeric_quality)
+ 
+quality_hc <- quality_clust %>% 
+  column_to_rownames(var = "case_study") %>% 
+  mutate(across(everything(),~scale(.x))) %>% 
+  mutate(across(everything(), ~replace_na(.x, 0))) %>% # REVIEW
+  as.matrix() %>% 
+  dist() %>% hclust(method = "ward.D2")
+
+
+plot(quality_hc)
+
+library(ape)
+plot(as.phylo(quality_hc), type = "unrooted", cex = 0.6,
+     no.margin = TRUE)
+
+library(ggdendro)
+ggdendrogram(quality_hc, rotate = TRUE, theme_dendro = FALSE)
+
+
+# Heatmaps based on hc
+```
+
+
+```{r}
+# Heatmap based on raw values
+quality_heatmap <- quality_clust %>% 
+  column_to_rownames(var = "case_study") %>% 
+  mutate(across(everything(),~scale(.x))) %>% 
+  mutate(across(everything(), ~replace_na(.x, 0))) %>%
+  as.matrix() %>% t() %>% 
+  Heatmap(clustering_distance_rows = "euclidean",
+        clustering_method_rows ="ward.D2",
+        clustering_distance_columns = "euclidean",
+        clustering_method_columns = "ward.D2",
+        col = brewer.pal(9,"RdYlBu"),
+        row_names_gp = gpar(fontsize = 8),
+        column_names_gp = gpar(fontsize = 10),
+        column_names_rot = 45,
+        show_heatmap_legend = TRUE,
+        heatmap_legend_param = list(title = "Data Quality")) 
+
+quality_heatmap
+```
