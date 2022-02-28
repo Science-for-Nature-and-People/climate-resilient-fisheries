@@ -1,0 +1,373 @@
+---
+title: "03-detect-clusters"
+author: "Whitney Friedman"
+date: "2/4/2022"
+output: html_document
+---
+
+! NEED TO RE-RUN WITH UPDATED SHEETS !
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Load things
+
+```{r}
+library(here)
+source(here("case_study_analysis","00-load-libraries.R"))
+load(here("case_study_analysis", "clean_data","attribute_table_clean.Rdata")) # from 01-prep-attribute-tables.Rmd
+
+library(kableExtra)
+library(ggrepel)
+```
+
+
+# Factor Analysis
+https://www.stat.cmu.edu/~cshalizi/uADA/12/lectures/ch19.pdf
+https://personality-project.org/r/psych/HowTo/factor.pdf
+```{r}
+
+factor_df <- attribs %>% 
+  select(case_study, attribute_id, score) %>% 
+  pivot_wider(names_from = attribute_id ,values_from = score) %>%
+  mutate(across(-case_study, ~scale(.x))) %>% 
+  mutate(across(-case_study, ~replace_na(.x, 0))) # REVIEW
+
+# Scree plot - how many axes
+factor_df %>%
+  column_to_rownames(var = "case_study") %>% 
+  as.matrix() %>% 
+  cor(use = "pairwise.complete.obs") %>% 
+  scree()
+
+# fa.parallel - similar to scree
+factor_df %>%
+  column_to_rownames(var = "case_study") %>% 
+  as.matrix() %>% 
+  cor(use = "pairwise.complete.obs") %>% 
+  fa.parallel()
+  
+#cleaned <- na.omit(mymsq)     #remove the cases with missing values
+# f2 <- fa(cleaned,2,rotation="varimax")   		#factor analyze the resulting item
+
+f2 <- factor_df %>%
+  column_to_rownames(var = "case_study") %>% 
+  as.matrix() %>% 
+  fa(nfactors = 3) # dimensions
+
+f2 # view summary of factor analysis
+
+```
+
+Loadings and line plot
+```{r}
+# Loadings
+# Which attributes are most associated with MR1, MR2
+# https://www.theanalysisfactor.com/factor-analysis-1-introduction/
+# e..g The variable with the strongest association to the underlying latent variable. Factor 1, is income, with a factor loading of 0.65.
+# 
+load <- f2$loadings[] %>% as_tibble() %>% 
+  mutate(attribute = f2$loadings[] %>% rownames) %>% 
+  select(attribute, contains("MR"))
+
+#load %>% arrange(-abs(MR1)) %>% select(attribute, MR1) %>% filter(abs(MR1) >= 0.6)
+#load %>% arrange(-abs(MR2)) %>% select(attribute, MR2) %>% filter(abs(MR2) >= 0.6)
+#load %>% arrange(-abs(MR3)) %>% select(attribute, MR3) %>% filter(abs(MR3) >= 0.6)
+#load %>% arrange(-abs(MR4)) %>% select(attribute, MR4) %>% filter(abs(MR4) >= 0.6)
+#load %>% arrange(-abs(MR5)) %>% select(attribute, MR5) %>% filter(abs(MR5) >= 0.6)
+  
+load %>% 
+  pivot_longer(-attribute, names_to = "factor", values_to = "fct_load") %>% 
+  filter(abs(fct_load) >= 0.6) %>% 
+  arrange(factor, -fct_load) %>% 
+  kbl() %>% 
+  kable_paper("striped", full_width = F) %>% 
+  pack_rows("MR1",1,5) %>% 
+  pack_rows("MR2",6,9) %>% 
+  pack_rows("MR3",10,14)
+
+```
+
+```{r}
+
+# Plot axes individually
+f2$scores %>% 
+  as_tibble(rownames = "case_study") %>% 
+  pivot_longer(-case_study, names_to = "factor") %>% 
+  ggplot(aes(y = value, x = 0, label = case_study))+
+  geom_vline(xintercept = 0, color = "gray50", alpha = 0.5, lwd = 0.1)+
+  geom_point(color = "blue", size = 0.5)+
+  geom_text_repel()+
+  xlim(-1,1)+
+  facet_wrap(~factor, nrow = 1)+
+  theme_classic()+
+  theme(axis.title.x=element_blank(),
+        axis.text.x=element_blank(),
+        axis.ticks.x=element_blank())
+
+ggsave(here("plots","factors.png"), height = 6, width = 5)
+
+```
+
+Biplots
+```{r}
+# Bi-plots
+fa_plt1 <- f2$scores %>% 
+  as_tibble(rownames = "case_study") %>%  
+  ggplot(aes(x = MR1, y = MR2, label = case_study))+
+  geom_point(color = "blue")+ geom_text_repel()+
+  ylim(-2.5,2.5) + xlim(-2.5,2.5)+
+  theme_bw()
+
+fa_plt2 <- f2$scores %>% 
+  as_tibble(rownames = "case_study") %>%  
+  ggplot(aes(x = MR1, y = MR3, label = case_study))+
+  geom_point(color = "blue")+ geom_text_repel()+
+  ylim(-2.5,2.5) + xlim(-2.5,2.5)+
+  theme_bw()
+
+fa_plt3 <- f2$scores %>% 
+  as_tibble(rownames = "case_study") %>%  
+  ggplot(aes(x = MR2, y = MR3, label = case_study))+
+  geom_point(color = "blue")+ 
+  geom_text_repel()+
+  ylim(-2.5,2.5) + xlim(-2.5,2.5)+
+  theme_bw()
+
+
+fa_plt1; fa_plt2; fa_plt3
+
+grid.arrange(fa_plt1, fa_plt2, fa_plt3, nrow = 2)
+
+```
+
+# Correlation matrix
+
+```{r}
+df_corr <- attribs %>% 
+  select(case_study, attribute_id, score) %>% 
+  pivot_wider(names_from = case_study ,values_from = score)
+
+df_corr %>% 
+  select(-attribute_id) %>% 
+  cor(use = "pairwise.complete.obs", method = "spearman") %>% 
+  corrplot(method = "color", diag = F, 
+           tl.cex = 1, tl.col="black",
+           number.cex = 0.7,
+           addCoef.col = "gray50", 
+           order = "hclust", 
+           hclust.method = "ward.D2")
+
+
+```
+
+# Dendrograms
+```{r}
+# Dendrogram based on hclust
+# attribute scores only
+df_clust <- attribs %>% 
+  select(case_study, attribute_id, score) %>% 
+  filter(case_study != "Kisara") %>% 
+  pivot_wider(names_from = attribute_id ,values_from = score)
+
+# atribute PLUS numeric scores (uncomment to run)
+# df_clust <- attribs %>% 
+#   select(case_study, attribute_id, score, numeric_importance) %>% 
+#   filter(case_study != "Kisara") %>% 
+#   pivot_wider(names_from = attribute_id ,values_from = c(score, numeric_importance))
+ 
+hc <- df_clust %>% 
+  column_to_rownames(var = "case_study") %>% 
+  mutate(across(everything(),~scale(.x))) %>% 
+  mutate(across(everything(), ~replace_na(.x, 0))) %>% # REVIEW
+  as.matrix() %>% 
+  dist() %>% hclust(method = "ward.D2")
+
+
+plot(hc)
+
+library(ape)
+plot(as.phylo(hc), type = "unrooted", cex = 0.6,
+     no.margin = TRUE)
+
+# Heatmaps based on hc
+```
+
+
+# Heatmaps
+https://jokergoo.github.io/ComplexHeatmap-reference/book/a-single-heatmap.html#clustering-methods
+https://www.biostars.org/p/273155/
+
+```{r}
+library(ComplexHeatmap) # install_github("jokergoo/ComplexHeatmap")
+library(circlize)       #install_github("jokergoo/circlize")
+
+pal <- colorRampPalette(colors = c("red", "white", "blue"))
+
+# Heatmap based on raw values
+df_clust %>%
+  column_to_rownames(var = "case_study") %>% 
+  mutate(across(everything(),~scale(.x))) %>% 
+  mutate(across(everything(), ~replace_na(.x, 0))) %>% # REVIEW
+  as.matrix() %>% t() %>% 
+  Heatmap(
+        cluster_rows = F,
+        clustering_distance_columns = "euclidean",
+        clustering_method_columns = "ward.D2",
+        col = pal(11),
+        row_names_gp = gpar(fontsize = 8),
+        column_names_gp = gpar(fontsize = 10),
+        column_names_rot = 45,
+        show_heatmap_legend = TRUE,
+        heatmap_legend_param = list(title = "Score")) # STOPPED HERE> FIX COLORS
+  
+```
+
+# Dimensions
+- Ecological abundance & diversity
+- Social capital, 
+- Participatory gov.
+- Effective and efficient gov.
+
+```{r}
+
+attribs %>% select(case_study, attribute_id, score) %>% 
+  filter(attribute_id %in% c("Ecological_Species_diversity",
+                             "Social_economic_Place_attachment")) %>% 
+  pivot_wider(names_from = attribute_id, values_from = score) %>% 
+  ggplot(aes(x = Ecological_Species_diversity,
+             y = Social_economic_Place_attachment, 
+             label = case_study))+
+  geom_jitter(width = 0.05, height= 0.05)+
+  geom_text_repel()+
+  xlim(0,4)+ylim(0,4)+
+  theme_bw()
+  
+
+attribs %>% select(case_study, attribute_id, score) %>% 
+  filter(attribute_id %in% c("Ecological_Species_diversity",
+                             "Goverance_Effective_and_efficient")) %>% 
+  pivot_wider(names_from = attribute_id, values_from = score) %>% 
+  ggplot(aes(x = Ecological_Species_diversity,
+             y = Goverance_Effective_and_efficient, 
+             label = case_study))+
+  geom_jitter(width = 0.05, height= 0.05)+
+  geom_text_repel()+
+  xlim(0,4)+ylim(0,4)+
+  theme_bw()
+  
+
+```
+
+# Geographic / scale
+
+```{r}
+
+#source(here("02-load-summaries.R")) #load  case_summaries
+
+case_summaries %>% 
+  ggplot(aes(x = fishery_location, y = fishery_scale_small_or_large, label = case_study))+
+  geom_point()+
+  geom_text()
+
+
+case_summaries %>% 
+  rename(fishery_scale = fishery_scale_small_or_large) %>% 
+  #drop_na(fishery_scale) %>% 
+  select(case_study, contains("fishery"), case_study_desc) %>% 
+  arrange(fishery_scale, fishery_location) %>% 
+  replace(is.na(.), "") %>% 
+  kbl() %>% 
+  kable_paper("striped", full_width = F)
+  
+```
+
+# Attrib  x attrib matrix
+```{r}
+
+attrib_cor <- attribs %>% 
+  filter(case_study != "Kisara") %>% 
+  select(case_study,attribute_id, score) %>% 
+  pivot_wider(values_from = "score", names_from = "attribute_id") %>% 
+  column_to_rownames(var = "case_study") %>% 
+  as.matrix() %>% 
+  cor(use = "pairwise.complete.obs", method = "spearman")
+  
+attrib_cor %>% 
+  Heatmap(
+        cluster_rows = F,
+        cluster_columns = F,
+        col = pal(11),
+        row_names_gp = gpar(fontsize = 8),
+        column_names_gp = gpar(fontsize = 10),
+        column_names_rot = 90,
+        show_heatmap_legend = TRUE,
+        heatmap_legend_param = list(title = "Score"))
+
+
+attrib_cor_tbl <- attrib_cor %>%
+  as_tibble() %>% 
+  mutate(across(everything(), ~na_if(., 1))) %>% 
+  colMeans(na.rm = T) %>% 
+  as.data.frame() %>% 
+  rownames_to_column("attribute_id") %>% 
+  rename("mean_cor" = ".") %>% 
+  mutate(mean_cor_abs = abs(mean_cor)) %>% 
+  arrange(-mean_cor_abs)
+  
+
+attrib_cor_tbl %>% 
+  select(attribute_id, mean_cor) %>% 
+  kbl() %>% 
+  kable_paper("striped", full_width = F)
+
+
+"intervention_possible"
+"changeable" :: "governable"
+
+
+attribs %>% 
+  filter(case_study != "Kisara") %>% 
+  left_join(attrib_cor_tbl) %>% 
+  arrange(-mean_cor) %>% 
+  select(case_study,attribute_id, score) %>% 
+  pivot_wider(values_from = "score", names_from = "attribute_id") %>% 
+  column_to_rownames(var = "case_study") %>% 
+  as.matrix() %>% 
+  cor(use = "pairwise.complete.obs", method = "spearman") %>% 
+  Heatmap(
+        cluster_rows = F,
+        cluster_columns = F,
+        col = pal(11),
+        row_names_gp = gpar(fontsize = 8),
+        column_names_gp = gpar(fontsize = 10),
+        column_names_rot = 90,
+        show_heatmap_legend = TRUE,
+        heatmap_legend_param = list(title = "Score"))
+
+```
+
+# corrplot between dim_domian
+```{r}
+
+dim_domain <- attribs %>% 
+  select(case_study, dimension, domain, attribute, score) %>% 
+  mutate(dim_domain = str_c(dimension, domain, sep = "_")) %>% 
+  group_by(case_study, dim_domain) %>% 
+  summarise(sum_score = sum(score, na.rm = T)) %>% 
+  ungroup() %>% 
+  pivot_wider(names_from = dim_domain, values_from = sum_score) %>% 
+  clean_names()
+
+dim_domain %>% 
+  select(-case_study) %>% 
+  cor(use = "pairwise.complete.obs", method = "spearman") %>% 
+  corrplot(method = "color", diag = F, 
+           tl.cex = 1, tl.col="black",
+           number.cex = 0.7,
+           addCoef.col = "gray50", 
+           order = "hclust", 
+           hclust.method = "ward.D2")
+```
+

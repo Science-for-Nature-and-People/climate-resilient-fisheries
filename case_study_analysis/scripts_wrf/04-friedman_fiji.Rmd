@@ -1,0 +1,107 @@
+---
+title: "friedman_fiji.Rmd"
+author: "Whitney Friedman"
+date: "2/3/2022"
+output: html_document
+---
+# Fiji
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Load things
+
+```{r}
+library(here)
+source(here("case_study_analysis","00-load-libraries.R"))
+load(here("case_study_analysis", "clean_data","attribute_table_clean.Rdata")) # from 01-prep-attribute-tables.Rmd
+
+```
+
+
+# Read in s4
+```{r}
+friedman_fiji <- attribs %>% 
+  filter(case_study == "Friedman") %>% 
+  mutate(score_1_4 = score) %>% 
+  mutate(importance_char = importance) %>% 
+  select(-importance) %>% 
+  mutate(importance = numeric_importance) 
+
+
+friedman_fiji %>% tabyl(importance)
+
+# SCORE Summaries
+friedman_fiji %>% 
+  group_by(dimension) %>% 
+  summarise(mean_score = mean(score_1_4, na.rm=T)) %>% 
+  arrange(-mean_score)
+
+
+friedman_fiji %>% 
+  group_by(domain) %>% 
+  summarise(mean_score = mean(score_1_4, na.rm=T)) %>% 
+  arrange(-mean_score)
+
+# IMPORTANCE Summaries
+# Most important dimension
+friedman_fiji %>% 
+  group_by(dimension) %>% 
+  summarise(mean_importance_score = mean(importance, na.rm=T))
+
+# Highest importance domain
+friedman_fiji %>% 
+  group_by(domain) %>% 
+  summarise(mean_importance_score = mean(importance, na.rm=T)) %>% 
+  arrange(-mean_importance_score)
+
+# Most important attributes
+friedman_fiji %>% 
+  tabyl(attribute_id,importance_char)
+
+
+```
+
+# Scorecard
+
+```{r}
+# Create theme
+my_theme <-  theme(axis.text=element_text(size=8),
+                   axis.title=element_text(size=9),
+                   legend.text=element_text(size=8),
+                   legend.title=element_text(size=9),
+                   strip.text=element_text(size=9),
+                   plot.title=element_text(size=10),
+                   # Gridlines
+                   panel.grid.major = element_blank(), 
+                   panel.grid.minor = element_blank(),
+                   panel.background = element_rect(), 
+                   axis.line = element_line())
+
+
+```
+
+
+```{r}
+## Friedman Score Card
+
+friedman_plot <- ggplot() +
+  facet_grid(dimension~., space="free", scales="free_y") +
+  geom_segment(data=friedman_fiji, mapping=aes(y=attribute, yend=attribute, x=0.5, xend=score, color=importance_char, alpha=quality)) +
+  scale_color_manual(values = c("gray30","dodgerblue","purple"))+
+  geom_point(data=friedman_fiji, mapping=aes(x=score, y=attribute, color=importance_char, alpha=quality), size=3.5, inherit.aes = F) +
+  scale_x_continuous(lim=c(0.5, 4.3), breaks=1:4, labels=c("1\n(none)", "2\n(low)", "3\n(medium)", "4\n(high)")) +
+  labs(x="Attribute score", y="", title="Fijian nearshore fisheries resilience score card") +
+  scale_alpha_ordinal(name="Data quality") +
+  scale_shape_discrete(name="Domain") +
+  guides(color = guide_legend(order = 1), size = guide_legend(order = 2), alpha = guide_legend(order = 3)) +
+  theme_bw() + my_theme
+
+friedman_plot
+
+# Save the plot
+ggsave(here("score_cards","friedman_attribute_score_card2.png"), 
+      width=6.5, height=6.5, units="in", dpi=600)
+```
+
+
