@@ -189,3 +189,46 @@ quality_heatmap <- quality_clust %>%
 
 quality_heatmap
 ```
+
+
+#############################################################################################
+
+# Heatmap Grouping
+Create heatmaps using the clusters that came out of the circular diagrams that Whitney had created. Do this for both score and importance
+
+```{r}
+# Prep the data to separate out the appropriate cases for both score and importance
+
+
+# Score groupings
+
+
+# Importance 
+
+
+```
+
+
+## Grouped Heatmaps by Score
+
+
+```{r}
+
+```
+
+
+## Grouped Heatmaps by Importance
+
+```{r}
+
+```
+
+
+
+
+
+
+
+
+
+
