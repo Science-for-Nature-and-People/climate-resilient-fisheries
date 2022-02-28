@@ -1,0 +1,129 @@
+---
+title: "Inital Summary Analyses (Barplots)"
+author: "Meghan Fletcher"
+date: "2/10/2022"
+output: 
+  html_document:
+    theme: flatly
+    code_folding: hide
+    toc: true
+    toc_float: true
+---
+
+```{r setup, include=FALSE, message = FALSE, warning=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
+
+```
+
+# Load data
+
+```{r}
+library(here)
+source(here("00-load-libraries.R"))
+load(here("data","summary_clean.Rdata")) 
+```
+
+################################################################################################
+
+# Plot the case studies by highest ranking dimension
+
+```{r}
+# Create theme
+my_theme <-  theme(axis.text.x=element_text(size=9, angle=38, hjust=1),
+                   axis.text.y=element_text(size=9),
+                   legend.text=element_text(size=8),
+                   legend.title=element_text(size=9),
+                   strip.text=element_text(size=9),
+                   # Gridlines
+                   panel.grid.major = element_blank(), 
+                   panel.grid.minor = element_blank(),
+                   panel.background = element_rect(), 
+                   axis.line = element_line())
+```
+
+
+## Make a table for the highest scoring dimensions and morst important dimensions
+
+```{r}
+dimension_table <- case_study_summary %>% 
+  select(case_study, case_study_author, highest_scoring_dimension, most_important_dimension) %>% 
+  rename("Case Study" = case_study,
+         Author = case_study_author,
+         "Highest Scoring Dimension" = highest_scoring_dimension,
+         "Most Important Dimension" = most_important_dimension)
+
+# Create a table
+dimension_table %>% 
+  kbl(caption = "Highest Scoring & Most Important Dimensions Across Case Studies") %>% 
+   kable_classic_2(full_width = F, html_font = "Cambria") %>% 
+  kable_styling(bootstrap_options = c("striped", "hover"))
+```
+
+
+
+# Break it down by fishery arechtype
+
+### Small-scale vs. Large-scale
+```{r}
+ggplot(case_study_summary, aes(x=highest_scoring_dimension)) +
+  geom_bar() +
+  facet_wrap(~fishery_scale_small_or_large) +
+  theme_bw() + my_theme
+```
+
+
+### Fishery location
+```{r}
+ggplot(case_study_summary, aes(x=highest_scoring_dimension)) +
+  geom_bar() +
+  facet_wrap(~fishery_location)
+```
+
+
+## Highest scoring domains stats
+
+```{r}
+# Make a table of the highest scoring domains - put counts and percentages into table 
+domain_table <- case_study_summary %>% 
+  select(highest_scoring_domain, second_highest_scoring_domain, third_highest_scoring_domain) %>% 
+  rename(First = highest_scoring_domain,
+         Second = second_highest_scoring_domain,
+         Third = third_highest_scoring_domain) %>% 
+  pivot_longer(
+    everything()) %>% 
+  rename(Rank = name,
+         Domain = value)
+
+
+domain_stats <- domain_table %>% 
+  select(Rank, Domain) %>% 
+  tabyl(Rank,Domain) %>%
+  adorn_percentages() %>% 
+  adorn_pct_formatting(digits = 2) 
+
+# Create a table
+domain_stats %>% 
+  kbl(caption = "Proportion of Domains Listed as Scoring Highest") %>% 
+   kable_classic_2(full_width = F, html_font = "Cambria") %>% 
+  kable_styling(bootstrap_options = c("striped", "hover"))
+```
+
+
+## Vizualize highest scoring domains
+
+```{r}
+# Make a graph for highest 
+ggplot(domain_table, aes(x=Domain, fill = Rank)) +
+  geom_bar() +
+  theme_bw() + my_theme
+  
+```
+
+
+
+
+
+
+
+
+

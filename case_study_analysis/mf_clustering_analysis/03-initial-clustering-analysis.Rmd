@@ -1,0 +1,530 @@
+---
+title: "CRf Initial Clustering Analysis"
+author: "Meghan Fletcher"
+date: "2/15/2022"
+output: 
+  html_document:
+    theme: flatly
+    code_folding: hide
+    toc: true
+    toc_float: true
+---
+
+```{r setup, include=FALSE, message = FALSE, warning=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
+
+```
+
+# Load data
+
+```{r}
+library(here)
+source(here("00-load-libraries.R"))
+load(here("data","attribs.Rdata")) # from 01-prep-attribute-tables.Rmd
+load(here("data","attributes_merged_clean.Rdata"))
+
+```
+
+
+##################################################################################
+
+# Hierarchical Clustering Analyses
+
+```{r}
+# Plot Dendrogram for Case Studies
+
+# Prepare data for performing clustering analysis
+case_clustering <- attributes_merged_clean %>% 
+  select(case_study, attribute, official_score) %>% 
+  # Use `pivot_wider` function to decrease the number of rows and increase the number of columns
+  # Also do values_fill = 0 to convert NA values to 0
+  pivot_wider(names_from = attribute, values_from = official_score, values_fill = 0)
+
+# Prepare data for dendrogram
+# Scale the data
+case_scaled <- case_clustering
+case_scaled[, c(2:39)] <- scale(case_scaled[, 2:39])
+
+# Run clustering
+case_matrix <- as.matrix(case_scaled[, -c(1)])
+rownames(case_matrix) <- case_scaled$case_study
+case_dendro <- as.dendrogram(hclust(d = dist(x = case_matrix)))
+```
+
+```{r}
+# Plot the dendrogram
+case_dendrogram_plot <- ggdendrogram(data = case_dendro, rotate = TRUE) +
+  labs(title = "Hierarchical Clustering of Case Studies")
+
+print(case_dendrogram_plot)
+```
+
+
+```{r}
+
+# Plot Dendrogram for Attributes
+# Prepare data for performing clustering analysis
+attributes_clustering <- attributes_merged_clean %>% 
+  select(case_study, attribute, official_score) %>% 
+  # Use `pivot_wider` function to decrease the number of rows and increase the number of columns
+  # Also do values_fill = 0 to convert NA values to 0
+  pivot_wider(names_from = case_study, values_from = official_score, values_fill = 0)
+
+# Prepare data for dendrogram
+# Scale the data
+attributes_scaled <- attributes_clustering
+attributes_scaled[, c(2:13)] <- scale(attributes_scaled[, 2:13])
+
+# Run clustering
+attributes_matrix <- as.matrix(attributes_scaled[, -c(1)])
+rownames(attributes_matrix) <- attributes_scaled$attribute
+attributes_dendro <- as.dendrogram(hclust(d = dist(x = attributes_matrix)))
+
+```
+
+```{r}
+# Plot the dendrogram
+attributes_dendrogram_plot <- ggdendrogram(data = attributes_dendro, rotate = TRUE) +
+  labs(title = "Hierarchical Clustering of Attributes")
+
+print(attributes_dendrogram_plot)
+```
+
+
+# Hierarchical Clustering Analyses (by Dimension)
+
+```{r}
+# Ecologcial Hiearchical Clustering
+
+# Prepare data for performing clustering analysis
+ecological_clustering <- attributes_merged_clean %>% 
+  select(case_study, dimension, attribute, official_score) %>% 
+  filter(dimension == "Ecological") %>% 
+  # Use `pivot_wider` function to decrease the number of rows and increase the number of columns
+  # Also do values_fill = 0 to convert NA values to 0
+  pivot_wider(names_from = case_study, values_from = official_score, values_fill = 0)
+
+# Prepare data for dendrogram
+# Scale the data
+ecological_scaled <- ecological_clustering
+ecological_scaled[, c(3:15)] <- scale(ecological_scaled[, 3:15])
+
+# Run clustering
+ecological_matrix <- as.matrix(ecological_scaled[, -c(1:2)])
+rownames(ecological_matrix) <- ecological_scaled$attribute
+ecological_dendro <- as.dendrogram(hclust(d = dist(x = ecological_matrix)))
+
+```
+
+```{r}
+# Plot the dendrogram
+ecological_dendrogram_plot <- ggdendrogram(data = ecological_dendro, rotate = TRUE) +
+  labs(title = "Hierarchical Clustering of Attributes for Ecological Dimension")
+
+print(ecological_dendrogram_plot)
+```
+
+
+```{r}
+## Socio-Economic Hiearchical Clustering
+
+# Prepare data for performing clustering analysis
+socio_clustering <- attributes_merged_clean %>% 
+  select(case_study, dimension, attribute, official_score) %>% 
+  filter(dimension == "Social-economic") %>% 
+  # Use `pivot_wider` function to decrease the number of rows and increase the number of columns
+  # Also do values_fill = 0 to convert NA values to 0
+  pivot_wider(names_from = case_study, values_from = official_score, values_fill = 0)
+
+# Prepare data for dendrogram
+# Scale the data
+socio_scaled <- socio_clustering
+socio_scaled[, c(3:14)] <- scale(socio_scaled[, 3:14])
+
+# Run clustering
+socio_matrix <- as.matrix(socio_scaled[, -c(1:2)])
+rownames(socio_matrix) <- socio_scaled$attribute
+socio_dendro <- as.dendrogram(hclust(d = dist(x = socio_matrix)))
+
+```
+
+```{r}
+# Plot the dendrogram
+socio_dendrogram_plot <- ggdendrogram(data = socio_dendro, rotate = TRUE) +
+  labs(title = "Hierarchical Clustering of Attributes for Socio-Economic Dimension")
+
+print(socio_dendrogram_plot)
+```
+
+
+```{r}
+## Governance Hiearchical Clustering
+
+# Prepare data for performing clustering analysis
+governance_clustering <- attributes_merged_clean %>% 
+  select(case_study, dimension, attribute, official_score) %>% 
+  filter(dimension == "Goverance") %>% 
+  # Use `pivot_wider` function to decrease the number of rows and increase the number of columns
+  # Also do values_fill = 0 to convert NA values to 0
+  pivot_wider(names_from = case_study, values_from = official_score, values_fill = 0)
+
+# Prepare data for dendrogram
+# Scale the data
+governance_scaled <- governance_clustering
+governance_scaled[, c(3:14)] <- scale(governance_scaled[, 3:14])
+
+# Run clustering
+governance_matrix <- as.matrix(governance_scaled[, -c(1:2)])
+rownames(governance_matrix) <- governance_scaled$attribute
+governance_dendro <- as.dendrogram(hclust(d = dist(x = governance_matrix)))
+
+```
+
+```{r}
+# Plot the dendrogram
+governance_dendrogram_plot <- ggdendrogram(data = governance_dendro, rotate = TRUE) +
+  labs(title = "Hierarchical Clustering of Attributes for Governance Dimension")
+
+print(governance_dendrogram_plot)
+```
+
+
+####################################################################################
+
+# Heatmap Analyses
+
+```{r}
+# Create theme
+my_theme <-  theme(axis.text.x=element_text(size=8, angle=35, hjust=1),
+                   axis.text.y=element_text(size=8),
+                   axis.title=element_text(size=9),
+                   legend.text=element_text(size=8),
+                   legend.title=element_text(size=9),
+                   strip.text=element_text(size=9),
+                   plot.title=element_text(size=10),
+                   # Gridlines
+                   panel.grid.major = element_blank(), 
+                   panel.grid.minor = element_blank(),
+                   panel.background = element_rect(), 
+                   axis.line = element_line())
+```
+
+
+```{r}
+# Data wrangling to organize importance clustering
+score_clustering <- attributes_merged_clean %>% 
+  select(case_study, attribute, official_score) %>% 
+  # Use `pivot_wider` function to decrease the number of rows and increase the number of columns
+  # Also do values_fill = 0 to convert NA values to 0
+  pivot_wider(names_from = attribute, values_from = official_score, values_fill = 0)
+```
+
+
+```{r}
+# Heatmap of Importance Scores Across all Attributes
+# Select the appropriate columns
+score_long <- melt(score_clustering, id = c("case_study"))
+
+# Create heatmap
+score_heatmap_plot <- ggplot(data = score_long, 
+                                  aes(x = case_study, y = variable, text=value)) +
+  geom_tile(aes(fill = value)) +
+  labs(title = "Heatmap of Attribute Scores Across all Attributes", x = "Case Studies", y = "Attributes") +
+  scale_fill_distiller(palette = "RdYlBu") +
+  theme(axis.text.y = element_text(size = 6)) +
+  theme_bw() + my_theme +
+  geom_hline(yintercept = "Population modularity",
+             color = "black",
+             linetype = "solid") +
+  geom_hline(yintercept = "Agency",
+             color = "black",
+             linetype = "solid")
+
+score_heatmap_plot
+
+# Make the graph interactive
+#ggplotly(importance_heatmap_plot, tooltip="text")
+```
+
+
+
+```{r}
+# Data wrangling to organize importance clustering
+importance_clustering <- attributes_merged_clean %>% 
+  select(case_study, attribute, numeric_importance) %>% 
+  # Use `pivot_wider` function to decrease the number of rows and increase the number of columns
+  # Also do values_fill = 0 to convert NA values to 0
+  pivot_wider(names_from = attribute, values_from = numeric_importance, values_fill = 0)
+```
+
+
+```{r}
+# Heatmap of Importance Scores Across all Attributes
+# Select the appropriate columns
+importance_long <- melt(importance_clustering, id = c("case_study"))
+
+# Create heatmap
+importance_heatmap_plot <- ggplot(data = importance_long, 
+                                  aes(x = case_study, y = variable, text=value)) +
+  geom_tile(aes(fill = value)) +
+  labs(title = "Heatmap of Importance Scores Across all Attributes", x = "Case Studies", y = "Attributes") +
+  scale_fill_distiller(palette = "RdYlBu") +
+  theme(axis.text.y = element_text(size = 6)) +
+  theme_bw() + my_theme +
+  geom_hline(yintercept = "Population modularity",
+             color = "black",
+             linetype = "solid") +
+  geom_hline(yintercept = "Agency",
+             color = "black",
+             linetype = "solid")
+
+importance_heatmap_plot
+
+# Make the graph interactive
+#ggplotly(importance_heatmap_plot, tooltip="text")
+```
+
+
+# Heatmap Comparison
+
+```{r}
+# Eliminate legends to make patchwork cleaner
+p1 <- score_heatmap_plot +
+  theme(legend.position = "none")
+  
+p2 <- importance_heatmap_plot+
+  theme(legend.position = "none")
+
+# Use patchwork to plot the heatmaps next to each other
+p1 | p2
+```
+
+######################################################################################
+
+# Heatmap of Information Quality
+
+```{r}
+# Data wrangling to organize importance clustering
+info_clustering <- attributes_merged_clean %>% 
+  select(case_study, attribute, numeric_quality) %>% 
+  # Use `pivot_wider` function to decrease the number of rows and increase the number of columns
+  # Also do values_fill = 0 to convert NA values to 0
+  pivot_wider(names_from = attribute, values_from = numeric_quality, values_fill = 0)
+```
+
+
+```{r}
+# Heatmap of Importance Scores Across all Attributes
+# Select the appropriate columns
+info_long <- melt(info_clustering, id = c("case_study"))
+
+# Create heatmap
+info_heatmap_plot <- ggplot(data = info_long, 
+                                  aes(x = case_study, y = variable, text=value)) +
+  geom_tile(aes(fill = value)) +
+  labs(title = "Heatmap of Information Quality by Attribute Across All Case Studies", x = "Case Studies", y = "Attributes") +
+  scale_fill_distiller(palette = "RdYlBu") +
+  theme(axis.text.y = element_text(size = 6)) +
+  theme_bw() + my_theme +
+  geom_hline(yintercept = "Population modularity",
+             color = "black",
+             linetype = "solid") +
+  geom_hline(yintercept = "Agency",
+             color = "black",
+             linetype = "solid")
+
+info_heatmap_plot
+
+```
+
+
+######################################################################################
+
+# Interactive Heatmaps for Attribute Scores (by Dimension)
+
+```{r}
+# Ecological Heatmap
+
+# Prepare data for performing clustering analysis
+eco_heat_clustering <- attributes_merged_clean %>% 
+  select(case_study, dimension, attribute, official_score) %>% 
+  filter(dimension == "Ecological") %>% 
+  select(case_study, attribute, official_score) %>% 
+# Use `pivot_wider` function to decrease the number of rows and increase the number of columns
+  # Also do values_fill = 0 to convert NA values to 0
+  pivot_wider(names_from = attribute, values_from = official_score, values_fill = 0) 
+
+
+# Select the appropriate columns
+eco_long <- melt(eco_heat_clustering, id = c("case_study"))
+
+# Create heatmap
+eco_heatmap_plot <- ggplot(data = eco_long, 
+                                  aes(x = case_study, y = variable, text = value)) +
+  geom_tile(aes(fill = value)) +
+  labs(title = "Ecological Attribute Score Heatmap", x = "Case Studies", y = "Attributes") +
+  scale_fill_distiller(palette = "RdYlBu") +
+  theme(axis.text.y = element_text(size = 6)) +
+  theme_bw() + my_theme 
+  
+# Preview the heatmap
+ggplotly(eco_heatmap_plot, tooltip="text")
+```
+
+
+
+```{r}
+# Socio-Economic Heatmap
+
+# Prepare data for performing clustering analysis
+socio_heat_clustering <- attributes_merged_clean %>% 
+  select(case_study, dimension, attribute, official_score) %>% 
+  filter(dimension == "Social-economic") %>% 
+  select(case_study, attribute, official_score) %>% 
+# Use `pivot_wider` function to decrease the number of rows and increase the number of columns
+  # Also do values_fill = 0 to convert NA values to 0
+  pivot_wider(names_from = attribute, values_from = official_score, values_fill = 0) 
+
+
+# Select the appropriate columns
+socio_long <- melt(socio_heat_clustering, id = c("case_study"))
+
+# Create heatmap
+socio_heatmap_plot <- ggplot(data = socio_long, 
+                                  aes(x = case_study, y = variable, text = value)) +
+  geom_tile(aes(fill = value)) +
+  labs(title = "Socio-Economic Attribute Score Heatmap", x = "Case Studies", y = "Attributes") +
+  scale_fill_distiller(palette = "RdYlBu") +
+  theme(axis.text.y = element_text(size = 6)) +
+  theme_bw() + my_theme 
+
+# Preview the heatmap
+ggplotly(socio_heatmap_plot, tooltip="text")  
+```
+
+
+
+```{r}
+# Governance Heatmap
+
+# Prepare data for performing clustering analysis
+gov_heat_clustering <- attributes_merged_clean %>% 
+  select(case_study, dimension, attribute, official_score) %>% 
+  filter(dimension == "Goverance") %>% 
+  select(case_study, attribute, official_score) %>% 
+# Use `pivot_wider` function to decrease the number of rows and increase the number of columns
+  # Also do values_fill = 0 to convert NA values to 0
+  pivot_wider(names_from = attribute, values_from = official_score, values_fill = 0) 
+
+
+# Select the appropriate columns
+gov_long <- melt(gov_heat_clustering, id = c("case_study"))
+
+# Create heatmap
+gov_heatmap_plot <- ggplot(data = gov_long, 
+                                  aes(x = case_study, y = variable, text = value)) +
+  geom_tile(aes(fill = value)) +
+  labs(title = "Governance Attribute Score Heatmap", x = "Case Studies", y = "Attributes") +
+  scale_fill_distiller(palette = "RdYlBu") +
+  theme(axis.text.y = element_text(size = 6)) +
+  theme_bw() +my_theme
+
+# Preview the heatmap
+ggplotly(gov_heatmap_plot, tooltip="text")  
+```
+
+######################################################################################
+
+
+# Interactive Heatmaps for Importance Scores (by Dimension)
+
+```{r}
+# Ecological Importance Heatmap
+
+# Prepare data for performing clustering analysis
+eco_importance_clustering <- attributes_merged_clean %>% 
+  select(case_study, dimension, attribute, numeric_importance) %>% 
+  filter(dimension == "Ecological") %>% 
+  select(case_study, attribute, numeric_importance) %>% 
+# Use `pivot_wider` function to decrease the number of rows and increase the number of columns
+  # Also do values_fill = 0 to convert NA values to 0
+  pivot_wider(names_from = attribute, values_from = numeric_importance, values_fill = 0) 
+
+
+# Select the appropriate columns
+eco_importance_long <- melt(eco_importance_clustering, id = c("case_study"))
+
+# Create heatmap
+eco_importance_plot <- ggplot(data = eco_importance_long, 
+                                  aes(x = case_study, y = variable, text = value)) +
+  geom_tile(aes(fill = value)) +
+  labs(title = "Ecological Importance Score Heatmap", x = "Case Studies", y = "Attributes") +
+  scale_fill_distiller(palette = "RdYlBu") +
+  theme(axis.text.y = element_text(size = 6)) +
+  theme_bw() + my_theme 
+  
+# Preview the heatmap
+ggplotly(eco_importance_plot, tooltip="text")
+```
+
+
+
+```{r}
+# Socio-economic Importance Heatmap
+
+# Prepare data for performing clustering analysis
+socio_importance_clustering <- attributes_merged_clean %>% 
+  select(case_study, dimension, attribute, numeric_importance) %>% 
+  filter(dimension == "Social-economic") %>% 
+  select(case_study, attribute, numeric_importance) %>% 
+# Use `pivot_wider` function to decrease the number of rows and increase the number of columns
+  # Also do values_fill = 0 to convert NA values to 0
+  pivot_wider(names_from = attribute, values_from = numeric_importance, values_fill = 0) 
+
+
+# Select the appropriate columns
+socio_importance_long <- melt(socio_importance_clustering, id = c("case_study"))
+
+# Create heatmap
+socio_importance_plot <- ggplot(data = socio_importance_long, 
+                                  aes(x = case_study, y = variable, text = value)) +
+  geom_tile(aes(fill = value)) +
+  labs(title = "Socio-Economic Importance Score Heatmap", x = "Case Studies", y = "Attributes") +
+  scale_fill_distiller(palette = "RdYlBu") +
+  theme(axis.text.y = element_text(size = 6)) +
+  theme_bw() + my_theme 
+  
+# Preview the heatmap
+ggplotly(socio_importance_plot, tooltip="text")
+```
+
+
+
+```{r}
+# Governance Importance Heatmap
+
+# Prepare data for performing clustering analysis
+gov_importance_clustering <- attributes_merged_clean %>% 
+  select(case_study, dimension, attribute, numeric_importance) %>% 
+  filter(dimension == "Goverance") %>% 
+  select(case_study, attribute, numeric_importance) %>% 
+# Use `pivot_wider` function to decrease the number of rows and increase the number of columns
+  # Also do values_fill = 0 to convert NA values to 0
+  pivot_wider(names_from = attribute, values_from = numeric_importance, values_fill = 0) 
+
+
+# Select the appropriate columns
+gov_importance_long <- melt(gov_importance_clustering, id = c("case_study"))
+
+# Create heatmap
+gov_importance_plot <- ggplot(data = gov_importance_long, 
+                                  aes(x = case_study, y = variable, text = value)) +
+  geom_tile(aes(fill = value)) +
+  labs(title = "Goverance Importance Score Heatmap", x = "Case Studies", y = "Attributes") +
+  scale_fill_distiller(palette = "RdYlBu") +
+  theme(axis.text.y = element_text(size = 6)) +
+  theme_bw() + my_theme 
+  
+# Preview the heatmap
+ggplotly(gov_importance_plot, tooltip="text")
+```

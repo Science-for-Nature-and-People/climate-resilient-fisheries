@@ -1,0 +1,178 @@
+---
+title: "03-detect-clusters"
+author: "Whitney Friedman"
+date: "2/4/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Load things
+
+```{r}
+library(here)
+source(here("00-load-libraries.R"))
+load(here("data","attribute_table_clean.Rdata")) # from 01-prep-attribute-tables.Rmd
+
+```
+
+
+# Factor Analysis
+https://www.stat.cmu.edu/~cshalizi/uADA/12/lectures/ch19.pdf
+https://personality-project.org/r/psych/HowTo/factor.pdf
+```{r}
+
+factor_df <- attribs %>% 
+  select(case_study, attribute_id, score) %>% 
+  pivot_wider(names_from = attribute_id ,values_from = score) %>%
+  mutate(across(-case_study, ~scale(.x))) %>% 
+  mutate(across(-case_study, ~replace_na(.x, 0))) # REVIEW
+  
+#cleaned <- na.omit(mymsq)     #remove the cases with missing values
+# f2 <- fa(cleaned,2,rotation="varimax")   		#factor analyze the resulting item
+
+f2 <- factor_df %>%
+  column_to_rownames(var = "case_study") %>% 
+  as.matrix() %>% 
+  fa(nfactors = 2) # dimensions
+
+f2 # view summary of factor analysis
+
+# Loadings
+# Which attributes are most associated with MR1, MR2
+# https://www.theanalysisfactor.com/factor-analysis-1-introduction/
+# e..g The variable with the strongest association to the underlying latent variable. Factor 1, is income, with a factor loading of 0.65.
+# 
+load <- f2$loadings[] %>% as_tibble() %>% 
+  mutate(attribute = f2$loadings[] %>% rownames)
+
+load
+
+print(load,sort=TRUE,digits=2,cutoff=0.01)  #show the loadings       
+plot(load)                                 #plot factor 1 by 2
+plot(f2,
+     labels = factor_df$case_study,
+     jiggle=T, amount = 0.1)
+
+# Plot scores
+f2$scores %>% 
+  as_tibble %>% 
+  ggplot(aes(x = MR1, y = MR2, label = factor_df$case_study))+
+  geom_point(color = "blue")+ geom_text(nudge_y = -0.1)+
+  ylim(-3,3) + xlim(-3,3) +
+  theme_bw()
+
+load %>% 
+  arrange(-abs(MR1))
+
+load %>% 
+  arrange(-abs(MR2))
+
+
+#WIP
+
+f2$scores %>% 
+  as_tibble %>% 
+  ggplot(aes(x = MR1, y = MR2, label = factor_df$case_study))+
+  geom_point(color = "blue")+ geom_text(nudge_y = -0.1)+
+  ylim(-5,2) + xlim(-3,3) +
+  theme_bw()+
+  geom_text(data = load, 
+             aes(x = MR1*3, y = -3, label = attribute), 
+             inherit.aes = F, size =2, angle = 60)
+
+
+f2$scores %>% 
+  as_tibble %>% 
+  ggplot(aes(x = MR1, y = MR2, label = factor_df$case_study))+
+  geom_point(color = "blue")+ geom_text(nudge_y = -0.1)+
+  ylim(-1.5,2) + xlim(-2,4) +
+  theme_bw()+
+  geom_text(data = load, 
+             aes(y = MR2*5, x = 3, label = attribute), 
+             inherit.aes = F, size =3, angle = 0)
+
+
+```
+# Correlation matrix
+
+```{r}
+df_corr <- attribs %>% 
+  select(case_study, attribute_id, score) %>% 
+  pivot_wider(names_from = case_study ,values_from = score)
+
+df_corr %>% 
+  select(-attribute_id) %>% 
+  cor(use = "pairwise.complete.obs", method = "spearman") %>% 
+  corrplot(method = "color", diag = F, 
+           tl.cex = .4, tl.col="black",
+           number.cex = 0.2,
+           addCoef.col = "gray50", 
+           order = "hclust", 
+           hclust.method = "ward.D2")
+
+```
+
+# Dendrograms
+```{r}
+# Dendrogram based on hclust
+df_clust <- attribs %>% 
+  select(case_study, attribute_id, score) %>% 
+  pivot_wider(names_from = attribute_id ,values_from = score)
+ 
+hc <- df_clust %>% 
+  column_to_rownames(var = "case_study") %>% 
+  mutate(across(everything(),~scale(.x))) %>% 
+  mutate(across(everything(), ~replace_na(.x, 0))) %>% # REVIEW
+  as.matrix() %>% 
+  dist() %>% hclust(method = "ward.D2")
+
+
+plot(hc)
+
+library(ape)
+plot(as.phylo(hc), type = "unrooted", cex = 0.6,
+     no.margin = TRUE)
+
+library(ggdendro)
+ggdendrogram(hc, rotate = TRUE, theme_dendro = FALSE)
+
+
+# Heatmaps based on hc
+```
+
+
+# Heatmaps
+https://jokergoo.github.io/ComplexHeatmap-reference/book/a-single-heatmap.html#clustering-methods
+https://www.biostars.org/p/273155/
+
+```{r}
+
+
+library(ComplexHeatmap) 
+
+# install_github("jokergoo/ComplexHeatmap")
+#library(circlize)       #install_github("jokergoo/circlize")
+
+
+# Heatmap based on raw values
+heatmap <- df_clust %>% 
+  column_to_rownames(var = "case_study") %>% 
+  mutate(across(everything(),~scale(.x))) %>% 
+  mutate(across(everything(), ~replace_na(.x, 0))) %>% # REVIEW
+  as.matrix() %>% t() %>% 
+  Heatmap(clustering_distance_rows = "euclidean",
+        clustering_method_rows ="ward.D2",
+        clustering_distance_columns = "euclidean",
+        clustering_method_columns = "ward.D2",
+        col = brewer.pal(9,"RdYlBu"),
+        row_names_gp = gpar(fontsize = 8),
+        column_names_gp = gpar(fontsize = 10),
+        column_names_rot = 45,
+        show_heatmap_legend = TRUE,
+        heatmap_legend_param = list(title = "Score")) # STOPPED HERE> FIX COLORS
+heatmap
+```
+

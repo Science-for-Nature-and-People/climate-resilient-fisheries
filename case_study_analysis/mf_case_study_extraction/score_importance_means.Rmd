@@ -1,0 +1,923 @@
+---
+title: "Evaluating Score and Importance Means Across Case Studies"
+author: "Meghan Fletcher"
+date: "1/18/2022"
+output: 
+  html_document:
+    theme: flatly
+    code_folding: hide
+    toc: true
+    toc_float: true
+---
+
+```{r setup, include=FALSE, message = FALSE, warning=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
+
+#Load libraries
+library(ggplot2)
+library(tidyverse)
+library(janitor)
+library(googlesheets4)
+library(here)
+library(kableExtra)
+```
+
+
+# Read in the data from Google Sheets
+```{r, results=FALSE, message = FALSE, warning = FALSE, class.source = 'fold-hide', warning = FALSE}
+aguion_barnacle <- read_sheet(ss = "https://docs.google.com/spreadsheets/d/1WfGsKOT0gFSN1yHUObDNSQflqd5avodSuf3kOZLTyLk/edit#gid=1947230832", 
+                           sheet = "UPDATED_S4_ResilienceAttributes",
+                           range = "A6:P61",
+                           col_names = TRUE,
+                           na = "",
+                           guess_max = 10000,
+                           trim_ws = TRUE,
+                           col_types = "c"
+                           ) %>%
+  as_tibble() %>%
+  clean_names() %>% 
+  add_column(case_study = "Aguion",
+             reference = "aguion1",
+             .after = "question_id")
+
+
+#######################################################################################################################
+burden_sardine <- read_sheet(ss = "https://docs.google.com/spreadsheets/d/1TkB-P94xgRssmcbAuzwoh0BlDdvUfYHO7vWjK6r2pxs/edit#gid=1965519914", 
+                           sheet = "UPDATED_S4_ResilienceAttributes",
+                           range = "A6:P61",
+                           col_names = TRUE,
+                           na = "",
+                           guess_max = 10000,
+                           trim_ws = TRUE,
+                           col_types = "c"
+                           ) %>%
+  as_tibble() %>%
+  clean_names()%>% 
+  add_column(case_study = "Burden",
+             reference = "burden1",
+             .after = "question_id")
+
+
+
+#######################################################################################################################
+dickey_collas_eur <- read_sheet(ss = "https://docs.google.com/spreadsheets/d/1hfXTM5hwe0iLWQQmrc31-xruOV3SUixuxqRSuqC8ydA/edit#gid=1707192308", 
+                           sheet = "UPDATED_S4_ResilienceAttributes",
+                           range = "A6:P61",
+                           col_names = TRUE,
+                           na = "",
+                           guess_max = 10000,
+                           trim_ws = TRUE,
+                           col_types = "c"
+                           ) %>%
+  as_tibble() %>%
+  clean_names() %>% 
+  add_column(case_study = "Dickey_Collas",
+             reference = "dickey_collas1",
+             .after = "question_id")
+
+
+
+#######################################################################################################################
+eurich_clam <- read_sheet(ss = "https://docs.google.com/spreadsheets/d/1ZEIev1lcoD6Lxu3otzDCfbJJSiPJoZeyYbTvBXb_S9U/edit#gid=1453404713", 
+                           sheet = "UPDATED_S4_ResilienceAttributes",
+                           range = "A6:P61",
+                           col_names = TRUE,
+                           na = "",
+                           guess_max = 10000,
+                           trim_ws = TRUE,
+                           col_types = "c"
+                           ) %>%
+  as_tibble() %>%
+  clean_names() %>% 
+  add_column(case_study = "Eurich",
+             reference = "eurich1",
+             .after = "question_id")
+
+
+
+#####################################################################################################################################
+free_crab <- read_sheet(ss = "https://docs.google.com/spreadsheets/d/12zMb5el0QAB-CdZdmdKjWw5Krbwx7farqlUvbN08HEg/edit#gid=390317686", 
+                           sheet = "UPDATED_S4_ResilienceAttributes",
+                           range = "A6:P61",
+                           col_names = TRUE,
+                           na = "",
+                           guess_max = 10000,
+                           trim_ws = TRUE,
+                           col_types = "c"
+                           ) %>%
+  as_tibble() %>%
+  clean_names() %>% 
+  add_column(case_study = "Free",
+             reference = "free1",
+             .after = "question_id")
+
+
+
+#######################################################################################################################
+golden_madagascar <- read_sheet(ss = "https://docs.google.com/spreadsheets/d/1w99nN8C_Vd82j4Y23g2ZG_kuEh_Jc2HkW6lnLkhzeCU/edit#gid=390607640", 
+                           sheet = "UPDATED_S4_ResilienceAttributes",
+                           range = "A6:P61",
+                           col_names = TRUE,
+                           na = "",
+                           guess_max = 10000,
+                           trim_ws = TRUE,
+                           col_types = "c"
+                           ) %>%
+  as_tibble() %>%
+  clean_names() %>% 
+  add_column(case_study = "Golden",
+             reference = "golden1",
+             .after = "question_id")
+
+
+
+#######################################################################################################################
+friedman_fiji <- read_sheet(ss = "https://docs.google.com/spreadsheets/d/13fgkP1xHZB6gZqXUBHuylaC3ImCDIDTFFjqQ8RAoV-s/edit#gid=476628697", 
+                           sheet = "UPDATED_S4_ResilienceAttributes",
+                           range = "A6:P61",
+                           col_names = TRUE,
+                           na = "",
+                           guess_max = 10000,
+                           trim_ws = TRUE,
+                           col_types = "c"
+                           ) %>%
+  as_tibble() %>%
+  clean_names() %>% 
+  add_column(case_study = "Friedman",
+             reference = "friedman1",
+             .after = "question_id")
+
+
+
+#######################################################################################################################
+hollowed_bering_sea <- read_sheet(ss = "https://docs.google.com/spreadsheets/d/1YOYZ9T7RR_8OkqQIWeZobhS-3yaEbKmuAVz16Nrrz9g/edit#gid=9514874", 
+                           sheet = "UPDATED_S4_ResilienceAttributes",
+                           range = "A6:P61",
+                           col_names = TRUE,
+                           na = "",
+                           guess_max = 10000,
+                           trim_ws = TRUE,
+                           col_types = "c"
+                           ) %>%
+  as_tibble() %>%
+  clean_names() %>% 
+  add_column(case_study = "Hollowed",
+             reference = "hollowed1",
+             .after = "question_id")
+
+
+
+########################################################################################################################
+kisara_squid <- read_sheet(ss = "https://docs.google.com/spreadsheets/d/1RX1iUmEKsOUmuPZkn4SMA6zts9TTPz-gi0D6XFrY1RQ/edit#gid=934077877", 
+                           sheet = "UPDATED_S4_ResilienceAttributes",
+                           range = "A6:P61",
+                           col_names = TRUE,
+                           na = "",
+                           guess_max = 10000,
+                           trim_ws = TRUE,
+                           col_types = "c"
+                           ) %>%
+  as_tibble() %>%
+  clean_names() %>% 
+  add_column(case_study = "Kisara",
+             reference = "kisara1",
+             .after = "question_id") 
+
+
+
+###########################################################################################################################
+kleisner_jfi <- read_sheet(ss = "https://docs.google.com/spreadsheets/d/1YM1wc6F0SgGIoBcTvSjVyLJquE6-6Chk1dPFoLiXuQY/edit#gid=1865610127", 
+                           sheet = "UPDATED_S4_ResilienceAttributes",
+                           range = "A6:P61",
+                           col_names = TRUE,
+                           na = "",
+                           guess_max = 10000,
+                           trim_ws = TRUE,
+                           col_types = "c"
+                           ) %>%
+  as_tibble() %>%
+  clean_names() %>% 
+  add_column(case_study = "Kleisner",
+             reference = "kleisner1",
+             .after = "question_id")
+
+
+
+################################################################################################################################
+lau_png <- read_sheet(ss = "https://docs.google.com/spreadsheets/d/18po7Pgq5Od6Q8yCnFdSfj_Gaxii34e-WsYwBFA3RTvo/edit#gid=1980661832", 
+                           sheet = "UPDATED_S4_ResilienceAttributes",
+                           range = "A6:P61",
+                           col_names = TRUE,
+                           na = "",
+                           guess_max = 10000,
+                           trim_ws = TRUE,
+                           col_types = "c"
+                           ) %>%
+  as_tibble() %>%
+  clean_names() %>% 
+  add_column(case_study = "Lau",
+             reference = "lau1",
+             .after = "question_id")
+
+
+
+###############################################################################################################################
+mason_iceland <- read_sheet(ss = "https://docs.google.com/spreadsheets/d/1ZPs5ow4wpZgj5eP26jvoMRgD9q6VT9DEdkJfqj7UrRE/edit#gid=2142384281", 
+                           sheet = "UPDATED_S4_ResilienceAttributes",
+                           range = "A6:P61",
+                           col_names = TRUE,
+                           na = "",
+                           guess_max = 10000,
+                           trim_ws = TRUE,
+                           col_types = "c"
+                           ) %>%
+  as_tibble() %>%
+  clean_names() %>% 
+  add_column(case_study = "Mason",
+             reference = "mason1",
+             .after = "question_id")
+
+
+
+
+##########################################################################################################################
+mills_lobster <- read_sheet(ss = "https://docs.google.com/spreadsheets/d/1HEPT54TsR1aTNNzDtZI59zU0eb-eJfH61ujErxAFtiI/edit#gid=553950990", 
+                           sheet = "UPDATED_S4_ResilienceAttributes",
+                           range = "A6:P61",
+                           col_names = TRUE,
+                           na = "",
+                           guess_max = 10000,
+                           trim_ws = TRUE,
+                           col_types = "c"
+                           ) %>%
+  as_tibble() %>%
+  clean_names() %>% 
+  add_column(case_study = "Mills",
+             reference = "mills1",
+             .after = "question_id")
+
+
+
+########################################################################################################################
+pecl_lobster <- read_sheet(ss = "https://docs.google.com/spreadsheets/d/11Z-SLlAS0f9Ug1Z8gLMnHkaN7hoZT1W0KMVLG8HtbXs/edit#gid=179679195", 
+                           sheet = "UPDATED_S4_ResilienceAttributes",
+                           range = "A6:P61",
+                           col_names = TRUE,
+                           na = "",
+                           guess_max = 10000,
+                           trim_ws = TRUE,
+                           col_types = "c"
+                           ) %>%
+  as_tibble() %>%
+  clean_names() %>% 
+  add_column(case_study = "Pecl",
+             reference = "pecl1",
+             .after = "question_id")
+
+
+
+###########################################################################################################################
+#schmidt_senegal <- read_sheet(ss = "https://docs.google.com/spreadsheets/d/1bUY6yII5y0FZfDRJ5lxpA7iD2p3o__2A1xsWivxwKB0/edit#gid=2000123802", 
+#                           sheet = "UPDATED_S4_ResilienceAttributes",
+#                           range = "A6:P61",
+#                           col_names = TRUE,
+#                           na = "",
+#                           guess_max = 10000,
+#                           trim_ws = TRUE,
+#                           col_types = "c"
+#                           ) %>%
+#  as_tibble() %>%
+#  clean_names() %>% 
+#  add_column(case_study = "Schmidt",
+#             reference = "schmidt1",
+#             .after = "question_id") 
+
+
+
+###############################################################################################################################
+tokunaga_lobster <- read_sheet(ss = "https://docs.google.com/spreadsheets/d/1jgFZut693B14rdKbxprKtQcoh-mFlMzAktekjhvwf2Q/edit#gid=228934601", 
+                           sheet = "UPDATED_S4_ResilienceAttributes",
+                           range = "A6:P61",
+                           col_names = TRUE,
+                           na = "",
+                           guess_max = 10000,
+                           trim_ws = TRUE,
+                           col_types = "c"
+                           ) %>%
+  as_tibble() %>%
+  clean_names() %>% 
+  add_column(case_study = "Tokunaga",
+             reference = "tokunaga1",
+             .after = "question_id") 
+
+
+
+############################################################################################################################
+westfall_hms <- read_sheet(ss = "https://docs.google.com/spreadsheets/d/1DMx0Ux9Li1LhIe4ee5bbAYtJaw1vCezziRGyeERBthY/edit#gid=1818956842", 
+                           sheet = "UPDATED_S4_ResilienceAttributes",
+                           range = "A6:P61",
+                           col_names = TRUE,
+                           na = "",
+                           guess_max = 10000,
+                           trim_ws = TRUE,
+                           col_types = "c"
+                           ) %>%
+  as_tibble() %>%
+  clean_names() %>% 
+  add_column(case_study = "Westfall",
+             reference = "westfall1",
+             .after = "question_id")
+
+
+
+###################################################################################################################################
+zhao_moorea <- read_sheet(ss = "https://docs.google.com/spreadsheets/d/1-Muz76--fNv1qfdXZcBENP-agemTTySZAay9uAEO0HI/edit#gid=1980661832", 
+                           sheet = "UPDATED_S4_ResilienceAttributes",
+                           range = "A6:P61",
+                           col_names = TRUE,
+                           na = "",
+                           guess_max = 10000,
+                           trim_ws = TRUE,
+                           col_types = "c"
+                           ) %>%
+  as_tibble() %>%
+  clean_names() %>% 
+  add_column(case_study = "Zhao",
+             reference = "zhao1",
+             .after = "question_id")
+```
+
+
+##############################################################################################
+
+# Merge the datasets
+
+```{r}
+attributes_merged <- rbind(aguion_barnacle, burden_sardine, dickey_collas_eur, eurich_clam, free_crab, friedman_fiji, golden_madagascar, hollowed_bering_sea, kisara_squid, kleisner_jfi, lau_png, mason_iceland, mills_lobster, pecl_lobster, tokunaga_lobster, westfall_hms, zhao_moorea)
+
+```
+
+
+# Clean the merged datasets 
+
+```{r}
+attributes_merged_clean <- attributes_merged %>% 
+  rename(dimension=dimensions, 
+         domain=new_domain, 
+         attribute=resilience_attribute, 
+         score=score_1_4,
+         quality=information_quality, 
+         importance=importance_of_attribute_in_study_system_high_medium_low, 
+         work_as_described=does_the_mechanism_work_as_described_in_this_fishery_system) %>% 
+# Simplify
+  select(dimension, domain, case_study, reference, attribute, score, quality, importance, work_as_described) %>% 
+# Remove spacer rows
+  filter(!is.na(attribute)) %>% 
+# Format scores
+  filter(!is.na(score)) %>% 
+# In order to get rid of "NA" values that were purposefully entered into the data, I used the `case_when` function to revert
+  mutate(official_score = case_when(
+    score == "1" ~ "1",
+    score == "2" ~ "2",
+    score == "3" ~ "3",
+    score == "4" ~ "4",
+    score == "NA" ~ "0"
+  )) %>% 
+  mutate(official_score=as.numeric(official_score)) %>%
+  # Formate dimension
+  mutate(dimension=recode_factor(dimension, 
+                                 "Ecological"="Ecological",
+                                 "Socio-economic"="Social-economic",
+                                 "Governance-management"="Goverance")) %>% 
+# Format data quality
+  mutate(quality=ifelse(quality=="NA - Not relevant in this system", NA, quality),
+         quality=recode_factor(quality,
+                               "E - No data/information; no basis for expert judgement"="No data", ### CF used "E - No data/information; no basis for expert judgement", but JE's was different
+                               "D - not confident that the answer provided reflects the true state of the system"="Low",
+                               "C - fairly confident that the answer provided reflects the true state of the system"="Fair",
+                               "B - limited data/information and expert judgement"="Good",
+                               "A - adequate and reliable data/information"="Excellent")) %>% 
+  # Format importance
+  mutate(importance=stringr::str_to_sentence(importance),
+         importance=factor(importance, levels=c("Low", "Medium", "High"))) %>% 
+  # Create a new column to house numeric values for importance
+  mutate(numeric_importance = case_when(
+    importance == "Low" ~ "1",
+    importance == "Medium" ~ "2",
+    importance == "High" ~ "3")) %>% 
+  mutate(numeric_importance=as.numeric(numeric_importance)) %>% 
+  filter(!is.na(numeric_importance))
+  
+
+```
+
+
+############################################################################################
+
+# Find Attribute Score Means 
+The attribute score means of each attribute are reflected in the table below as well as by the dashed lines in each graph below
+
+```{r}
+# Build a table
+merged_mean <- attributes_merged_clean %>% 
+  group_by(attribute) %>% 
+  summarise_at(vars(official_score), list(score = mean))
+
+# Use `kableExtra` package to create table
+merged_mean %>% 
+  kbl(caption = "Resilience Attribute Score Means") %>% 
+   kable_classic_2(full_width = F, html_font = "Cambria") %>% 
+  kable_styling(bootstrap_options = c("striped", "hover"))
+```
+
+## Score means by domain
+
+```{r}
+# Find means across domains but within each dimension
+domain_mean <- attributes_merged_clean %>% 
+  group_by(dimension, domain) %>% 
+  summarise_at(vars(official_score), list(score = mean))
+
+# Create a table
+domain_mean %>% 
+  kbl(caption = "Resilience Attribute Score Means by Domain") %>% 
+   kable_classic_2(full_width = F, html_font = "Cambria") %>% 
+  kable_styling(bootstrap_options = c("striped", "hover"))
+```
+
+##############################################################################################
+
+# Attribute Score Means by Domain Across all Case Studies
+
+
+```{r}
+# Create a table where the average scores of each domain across case studies are represented
+
+# Aguion mean
+aguion_mean <- attributes_merged_clean %>% 
+  filter(case_study == "Aguion") %>% 
+  group_by(dimension, domain) %>% 
+  summarise_at(vars(official_score), list(score = mean)) %>% 
+  rename(Aguion = score) 
+
+# Burden mean
+burden_mean <- attributes_merged_clean %>% 
+  filter(case_study == "Burden") %>% 
+  group_by(dimension, domain) %>% 
+  summarise_at(vars(official_score), list(score = mean)) %>% 
+  rename(Burden = score)
+
+# Dickey-Collas mean
+dickey_collas_mean <- attributes_merged_clean %>% 
+  filter(case_study == "Dickey_Collas") %>% 
+  group_by(dimension, domain) %>% 
+  summarise_at(vars(official_score), list(score = mean)) %>% 
+  rename(Dickey_Collas = score) 
+
+# Eurich mean
+eurich_mean <- attributes_merged_clean %>% 
+  filter(case_study == "Eurich") %>% 
+  group_by(dimension, domain) %>% 
+  summarise_at(vars(official_score), list(score = mean)) %>% 
+  rename(Eurich = score)
+
+# Free mean
+free_mean <- attributes_merged_clean %>% 
+  filter(case_study == "Free") %>% 
+  group_by(dimension, domain) %>% 
+  summarise_at(vars(official_score), list(score = mean)) %>% 
+  rename(Free = score)
+
+# Friedman mean
+friedman_mean <- attributes_merged_clean %>% 
+  filter(case_study == "Friedman") %>% 
+  group_by(dimension, domain) %>% 
+  summarise_at(vars(official_score), list(score = mean)) %>% 
+  rename(Friedman = score)
+
+# Hollowed mean
+hollowed_mean <- attributes_merged_clean %>% 
+  filter(case_study == "Hollowed") %>% 
+  group_by(dimension, domain) %>% 
+  summarise_at(vars(official_score), list(score = mean)) %>% 
+  rename(Hollowed = score)
+
+# Kisara mean
+kisara_mean <- attributes_merged_clean %>% 
+  filter(case_study == "Kisara") %>% 
+  group_by(dimension, domain) %>% 
+  summarise_at(vars(official_score), list(score = mean)) %>% 
+  rename(Kisara = score)
+
+# Kleisner mean
+kleisner_mean <- attributes_merged_clean %>% 
+  filter(case_study == "Kleisner") %>% 
+  group_by(dimension, domain) %>% 
+  summarise_at(vars(official_score), list(score = mean)) %>% 
+  rename(Kleisner = score)
+
+# Lau mean
+lau_mean <- attributes_merged_clean %>% 
+  filter(case_study == "Lau") %>% 
+  group_by(dimension, domain) %>% 
+  summarise_at(vars(official_score), list(score = mean)) %>% 
+  rename(Lau = score)
+
+# Mason mean
+mason_mean <- attributes_merged_clean %>% 
+  filter(case_study == "Mason") %>% 
+  group_by(dimension, domain) %>% 
+  summarise_at(vars(official_score), list(score = mean)) %>% 
+  rename(Mason = score)
+
+# Mills mean
+mills_mean <- attributes_merged_clean %>% 
+  filter(case_study == "Mills") %>% 
+  group_by(dimension, domain) %>% 
+  summarise_at(vars(official_score), list(score = mean)) %>% 
+  rename(Mills = score)
+
+# Pecl mean
+pecl_mean <- attributes_merged_clean %>% 
+  filter(case_study == "Pecl") %>% 
+  group_by(dimension, domain) %>% 
+  summarise_at(vars(official_score), list(score = mean)) %>% 
+  rename(Pecl = score)
+
+# Tokunaga mean
+tokunaga_mean <- attributes_merged_clean %>% 
+  filter(case_study == "Tokunaga") %>% 
+  group_by(dimension, domain) %>% 
+  summarise_at(vars(official_score), list(score = mean)) %>% 
+  rename(Tokunaga = score)
+
+# Westfall mean
+westfall_mean <- attributes_merged_clean %>% 
+  filter(case_study == "Westfall") %>% 
+  group_by(dimension, domain) %>% 
+  summarise_at(vars(official_score), list(score = mean)) %>% 
+  rename(Westfall = score)
+
+# Zhao mean
+zhao_mean <- attributes_merged_clean %>% 
+  filter(case_study == "Zhao") %>% 
+  group_by(dimension, domain) %>% 
+  summarise_at(vars(official_score), list(score = mean)) %>% 
+  rename(Zhao = score)
+```
+
+```{r}
+### Kisara Case Study missing b/c no information forsome of the dimensions 
+
+# Merge all mean datasets together
+means_merged_by_case <- cbind(aguion_mean, burden_mean, dickey_collas_mean, eurich_mean, free_mean, friedman_mean, hollowed_mean,  kleisner_mean, lau_mean, mason_mean, mills_mean, pecl_mean, tokunaga_mean, westfall_mean, zhao_mean) %>% 
+  select(dimension...1, domain...2, Aguion, Burden, Dickey_Collas, Eurich, Free, Friedman, Hollowed, Kleisner, Lau, Mason, Mills, Pecl, Tokunaga, Westfall, Zhao) %>% 
+  rename(Dimension = dimension...1, Domain = domain...2)
+
+# Create a table
+means_merged_by_case %>% 
+  kbl(caption = "Resilience Attribute Score Means Across Case Studies") %>% 
+   kable_classic_2(full_width = F, html_font = "Cambria") %>% 
+  kable_styling(bootstrap_options = c("striped", "hover"))
+```
+
+
+#########################################################################################################
+
+# Find Importance Level Means
+
+In order to determine the average across importance levels, the levels were converted to numbers as follows: Low ~ 1, Medium ~ 2, High ~ 3. Using these numbers, the means were then calculated to generate scoring mean across attributes for important levels.
+
+```{r}
+# Find the mean of the importance category by making a new dataset that defines the importance levels as numbers - 1 ~ low
+importance_mean <- attributes_merged_clean %>% 
+  mutate(importance=recode(importance, 
+                                 "Low"="1",
+                                 "Medium"="2",
+                                 "High"="3")) %>% 
+  mutate(importance=as.numeric(importance)) %>% 
+  filter(!is.na(importance)) %>% 
+  group_by(attribute) %>% 
+  summarise_at(vars(importance), list(importance_mean = mean)) 
+
+# Create a table
+importance_mean %>% 
+  kbl(caption = "Importance Means by Attribute") %>% 
+   kable_classic_2(full_width = F, html_font = "Cambria") %>% 
+  kable_styling(bootstrap_options = c("striped", "hover"))
+
+```
+
+
+```{r}
+# Find importance means across domains but within each dimension
+importance_domain_mean <- attributes_merged_clean %>% 
+  group_by(dimension, domain) %>% 
+  summarise_at(vars(numeric_importance), list(importance = mean))
+
+# Create a table
+importance_domain_mean %>% 
+  kbl(caption = "Resilience Attribute Importance Means by Domain") %>% 
+   kable_classic_2(full_width = F, html_font = "Cambria") %>% 
+  kable_styling(bootstrap_options = c("striped", "hover"))
+```
+
+
+##############################################################################################
+
+# Attribute Importance Means by Domain Across all Case Studies
+
+```{r}
+# Create a table where the average scores of each domain across case studies are represented
+
+# Aguion importance
+aguion_importance <- attributes_merged_clean %>% 
+  filter(case_study == "Aguion") %>% 
+  group_by(dimension, domain) %>% 
+  summarise_at(vars(numeric_importance), list(importance = mean)) %>% 
+  rename(Aguion = importance) 
+
+# Burden importance
+burden_importance <- attributes_merged_clean %>% 
+  filter(case_study == "Burden") %>% 
+  group_by(dimension, domain) %>% 
+  summarise_at(vars(numeric_importance), list(importance = mean)) %>% 
+  rename(Burden = importance)
+
+# Dickey-Collas importance
+dickey_collas_importance <- attributes_merged_clean %>% 
+  filter(case_study == "Dickey_Collas") %>% 
+  group_by(dimension, domain) %>% 
+  summarise_at(vars(numeric_importance), list(importance = mean)) %>% 
+  rename(Dickey_Collas = importance) 
+
+# Eurich importance
+eurich_importance <- attributes_merged_clean %>% 
+  filter(case_study == "Eurich") %>% 
+  group_by(dimension, domain) %>% 
+  summarise_at(vars(numeric_importance), list(importance = mean)) %>% 
+  rename(Eurich = importance)
+
+# Free importance
+free_importance <- attributes_merged_clean %>% 
+  filter(case_study == "Free") %>% 
+  group_by(dimension, domain) %>% 
+  summarise_at(vars(numeric_importance), list(importance = mean)) %>% 
+  rename(Free = importance)
+
+# Friedman importance
+friedman_importance <- attributes_merged_clean %>% 
+  filter(case_study == "Friedman") %>% 
+  group_by(dimension, domain) %>% 
+  summarise_at(vars(numeric_importance), list(importance = mean)) %>% 
+  rename(Friedman = importance)
+
+# Hollowed importance
+hollowed_importance <- attributes_merged_clean %>% 
+  filter(case_study == "Hollowed") %>% 
+  group_by(dimension, domain) %>% 
+  summarise_at(vars(numeric_importance), list(importance = mean)) %>% 
+  rename(Hollowed = importance)
+
+# Kisara importance
+kisara_importance <- attributes_merged_clean %>% 
+  filter(case_study == "Kisara") %>% 
+  group_by(dimension, domain) %>% 
+  summarise_at(vars(numeric_importance), list(importance = mean)) %>% 
+  rename(Kisara = importance)
+
+# Kleisner importance
+kleisner_importance <- attributes_merged_clean %>% 
+  filter(case_study == "Kleisner") %>% 
+  group_by(dimension, domain) %>% 
+  summarise_at(vars(numeric_importance), list(importance = mean)) %>% 
+  rename(Kleisner = importance)
+
+# Lau importance
+lau_importance <- attributes_merged_clean %>% 
+  filter(case_study == "Lau") %>% 
+  group_by(dimension, domain) %>% 
+  summarise_at(vars(numeric_importance), list(importance = mean)) %>% 
+  rename(Lau = importance)
+
+# Mason importance
+mason_importance <- attributes_merged_clean %>% 
+  filter(case_study == "Mason") %>% 
+  group_by(dimension, domain) %>% 
+  summarise_at(vars(numeric_importance), list(importance = mean)) %>% 
+  rename(Mason = importance)
+
+# Mills importance
+mills_importance <- attributes_merged_clean %>% 
+  filter(case_study == "Mills") %>% 
+  group_by(dimension, domain) %>% 
+  summarise_at(vars(numeric_importance), list(importance = mean)) %>% 
+  rename(Mills = importance)
+
+# Pecl importance
+pecl_importance <- attributes_merged_clean %>% 
+  filter(case_study == "Pecl") %>% 
+  group_by(dimension, domain) %>% 
+  summarise_at(vars(numeric_importance), list(importance = mean)) %>% 
+  rename(Pecl = importance)
+
+# Tokunaga importance
+tokunaga_importance <- attributes_merged_clean %>% 
+  filter(case_study == "Tokunaga") %>% 
+  group_by(dimension, domain) %>% 
+  summarise_at(vars(numeric_importance), list(importance = mean)) %>% 
+  rename(Tokunaga = importance)
+
+# Westfall importance
+westfall_importance <- attributes_merged_clean %>% 
+  filter(case_study == "Westfall") %>% 
+  group_by(dimension, domain) %>% 
+  summarise_at(vars(numeric_importance), list(importance = mean)) %>% 
+  rename(Westfall = importance)
+
+# Zhao importance
+zhao_importance <- attributes_merged_clean %>% 
+  filter(case_study == "Zhao") %>% 
+  group_by(dimension, domain) %>% 
+  summarise_at(vars(numeric_importance), list(importance = mean)) %>% 
+  rename(Zhao = importance)
+```
+
+```{r}
+### Kisara case study missing 
+
+
+# Merge all mean datasets together
+importance_merged_by_case <- cbind(aguion_importance, burden_importance, dickey_collas_importance, eurich_importance, free_importance, friedman_importance, hollowed_importance, kleisner_importance, lau_importance, mason_importance, mills_importance, pecl_importance, tokunaga_importance, westfall_importance, zhao_importance) %>% 
+  select(dimension...1, domain...2, Aguion, Burden, Dickey_Collas, Eurich, Free, Friedman, Hollowed, Kleisner, Lau, Mason, Mills, Pecl, Tokunaga, Westfall, Zhao) %>% 
+  rename(Dimension = dimension...1, Domain = domain...2)
+
+# Create a table
+importance_merged_by_case %>% 
+  kbl(caption = "Resilience Attribute Importance Means Across Case Studies") %>% 
+   kable_classic_2(full_width = F, html_font = "Cambria") %>% 
+  kable_styling(bootstrap_options = c("striped", "hover"))
+```
+
+
+#########################################################################################################
+
+# Small vs. Large-scale Fishery Stats
+
+With both of these tables, it is important to remember that score is based 1-4 while importance was a categorical variable originally. Due to this, Importance has been converted to numerical values where low = 1, medium = 2, and high = 3. This mean that for score, the highest value is 4 and the lowest is 1 and for importance, the highest is 3 and the lowest is 1.
+
+## Small-scale Fisheries
+
+```{r}
+# Create dataset for attribute score means in small-scale fisheries
+small_scale_score <- attributes_merged_clean %>% 
+  filter(case_study %in% c("Aguion", "Eurich", "Friedman", "Kleisner", "Lau", "Mills", "Pecl", "Tokunaga", "Zhao")) %>% 
+  group_by(dimension, domain, attribute) %>% 
+  summarise_at(vars(official_score), list(score = mean, score = sd)) %>% 
+  rename(Dimension = dimension,
+         Domain = domain)
+
+# Create dataset for attribute importance score means in small-scale fisheries
+small_scale_importance <- attributes_merged_clean %>% 
+  filter(case_study %in% c("Aguion", "Eurich", "Friedman", "Kleisner", "Lau", "Mills", "Pecl", "Tokunaga", "Zhao")) %>% 
+  group_by(dimension, domain, attribute) %>% 
+  summarise_at(vars(numeric_importance), list(numeric_importance = mean, numeric_importance = sd)) %>% 
+  rename(Dimension = dimension,
+         Domain = domain)
+  
+# Merge the datasets
+small_scale_combined <- merge(small_scale_score, small_scale_importance) %>% 
+  rename(Attributes = attribute,
+         "Score_Mean" = score..1,
+         "Score_SD" = score..2,
+         "Importance_Mean" = numeric_importance..1,
+         "Importance_SD" = numeric_importance..2)
+```
+
+```{r}
+# Create a table for the menas and standard deviations of both socre and importance 
+small_scale_combined %>% 
+  kbl(caption = "Small-Scale Fishery Resilience Attribute Score and Importance Means") %>% 
+   kable_classic_2(full_width = F, html_font = "Cambria") %>% 
+  kable_styling(bootstrap_options = c("striped", "hover"))
+```
+
+
+## Large-scale Fisheries
+
+```{r}
+# Create dataset for attribute score means in small-scale fisheries
+large_scale_score <- attributes_merged_clean %>% 
+  filter(case_study %in% c("Burden", "Hollowed", "Free", "Dickey-Collas", "Mason", "Westfall")) %>% 
+  group_by(dimension, domain, attribute) %>% 
+  summarise_at(vars(official_score), list(score = mean, score = sd)) %>% 
+  rename(Dimension = dimension,
+         Domain = domain)
+
+# Create dataset for attribute importance score means in small-scale fisheries
+large_scale_importance <- attributes_merged_clean %>% 
+  filter(case_study %in% c("Burden", "Hollowed", "Free", "Dickey-Collas", "Mason", "Westfall")) %>% 
+  group_by(dimension, domain, attribute) %>% 
+  summarise_at(vars(numeric_importance), list(numeric_importance = mean, numeric_importance = sd))%>% 
+  rename(Dimension = dimension,
+         Domain = domain)
+  
+# Merge the datasets
+large_scale_combined <- merge(large_scale_score, large_scale_importance) %>% 
+  rename(Attributes = attribute,
+         "Score_Mean" = score..1,
+         "Score_SD" = score..2,
+         "Importance_Mean" = numeric_importance..1,
+         "Importance_SD" = numeric_importance..2)
+
+# Turn the tables into CSV files
+#write_csv(small_scale_combined, "ssf.csv")
+#write_csv(large_scale_combined, "ls.csv")
+```
+
+```{r}
+# Create a table for the menas and standard deviations of both socre and importance 
+small_scale_combined %>% 
+  kbl(caption = "Large-Scale Fishery Resilience Attribute Score and Importance Means") %>% 
+   kable_classic_2(full_width = F, html_font = "Cambria") %>% 
+  kable_styling(bootstrap_options = c("striped", "hover"))
+```
+
+###################################################################################################
+
+# Plot Small-Scale vs. Large-Scale Means
+
+```{r}
+# Create theme
+my_theme <-  theme(axis.text.x=element_text(size=7, angle=35, hjust=1),
+                   axis.text.y=element_text(size=8),
+                   legend.text=element_text(size=8),
+                   legend.title=element_text(size=9),
+                   strip.text=element_text(size=9),
+                   # Gridlines
+                   panel.grid.major = element_blank(), 
+                   panel.grid.minor = element_blank(),
+                   panel.background = element_rect(), 
+                   axis.line = element_line())
+```
+
+```{r}
+# Make a dumby column in both datasets in order to plot the columns next to each other
+small_scale1 <- small_scale_combined %>% 
+    add_column(Archetype = "Small-scale",
+             .after = "Attributes")
+
+large_scale1 <- large_scale_combined %>% 
+    add_column(Archetype = "Large-scale",
+             .after = "Attributes")
+
+
+# Merge the different fishery archetypes
+scale_merged <- rbind(small_scale1, large_scale1)
+```
+
+
+## Score Averages by Fishery Scale
+
+```{r}
+ggplot(data=scale_merged, aes(x = Attributes, y = Score_Mean, fill = Archetype)) +
+  geom_bar(stat="identity", position=position_dodge()) +
+  theme_bw() + my_theme + 
+  facet_wrap(~Dimension, scales = "free") +
+  labs(title = "Small vs. Large-Scale Fishery Attribute Score Comparison", subtitle = "Based on the average attributes scores across case studies", y = "Score") +
+  scale_fill_manual(values = c("Large-scale" = "navy",
+                               "Small-scale" = "cyan3")) +
+  theme(legend.background = element_rect(fill="gray",
+                                  size=0.5, linetype="solid", 
+                                  colour ="black"))
+  
+ 
+
+# Save the plot
+#ggsave("scale_score.png", 
+#      width=8, height=6, units="in", dpi=600)
+```
+
+
+## Importance Averages by Fishery Scale
+
+```{r}
+ggplot(data=scale_merged, aes(x = Attributes, y = Importance_Mean, fill = Archetype)) +
+  geom_bar(stat="identity", position=position_dodge()) +
+  theme_bw() + my_theme + 
+  facet_wrap(~Dimension, scales = "free") +
+  labs(title = "Small vs. Large-Scale Fishery Importance Score Comparison", subtitle = "Based on the average importance scores across case studies", y = "Importance Score") +
+  scale_fill_manual(values = c("Large-scale" = "navy",
+                               "Small-scale" = "cyan3")) +
+  theme(legend.background = element_rect(fill="gray",
+                                  size=0.5, linetype="solid", 
+                                  colour ="black"))
+
+
+# Save the plot
+#ggsave("scale_importance.png", 
+#     width=8, height=6, units="in", dpi=600)
+```
+
+
+
