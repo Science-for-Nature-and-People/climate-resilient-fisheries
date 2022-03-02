@@ -9,7 +9,7 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
 
 #Load libraries
-source(here("00-load-libraries.R"))
+source(here("case_study_analysis","mf_clustering_analysis","00-load-libraries.R"))
 ```
 
 

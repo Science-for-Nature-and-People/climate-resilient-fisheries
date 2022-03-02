@@ -2,11 +2,51 @@
 title: "CRF Correlation Plotting"
 author: "Meghan Fletcher"
 date: "2/28/2022"
-output: html_document
+output: 
+  html_document:
+    theme: flatly
+    code_folding: hide
+    toc: true
+    toc_float: true
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+```{r setup, include=FALSE, message = FALSE, warning=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
+
 ```
 
-# https://r-coder.com/correlation-plot-r/
+# Load data
+
+```{r}
+library(here)
+source(here("case_study_analysis","mf_clustering_analysis","00-load-libraries.R"))
+load(here("case_study_analysis","mf_clustering_analysis","data","attribs.Rdata")) # from 01-prep-data.Rmd
+load(here("case_study_analysis","mf_clustering_analysis","data","attributes_merged_clean.Rdata"))
+
+```
+
+# Prepare data
+
+```{r}
+correlation_data <- attributes_merged_clean %>% 
+  select(case_study, attribute, official_score, numeric_importance)
+```
+
+http://www.sthda.com/english/wiki/correlation-analyses-in-r
+https://r-coder.com/correlation-plot-r/
+
+######################################################################################################
+
+# Initial correlation analyses
+
+```{r}
+pairs_data <- correlation_data %>% 
+  select(official_score, numeric_importance)
+
+pairs(pairs_data)
+```
+
+
+
+
+
