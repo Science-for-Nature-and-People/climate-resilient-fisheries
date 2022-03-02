@@ -19,9 +19,9 @@ knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
 
 ```{r}
 library(here)
-source(here("00-load-libraries.R"))
-load(here("data","attribute_table_clean.Rdata")) # from 01-prep-attribute-tables.Rmd
-load(here("data","attributes_merged_clean.Rdata"))
+source(here("case_study_analysis","00-load-libraries.R"))
+load(here("case_study_analysis","mf_case_study_extraction","data","attribute_table_clean.Rdata")) # from 01-prep-attribute-tables.Rmd
+load(here("case_study_analysis","mf_case_study_extraction","data","attributes_merged_clean.Rdata"))
 
 ```
 
@@ -572,31 +572,70 @@ score_stacked <- ggplot(dimension_comparison, aes(x = case_study, y = means, fil
 plot(score_stacked)
 ```
 
-# Visualize sum
+# Visualize Attribute Score Sum
 
 ```{r}
-# Create dataset
+# Create dataset for ecological dimension sum
 
-sum_comparison <- sums_merged_by_case %>% 
+sum_comparison_eco <- sums_merged_by_case %>% 
   pivot_longer(cols = c("Aguion", "Burden", "Dickey_Collas", "Eurich", "Free", "Golden", "Friedman", "Hollowed", "Kleisner", "Lau", "Mason", "Mills", "Pecl", "Tokunaga", "Westfall", "Zhao"),
                names_to = "case_study", 
                values_to = "sums") %>% 
   mutate(across(where(is.numeric), ~ round(., 2))) %>% 
-  mutate()
-# need to break it into dimensions - plot eahc one individually
+  filter(Dimension == "Ecological")
 
 
 # Make a stacked graph for the data
 
-score_sum_stacked <- ggplot(sum_comparison, aes(x = case_study, y = sums, fill = Domain, label = sums)) +
+eco_sum_stacked <- ggplot(sum_comparison_eco, aes(x = reorder(case_study, +sums), y = sums, fill = Domain, label = sums)) +
   geom_bar(stat="identity", position="stack") +
   theme_bw() + my_theme +
-  theme(legend.position="top") +
-  labs(x = "Case Studies", y = "Attribute Score Averages") +
+  theme(legend.position="right") +
+  labs(title="Ecological Attribute Score Sums", x = "Case Studies", y = "Attribute Score Sums") +
   scale_fill_brewer(palette = "Accent") +
- # geom_text(size = 3, position = position_stack(vjust = 0.5)) +
-  facet_wrap(~Dimension, scales="free")
-plot(score_sum_stacked)
+  geom_text(size = 3, position = position_stack(vjust = 0.5))
+ plot(eco_sum_stacked)
+ 
+ #####################################################################
+ 
+ # Create dataset for socio-economic dimension sum
+ sum_comparison_socio <- sums_merged_by_case %>% 
+  pivot_longer(cols = c("Aguion", "Burden", "Dickey_Collas", "Eurich", "Free", "Golden", "Friedman", "Hollowed", "Kleisner", "Lau", "Mason", "Mills", "Pecl", "Tokunaga", "Westfall", "Zhao"),
+               names_to = "case_study", 
+               values_to = "sums") %>% 
+  mutate(across(where(is.numeric), ~ round(., 2))) %>% 
+  filter(Dimension == "Social-economic")
+
+ # Make a stacked graph for the data
+socio_sum_stacked <- ggplot(sum_comparison_socio, aes(x = reorder(case_study, +sums), y = sums, fill = Domain, label = sums)) +
+  geom_bar(stat="identity", position="stack") +
+  theme_bw() + my_theme +
+  theme(legend.position="right") +
+  labs(title="Socio-economic Attribute Score Sums", x = "Case Studies", y = "Attribute Score Sums") +
+  scale_fill_brewer(palette = "Accent") +
+  geom_text(size = 3, position = position_stack(vjust = 0.5))
+ plot(socio_sum_stacked)
+ 
+#####################################################################
+ 
+# Create dataset for governance dimension sum
+sum_comparison_gov <- sums_merged_by_case %>% 
+  pivot_longer(cols = c("Aguion", "Burden", "Dickey_Collas", "Eurich", "Free", "Golden", "Friedman", "Hollowed", "Kleisner", "Lau", "Mason", "Mills", "Pecl", "Tokunaga", "Westfall", "Zhao"),
+               names_to = "case_study", 
+               values_to = "sums") %>% 
+  mutate(across(where(is.numeric), ~ round(., 2))) %>% 
+  filter(Dimension == "Goverance")
+
+# Make a stacked graph for the data
+gov_sum_stacked <- ggplot(sum_comparison_gov, aes(x = reorder(case_study, +sums), y = sums, fill = Domain, label = sums)) +
+  geom_bar(stat="identity", position="stack") +
+  theme_bw() + my_theme +
+  theme(legend.position="right") +
+  labs(title="Governance Attribute Score Sums", x = "Case Studies", y = "Attribute Score Sums") +
+  scale_fill_brewer(palette = "Accent") +
+  geom_text(size = 3, position = position_stack(vjust = 0.5))
+ plot(gov_sum_stacked)
+
 ```
 
 ##################################################################################################

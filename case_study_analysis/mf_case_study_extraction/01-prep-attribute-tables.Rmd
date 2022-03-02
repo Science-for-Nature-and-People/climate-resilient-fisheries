@@ -9,7 +9,7 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
 
 #Load libraries
-source(here("00-load-libraries.R"))
+source(here("case_study_analysis", "00-load-libraries.R"))
 ```
 
 
@@ -449,11 +449,11 @@ attribs
 Save workspace image & csv to load with other scripts
 ```{r}
 
-save(attribs, file = here("data","attribs.Rdata"))
-attribs %>% write_csv(here("data","attribs.csv"))
+save(attribs, file = here("case_study_analysis","mf_clustering_analysis","data","attribs.Rdata"))
+attribs %>% write_csv(here("case_study_analysis","mf_clustering_analysis","data","attribs.csv"))
 
-save(attributes_merged_clean, file = here("data","attributes_merged_clean.Rdata"))
-attributes_merged_clean %>% write_csv(here("data","attributes_merged_clean.csv"))
+save(attributes_merged_clean, file = here("case_study_analysis","mf_clustering_analysis","data","attributes_merged_clean.Rdata"))
+attributes_merged_clean %>% write_csv(here("case_study_analysis","mf_clustering_analysis","data","attributes_merged_clean.csv"))
 
 ```
 
