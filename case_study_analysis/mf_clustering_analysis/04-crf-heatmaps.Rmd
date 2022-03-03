@@ -200,9 +200,9 @@ Create heatmaps using the clusters that came out of the circular diagrams that W
 
 # Tokunaga, Hollowed, Mills, Free
 KT_AH_KM_CF_clust <- attributes_merged_clean %>% 
-  select(case_study, attribute, score) %>% 
+  select(case_study, attribute, official_score) %>% 
   filter(case_study %in% c("Tokunaga", "Hollowed", "Mills", "Free")) %>% 
-  pivot_wider(names_from = attribute,values_from = score)
+  pivot_wider(names_from = attribute,values_from = official_score)
  
 KT_AH_KM_CF_hc <- KT_AH_KM_CF_clust %>% 
   column_to_rownames(var = "case_study") %>% 
