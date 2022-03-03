@@ -54,7 +54,7 @@ cor_data %>%
 
 
 # Save this table
-cor_data %>% write_csv(here("case_study_analysis","mf_case_study_extraction","data","cor_data.csv"))
+cor_data %>% write_csv(here("case_study_analysis","mf_clustering_analysis","data","cor_data.csv"))
 ```
 
 

@@ -19,10 +19,9 @@ knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
 
 ```{r}
 library(here)
-source(here("00-load-libraries.R"))
-load(here("data","attribs.Rdata")) # from 01-prep-attribute-tables.Rmd
-load(here("data","attributes_merged_clean.Rdata"))
-
+source(here("case_study_analysis","mf_clustering_analysis","00-load-libraries.R"))
+load(here("case_study_analysis","mf_clustering_analysis","data","attribs.Rdata")) # from 01-prep-data.Rmd
+load(here("case_study_analysis","mf_clustering_analysis","data","attributes_merged_clean.Rdata"))
 ```
 
 ######################################################################################################
@@ -197,16 +196,58 @@ quality_heatmap
 Create heatmaps using the clusters that came out of the circular diagrams that Whitney had created. Do this for both score and importance
 
 ```{r}
-# Prep the data to separate out the appropriate cases for both score and importance
+# Prep the data to separate out the appropriate cases for score grouping
+
+# Tokunaga, Hollowed, Mills, Free
+KT_AH_KM_CF_clust <- attributes_merged_clean %>% 
+  select(case_study, attribute, score) %>% 
+  filter(case_study %in% c("Tokunaga", "Hollowed", "Mills", "Free")) %>% 
+  pivot_wider(names_from = attribute,values_from = score)
+ 
+KT_AH_KM_CF_hc <- KT_AH_KM_CF_clust %>% 
+  column_to_rownames(var = "case_study") %>% 
+  mutate(across(everything(),~scale(.x))) %>% 
+  mutate(across(everything(), ~replace_na(.x, 0))) %>% # REVIEW
+  as.matrix() %>% 
+  dist() %>% hclust(method = "ward.D2")
+
+#Pecl, Kleisner, Golden
 
 
-# Score groupings
+#Eurich, Aguion
 
 
-# Importance 
+#Friedmen, Zhoa, Lau, Westfall
 
 
+#Dickey-Collas, Mason
 ```
+
+```{r}
+# Prep the data to separate out the appropriate cases for importance grouping
+
+#Hollowed, Friedman, Pecl
+
+
+#Zhoa, Kleisner
+
+
+#Tokunaga, Lau
+
+
+#Free, Mason
+
+
+#Aguion, Eurich
+ 
+
+#Mills, Golden
+
+
+
+#Dickey-Collas and Westfall are stand-alone cases
+```
+
 
 
 ## Grouped Heatmaps by Score
