@@ -638,6 +638,39 @@ gov_sum_stacked <- ggplot(sum_comparison_gov, aes(x = reorder(case_study, +sums)
 
 ```
 
+### Bar Graph by Domain
+
+```{r}
+# create a bar graph per Pat's thoughts (stack the scores for each attribute within a specific domain by csae study)
+## Here we will examine governanace-organization attributes
+
+# Create dataset
+gov_org_comparison <- attributes_merged_clean %>% 
+  select(case_study, dimension, domain, attribute, official_score) %>% 
+  filter(dimension == "Goverance") %>% 
+  filter(domain == "Organization") %>% 
+  # remove Kisara
+  filter(case_study != "Kisara") %>% 
+  arrange(official_score) %>% 
+  mutate(attribute = factor(attribute, levels = unique(attribute)))
+
+# Make a stacked graph for the data
+gov_org_stacked <- ggplot(gov_org_comparison, aes(x = reorder(case_study, +official_score), y = official_score, fill = attribute, label = official_score)) +
+  geom_bar(stat="identity", position="stack") +
+  theme_bw() + my_theme +
+  theme(legend.position="right") +
+  labs(title="Governance Organization Attribute Scores Across Case Studies", x = "Case Studies", y = "Attribute Scores") +
+  scale_fill_brewer(palette = "Accent") +
+  geom_text(size = 3, position = position_stack(vjust = 0.5))
+ plot(gov_org_stacked)
+```
+
+
+
+
+
+
+
 ##################################################################################################
 
 # Attribute Score Proportions
