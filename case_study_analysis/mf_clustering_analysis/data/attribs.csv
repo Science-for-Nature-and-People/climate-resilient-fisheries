@@ -37,39 +37,6 @@ Goverance,Organization,Aguion,Aguion44,Polycentric,Good,High,yes,4,3,3,Goverance
 Goverance,Organization,Aguion,Aguion45,Cross-scale integration,Good,High,yes,3,3,3,Goverance_Cross_scale_integration
 Goverance,Learning,Aguion,Aguion47,Adaptive,Good,High,yes,4,3,3,Goverance_Adaptive
 Goverance,Agency,Aguion,Aguion49,Leadership and initiative,Fair,High,yes,3,2,3,Goverance_Leadership_and_initiative
-Ecological,Assets,Burden,Burden2,Age structure,NA,High,NA,1,NA,3,Ecological_Age_structure
-Ecological,Assets,Burden,Burden4,Species diversity,NA,Low,NA,2,NA,1,Ecological_Species_diversity
-Ecological,Flexibility,Burden,Burden6,Adult mobility,NA,High,NA,3,NA,3,Ecological_Adult_mobility
-Ecological,Flexibility,Burden,Burden7,Larval dispersal,NA,High,NA,3,NA,3,Ecological_Larval_dispersal
-Ecological,Flexibility,Burden,Burden8,Environmental niche breadth,NA,High,NA,2,NA,3,Ecological_Environmental_niche_breadth
-Ecological,Flexibility,Burden,Burden10,Habitat diversity,NA,Low,NA,2,NA,1,Ecological_Habitat_diversity
-Ecological,Flexibility,Burden,Burden11,Plasticity,NA,Low,NA,2,NA,1,Ecological_Plasticity
-Ecological,Flexibility,Burden,Burden12,Evolutionary potential,NA,Medium,NA,3,NA,2,Ecological_Evolutionary_potential
-Ecological,Organization,Burden,Burden14,Ecosystem connectivity,NA,High,NA,4,NA,3,Ecological_Ecosystem_connectivity
-Ecological,Organization,Burden,Burden15,Population modularity,NA,Low,NA,2,NA,1,Ecological_Population_modularity
-Social-economic,Assets,Burden,Burden17,Wealth and reserves,NA,Medium,NA,3,NA,2,Social_economic_Wealth_and_reserves
-Social-economic,Assets,Burden,Burden18,Economic diversity,NA,High,NA,4,NA,3,Social_economic_Economic_diversity
-Social-economic,Assets,Burden,Burden19,Social diversity,NA,Low,NA,2,NA,1,Social_economic_Social_diversity
-Social-economic,Flexibility,Burden,Burden22,Mobility,NA,High,NA,3,NA,3,Social_economic_Mobility
-Social-economic,Flexibility,Burden,Burden23,Economic opportunity,NA,High,NA,4,NA,3,Social_economic_Economic_opportunity
-Social-economic,Flexibility,Burden,Burden24,Resilience mindset,NA,High,NA,3,NA,3,Social_economic_Resilience_mindset
-Social-economic,Flexibility,Burden,Burden25,Place attachment,NA,Low,NA,3,NA,1,Social_economic_Place_attachment
-Social-economic,Organization,Burden,Burden28,Technology transfer,NA,Medium,NA,3,NA,2,Social_economic_Technology_transfer
-Social-economic,Organization,Burden,Burden29,Modular infrastructure,NA,Medium,NA,2,NA,2,Social_economic_Modular_infrastructure
-Social-economic,Learning,Burden,Burden31,Knowledge diversity,NA,Medium,NA,2,NA,2,Social_economic_Knowledge_diversity
-Social-economic,Learning,Burden,Burden32,Knowledge access,NA,Medium,NA,3,NA,2,Social_economic_Knowledge_access
-Social-economic,Learning,Burden,Burden33,Learning capacity,NA,High,NA,3,NA,3,Social_economic_Learning_capacity
-Social-economic,Agency,Burden,Burden35,Agency,NA,Medium,NA,3,NA,2,Social_economic_Agency
-Goverance,Flexibility,Burden,Burden37,Responsive,NA,High,NA,3,NA,3,Goverance_Responsive
-Goverance,Organization,Burden,Burden39,Participatory,NA,High,NA,4,NA,3,Goverance_Participatory
-Goverance,Organization,Burden,Burden40,Equitable and inclusive,NA,Medium,NA,3,NA,2,Goverance_Equitable_and_inclusive
-Goverance,Organization,Burden,Burden41,Accountable,NA,High,NA,4,NA,3,Goverance_Accountable
-Goverance,Organization,Burden,Burden42,Transparent,NA,Medium,NA,4,NA,2,Goverance_Transparent
-Goverance,Organization,Burden,Burden43,Effective and efficient,NA,High,NA,2,NA,3,Goverance_Effective_and_efficient
-Goverance,Organization,Burden,Burden44,Polycentric,NA,Medium,NA,3,NA,2,Goverance_Polycentric
-Goverance,Organization,Burden,Burden45,Cross-scale integration,NA,Medium,NA,3,NA,2,Goverance_Cross_scale_integration
-Goverance,Learning,Burden,Burden47,Adaptive,NA,High,NA,4,NA,3,Goverance_Adaptive
-Goverance,Agency,Burden,Burden49,Leadership and initiative,NA,Medium,NA,3,NA,2,Goverance_Leadership_and_initiative
 Ecological,Assets,Dickey_Collas,Dickey_Collas1,Population abundance,Excellent,Medium,yes,4,4,2,Ecological_Population_abundance
 Ecological,Assets,Dickey_Collas,Dickey_Collas2,Age structure,Excellent,Medium,no,2,4,2,Ecological_Age_structure
 Ecological,Assets,Dickey_Collas,Dickey_Collas3,Genetic diversity,Excellent,Low,yes,3,4,1,Ecological_Genetic_diversity
@@ -290,16 +257,6 @@ Goverance,Organization,Hollowed,Hollowed44,Polycentric,Excellent,Low,yes,2,4,1,G
 Goverance,Organization,Hollowed,Hollowed45,Cross-scale integration,Fair,Medium,yes,3,2,2,Goverance_Cross_scale_integration
 Goverance,Learning,Hollowed,Hollowed47,Adaptive,Excellent,High,yes,4,4,3,Goverance_Adaptive
 Goverance,Agency,Hollowed,Hollowed49,Leadership and initiative,Fair,Medium,yes,3,2,2,Goverance_Leadership_and_initiative
-Ecological,Assets,Kisara,Kisara1,Population abundance,Low,Medium,no,1,1,2,Ecological_Population_abundance
-Ecological,Assets,Kisara,Kisara2,Age structure,Excellent,Low,no,4,4,1,Ecological_Age_structure
-Ecological,Assets,Kisara,Kisara4,Species diversity,Excellent,High,yes,4,4,3,Ecological_Species_diversity
-Ecological,Flexibility,Kisara,Kisara6,Adult mobility,Fair,Medium,no,4,2,2,Ecological_Adult_mobility
-Ecological,Flexibility,Kisara,Kisara9,Dietary flexibility,Good,Medium,NA,4,3,2,Ecological_Dietary_flexibility
-Ecological,Flexibility,Kisara,Kisara10,Habitat diversity,Excellent,High,yes,2,4,3,Ecological_Habitat_diversity
-Ecological,Organization,Kisara,Kisara15,Population modularity,Good,Low,yes,4,3,1,Ecological_Population_modularity
-Social-economic,Organization,Kisara,Kisara27,Social capital,Fair,High,yes,3,2,3,Social_economic_Social_capital
-Social-economic,Agency,Kisara,Kisara35,Agency,Fair,High,yes,3,2,3,Social_economic_Agency
-Goverance,Organization,Kisara,Kisara44,Polycentric,Fair,Low,NA,2,2,1,Goverance_Polycentric
 Ecological,Assets,Kleisner,Kleisner1,Population abundance,Fair,High,yes,3,2,3,Ecological_Population_abundance
 Ecological,Assets,Kleisner,Kleisner2,Age structure,Fair,High,yes,3,2,3,Ecological_Age_structure
 Ecological,Assets,Kleisner,Kleisner3,Genetic diversity,Fair,High,NA,2,2,3,Ecological_Genetic_diversity

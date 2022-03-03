@@ -40,13 +40,61 @@ https://r-coder.com/correlation-plot-r/
 # Initial correlation analyses
 
 ```{r}
-pairs_data <- correlation_data %>% 
-  select(official_score, numeric_importance)
+cor_data <- correlation_data %>% 
+  select(attribute, official_score, numeric_importance) %>% 
+  group_by(attribute) %>% 
+  summarise(Correlation = cor(official_score, numeric_importance)) %>% 
+  rename(Attribute = attribute)
 
-pairs(pairs_data)
+# Create a table
+cor_data %>% 
+  kbl(caption = "Correlation between Score and Importance by Attribute") %>% 
+   kable_classic_2(full_width = F, html_font = "Cambria") %>% 
+  kable_styling(bootstrap_options = c("striped", "hover"))
+
+
+# Save this table
+cor_data %>% write_csv(here("case_study_analysis","mf_case_study_extraction","data","cor_data.csv"))
 ```
 
 
 
+```{r}
+# From Whitney's code
 
+df_corr <- attribs %>% 
+  select(case_study, attribute_id, score) %>% 
+  pivot_wider(names_from = case_study ,values_from = score)
+
+df_corr %>% 
+  select(-attribute_id) %>% 
+  cor(use = "pairwise.complete.obs", method = "spearman") %>% 
+  corrplot(method = "color", diag = F, 
+           tl.cex = 1, tl.col="black",
+           number.cex = 0.7,
+           addCoef.col = "gray50", 
+           order = "hclust", 
+           hclust.method = "ward.D2")
+
+##################################################################
+
+dim_domain <- attribs %>% 
+  select(case_study, dimension, domain, attribute, score) %>% 
+  mutate(dim_domain = str_c(dimension, domain, sep = "_")) %>% 
+  group_by(case_study, dim_domain) %>% 
+  summarise(sum_score = sum(score, na.rm = T)) %>% 
+  ungroup() %>% 
+  pivot_wider(names_from = dim_domain, values_from = sum_score) %>% 
+  clean_names()
+
+dim_domain %>% 
+  select(-case_study) %>% 
+  cor(use = "pairwise.complete.obs", method = "spearman") %>% 
+  corrplot(method = "color", diag = F, 
+           tl.cex = 1, tl.col="black",
+           number.cex = 0.7,
+           addCoef.col = "gray50", 
+           order = "hclust", 
+           hclust.method = "ward.D2")
+```
 
