@@ -195,29 +195,109 @@ quality_heatmap
 # Heatmap Grouping
 Create heatmaps using the clusters that came out of the circular diagrams that Whitney had created. Do this for both score and importance
 
+## Attribute Score Groupings Heatmaps
+
 ```{r}
-# Prep the data to separate out the appropriate cases for score grouping
+# 1. Prep the data to separate out the appropriate cases for score grouping
+# 2. create heatmaps of the different groupings
 
 # Tokunaga, Hollowed, Mills, Free
 KT_AH_KM_CF_clust <- attributes_merged_clean %>% 
   select(case_study, attribute, official_score) %>% 
   filter(case_study %in% c("Tokunaga", "Hollowed", "Mills", "Free")) %>% 
   pivot_wider(names_from = attribute,values_from = official_score)
- 
-KT_AH_KM_CF_hc <- KT_AH_KM_CF_clust %>% 
+
+KT_AH_KM_CF_heatmap <- KT_AH_KM_CF_clust %>% 
   column_to_rownames(var = "case_study") %>% 
   mutate(across(everything(),~scale(.x))) %>% 
-  mutate(across(everything(), ~replace_na(.x, 0))) %>% # REVIEW
-  as.matrix() %>% 
-  dist() %>% hclust(method = "ward.D2")
+  mutate(across(everything(), ~replace_na(.x, 0))) %>%
+  as.matrix() %>% t() %>% 
+  Heatmap(clustering_distance_rows = "euclidean",
+        clustering_method_rows ="ward.D2",
+        clustering_distance_columns = "euclidean",
+        clustering_method_columns = "ward.D2",
+        col = brewer.pal(9,"RdYlBu"),
+        row_names_gp = gpar(fontsize = 8),
+        column_names_gp = gpar(fontsize = 10),
+        column_names_rot = 45,
+        show_heatmap_legend = TRUE,
+        heatmap_legend_param = list(title = "Tokunaga, Hollowed, Mills & Free Heatmap")) 
+
+KT_AH_KM_CF_heatmap
 
 #Pecl, Kleisner, Golden
+GP_KK_CG_clust <- attributes_merged_clean %>% 
+  select(case_study, attribute, official_score) %>% 
+  filter(case_study %in% c("Pecl", "Kleisner", "Golden")) %>% 
+  pivot_wider(names_from = attribute,values_from = official_score)
+
+GP_KK_CG_heatmap <- GP_KK_CG_clust %>% 
+  column_to_rownames(var = "case_study") %>% 
+  mutate(across(everything(),~scale(.x))) %>% 
+  mutate(across(everything(), ~replace_na(.x, 0))) %>%
+  as.matrix() %>% t() %>% 
+  Heatmap(clustering_distance_rows = "euclidean",
+        clustering_method_rows ="ward.D2",
+        clustering_distance_columns = "euclidean",
+        clustering_method_columns = "ward.D2",
+        col = brewer.pal(9,"RdYlBu"),
+        row_names_gp = gpar(fontsize = 8),
+        column_names_gp = gpar(fontsize = 10),
+        column_names_rot = 45,
+        show_heatmap_legend = TRUE,
+        heatmap_legend_param = list(title = "Pecl, Kleisner & Free Heatmap")) 
+
+GP_KK_CG_heatmap
 
 
 #Eurich, Aguion
+JE_AA_clust <- attributes_merged_clean %>% 
+  select(case_study, attribute, official_score) %>% 
+  filter(case_study %in% c("Eurich", "Aguion")) %>% 
+  pivot_wider(names_from = attribute,values_from = official_score)
+
+JE_AA_heatmap <- JE_AA_clust %>% 
+  column_to_rownames(var = "case_study") %>% 
+  mutate(across(everything(),~scale(.x))) %>% 
+  mutate(across(everything(), ~replace_na(.x, 0))) %>%
+  as.matrix() %>% t() %>% 
+  Heatmap(clustering_distance_rows = "euclidean",
+        clustering_method_rows ="ward.D2",
+        clustering_distance_columns = "euclidean",
+        clustering_method_columns = "ward.D2",
+        col = brewer.pal(9,"RdYlBu"),
+        row_names_gp = gpar(fontsize = 8),
+        column_names_gp = gpar(fontsize = 10),
+        column_names_rot = 45,
+        show_heatmap_legend = TRUE,
+        heatmap_legend_param = list(title = "Eurich & Aguion Heatmap")) 
+
+JE_AA_heatmap
 
 
 #Friedmen, Zhoa, Lau, Westfall
+WF_LZ_JL_KW_clust <- attributes_merged_clean %>% 
+  select(case_study, attribute, official_score) %>% 
+  filter(case_study %in% c("Friedman", "Zhoa", "Lau", "Westfall")) %>% 
+  pivot_wider(names_from = attribute,values_from = official_score)
+
+WF_LZ_JL_KW_heatmap <- WF_LZ_JL_KW_clust %>% 
+  column_to_rownames(var = "case_study") %>% 
+  mutate(across(everything(),~scale(.x))) %>% 
+  mutate(across(everything(), ~replace_na(.x, 0))) %>%
+  as.matrix() %>% t() %>% 
+  Heatmap(clustering_distance_rows = "euclidean",
+        clustering_method_rows ="ward.D2",
+        clustering_distance_columns = "euclidean",
+        clustering_method_columns = "ward.D2",
+        col = brewer.pal(9,"RdYlBu"),
+        row_names_gp = gpar(fontsize = 8),
+        column_names_gp = gpar(fontsize = 10),
+        column_names_rot = 45,
+        show_heatmap_legend = TRUE,
+        heatmap_legend_param = list(title = "Friedman, Zhao, Lau & Westfall Heatmap")) 
+
+WF_LZ_JL_KW_heatmap
 
 
 #Dickey-Collas, Mason
@@ -227,21 +307,151 @@ KT_AH_KM_CF_hc <- KT_AH_KM_CF_clust %>%
 # Prep the data to separate out the appropriate cases for importance grouping
 
 #Hollowed, Friedman, Pecl
+AH_WF_GP_clust <- attributes_merged_clean %>% 
+  select(case_study, attribute, numeric_importance) %>% 
+  filter(case_study %in% c("Friedman", "Hollowed", "Pecl")) %>% 
+  pivot_wider(names_from = attribute, values_from = numeric_importance)
 
+AH_WF_GP_heatmap <- AH_WF_GP_clust %>% 
+  column_to_rownames(var = "case_study") %>% 
+  mutate(across(everything(),~scale(.x))) %>% 
+  mutate(across(everything(), ~replace_na(.x, 0))) %>%
+  as.matrix() %>% t() %>% 
+  Heatmap(clustering_distance_rows = "euclidean",
+        clustering_method_rows ="ward.D2",
+        clustering_distance_columns = "euclidean",
+        clustering_method_columns = "ward.D2",
+        col = brewer.pal(9,"RdYlBu"),
+        row_names_gp = gpar(fontsize = 8),
+        column_names_gp = gpar(fontsize = 10),
+        column_names_rot = 45,
+        show_heatmap_legend = TRUE,
+        heatmap_legend_param = list(title = "Hollowed, Friedman & Pecl Heatmap")) 
 
-#Zhoa, Kleisner
+AH_WF_GP_heatmap
 
+#Zhao, Kleisner
+LZ_KK_clust <- attributes_merged_clean %>% 
+  select(case_study, attribute, numeric_importance) %>% 
+  filter(case_study %in% c("Zhao", "Kleisner")) %>% 
+  pivot_wider(names_from = attribute, values_from = numeric_importance)
+
+LZ_KK_heatmap <- LZ_KK_clust %>% 
+  column_to_rownames(var = "case_study") %>% 
+  mutate(across(everything(),~scale(.x))) %>% 
+  mutate(across(everything(), ~replace_na(.x, 0))) %>%
+  as.matrix() %>% t() %>% 
+  Heatmap(clustering_distance_rows = "euclidean",
+        clustering_method_rows ="ward.D2",
+        clustering_distance_columns = "euclidean",
+        clustering_method_columns = "ward.D2",
+        col = brewer.pal(9,"RdYlBu"),
+        row_names_gp = gpar(fontsize = 8),
+        column_names_gp = gpar(fontsize = 10),
+        column_names_rot = 45,
+        show_heatmap_legend = TRUE,
+        heatmap_legend_param = list(title = "Zhao & Kleisner Heatmap")) 
+
+LZ_KK_heatmap
 
 #Tokunaga, Lau
+KT_JL_clust <- attributes_merged_clean %>% 
+  select(case_study, attribute, numeric_importance) %>% 
+  filter(case_study %in% c("Tokunaga", "Lau")) %>% 
+  pivot_wider(names_from = attribute, values_from = numeric_importance)
+
+KT_JL_heatmap <- KT_JL_clust %>% 
+  column_to_rownames(var = "case_study") %>% 
+  mutate(across(everything(),~scale(.x))) %>% 
+  mutate(across(everything(), ~replace_na(.x, 0))) %>%
+  as.matrix() %>% t() %>% 
+  Heatmap(clustering_distance_rows = "euclidean",
+        clustering_method_rows ="ward.D2",
+        clustering_distance_columns = "euclidean",
+        clustering_method_columns = "ward.D2",
+        col = brewer.pal(9,"RdYlBu"),
+        row_names_gp = gpar(fontsize = 8),
+        column_names_gp = gpar(fontsize = 10),
+        column_names_rot = 45,
+        show_heatmap_legend = TRUE,
+        heatmap_legend_param = list(title = "Tokunaga & Lau Heatmap")) 
+
+KT_JL_heatmap
 
 
 #Free, Mason
+CF_JM_clust <- attributes_merged_clean %>% 
+  select(case_study, attribute, numeric_importance) %>% 
+  filter(case_study %in% c("Free", "Mason")) %>% 
+  pivot_wider(names_from = attribute, values_from = numeric_importance)
+
+CF_JM_heatmap <- CF_JM_clust %>% 
+  column_to_rownames(var = "case_study") %>% 
+  mutate(across(everything(),~scale(.x))) %>% 
+  mutate(across(everything(), ~replace_na(.x, 0))) %>%
+  as.matrix() %>% t() %>% 
+  Heatmap(clustering_distance_rows = "euclidean",
+        clustering_method_rows ="ward.D2",
+        clustering_distance_columns = "euclidean",
+        clustering_method_columns = "ward.D2",
+        col = brewer.pal(9,"RdYlBu"),
+        row_names_gp = gpar(fontsize = 8),
+        column_names_gp = gpar(fontsize = 10),
+        column_names_rot = 45,
+        show_heatmap_legend = TRUE,
+        heatmap_legend_param = list(title = "Free & Mason Heatmap")) 
+
+CF_JM_heatmap
 
 
 #Aguion, Eurich
+AA_JE_clust <- attributes_merged_clean %>% 
+  select(case_study, attribute, numeric_importance) %>% 
+  filter(case_study %in% c("Aguion", "Eurich")) %>% 
+  pivot_wider(names_from = attribute, values_from = numeric_importance)
+
+AA_JE_heatmap <- AA_JE_clust %>% 
+  column_to_rownames(var = "case_study") %>% 
+  mutate(across(everything(),~scale(.x))) %>% 
+  mutate(across(everything(), ~replace_na(.x, 0))) %>%
+  as.matrix() %>% t() %>% 
+  Heatmap(clustering_distance_rows = "euclidean",
+        clustering_method_rows ="ward.D2",
+        clustering_distance_columns = "euclidean",
+        clustering_method_columns = "ward.D2",
+        col = brewer.pal(9,"RdYlBu"),
+        row_names_gp = gpar(fontsize = 8),
+        column_names_gp = gpar(fontsize = 10),
+        column_names_rot = 45,
+        show_heatmap_legend = TRUE,
+        heatmap_legend_param = list(title = "Aguion & Eurich Heatmap")) 
+
+AA_JE_heatmap
  
 
 #Mills, Golden
+KM_CG_clust <- attributes_merged_clean %>% 
+  select(case_study, attribute, numeric_importance) %>% 
+  filter(case_study %in% c("Mills", "Golden")) %>% 
+  pivot_wider(names_from = attribute, values_from = numeric_importance)
+
+KM_CG_heatmap <- KM_CG_clust %>% 
+  column_to_rownames(var = "case_study") %>% 
+  mutate(across(everything(),~scale(.x))) %>% 
+  mutate(across(everything(), ~replace_na(.x, 0))) %>%
+  as.matrix() %>% t() %>% 
+  Heatmap(clustering_distance_rows = "euclidean",
+        clustering_method_rows ="ward.D2",
+        clustering_distance_columns = "euclidean",
+        clustering_method_columns = "ward.D2",
+        col = brewer.pal(9,"RdYlBu"),
+        row_names_gp = gpar(fontsize = 8),
+        column_names_gp = gpar(fontsize = 10),
+        column_names_rot = 45,
+        show_heatmap_legend = TRUE,
+        heatmap_legend_param = list(title = "Mills & Golden Heatmap")) 
+
+KM_CG_heatmap
 
 
 
@@ -249,20 +459,6 @@ KT_AH_KM_CF_hc <- KT_AH_KM_CF_clust %>%
 ```
 
 
-
-## Grouped Heatmaps by Score
-
-
-```{r}
-
-```
-
-
-## Grouped Heatmaps by Importance
-
-```{r}
-
-```
 
 
 
