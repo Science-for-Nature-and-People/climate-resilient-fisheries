@@ -192,7 +192,7 @@ quality_heatmap
 
 #############################################################################################
 
-# Heatmap Grouping
+# Heatmap Grouping by Case Clusters
 Create heatmaps using the clusters that came out of the circular diagrams that Whitney had created. Do this for both score and importance
 
 ## Attribute Score Groupings Heatmaps
@@ -459,12 +459,292 @@ KM_CG_heatmap
 ```
 
 
+#############################################################################################################
+
+# Heatmap Grouping by Fishery Scale
+
+## Attribute Score: Small-scale vs. Large-scale
+
+```{r}
+# Small-scale fisheres: Aguion, Eurich, Free, Friedman, Golden, Kleisner, Lau, Mills, Tokunaga, Zhao
+
+# 1. Create the datasets
+# 2. Create the heatmaps
+
+small_scale_clust <- attributes_merged_clean %>% 
+  select(case_study, attribute, official_score) %>% 
+  filter(case_study %in% c("Aguion", "Eurich", "Free","Friedman", "Golden", "Kleisner", "Lau", "Mills", "Tokunaga", "Zhao")) %>% 
+  pivot_wider(names_from = attribute,values_from = official_score)
+
+small_scale_heatmap <- small_scale_clust %>% 
+  column_to_rownames(var = "case_study") %>% 
+  mutate(across(everything(),~scale(.x))) %>% 
+  mutate(across(everything(), ~replace_na(.x, 0))) %>%
+  as.matrix() %>% t() %>% 
+  Heatmap(clustering_distance_rows = "euclidean",
+        clustering_method_rows ="ward.D2",
+        clustering_distance_columns = "euclidean",
+        clustering_method_columns = "ward.D2",
+        col = brewer.pal(9,"RdYlBu"),
+        row_names_gp = gpar(fontsize = 8),
+        column_names_gp = gpar(fontsize = 10),
+        column_names_rot = 45,
+        show_heatmap_legend = TRUE,
+        heatmap_legend_param = list(title = "Small-scale Attribute Score Heatmap")) 
+
+small_scale_heatmap
 
 
+# Large-scale fisheries: Dickey-Collas, Hollowed, Mason, Pecl, Westfall
+
+large_scale_clust <- attributes_merged_clean %>% 
+  select(case_study, attribute, official_score) %>% 
+  filter(case_study %in% c("Dickey_Collas", "Hollowed", "Mason","Pecl", "Westfall")) %>% 
+  pivot_wider(names_from = attribute,values_from = official_score)
+
+large_scale_heatmap <- large_scale_clust %>% 
+  column_to_rownames(var = "case_study") %>% 
+  mutate(across(everything(),~scale(.x))) %>% 
+  mutate(across(everything(), ~replace_na(.x, 0))) %>%
+  as.matrix() %>% t() %>% 
+  Heatmap(clustering_distance_rows = "euclidean",
+        clustering_method_rows ="ward.D2",
+        clustering_distance_columns = "euclidean",
+        clustering_method_columns = "ward.D2",
+        col = brewer.pal(9,"RdYlBu"),
+        row_names_gp = gpar(fontsize = 8),
+        column_names_gp = gpar(fontsize = 10),
+        column_names_rot = 45,
+        show_heatmap_legend = TRUE,
+        heatmap_legend_param = list(title = "Large-scale Attribute Score Heatmap")) 
+
+large_scale_heatmap
+```
 
 
+## Importance: Small-scale vs. Large-scale
+
+```{r}
+# Small-scale fisheres: Aguion, Eurich, Free, Friedman, Golden, Kleisner, Lau, Mills, Tokunaga, Zhao
+
+# 1. Create the datasets
+# 2. Create the heatmaps
+
+small_importance_clust <- attributes_merged_clean %>% 
+  select(case_study, attribute, numeric_importance) %>% 
+  filter(case_study %in% c("Aguion", "Eurich", "Free","Friedman", "Golden", "Kleisner", "Lau", "Mills", "Tokunaga", "Zhao")) %>% 
+  pivot_wider(names_from = attribute,values_from = numeric_importance)
+
+small_importance_heatmap <- small_importance_clust %>% 
+  column_to_rownames(var = "case_study") %>% 
+  mutate(across(everything(),~scale(.x))) %>% 
+  mutate(across(everything(), ~replace_na(.x, 0))) %>%
+  as.matrix() %>% t() %>% 
+  Heatmap(clustering_distance_rows = "euclidean",
+        clustering_method_rows ="ward.D2",
+        clustering_distance_columns = "euclidean",
+        clustering_method_columns = "ward.D2",
+        col = brewer.pal(9,"RdYlBu"),
+        row_names_gp = gpar(fontsize = 8),
+        column_names_gp = gpar(fontsize = 10),
+        column_names_rot = 45,
+        show_heatmap_legend = TRUE,
+        heatmap_legend_param = list(title = "Small-scale Importance Heatmap")) 
+
+small_importance_heatmap
 
 
+# Large-scale fisheries: Dickey-Collas, Hollowed, Mason, Pecl, Westfall
+
+large_importance_clust <- attributes_merged_clean %>% 
+  select(case_study, attribute, numeric_importance) %>% 
+  filter(case_study %in% c("Dickey_Collas", "Hollowed", "Mason","Pecl", "Westfall")) %>% 
+  pivot_wider(names_from = attribute,values_from = numeric_importance)
+
+large_importance_heatmap <- large_importance_clust %>% 
+  column_to_rownames(var = "case_study") %>% 
+  mutate(across(everything(),~scale(.x))) %>% 
+  mutate(across(everything(), ~replace_na(.x, 0))) %>%
+  as.matrix() %>% t() %>% 
+  Heatmap(clustering_distance_rows = "euclidean",
+        clustering_method_rows ="ward.D2",
+        clustering_distance_columns = "euclidean",
+        clustering_method_columns = "ward.D2",
+        col = brewer.pal(9,"RdYlBu"),
+        row_names_gp = gpar(fontsize = 8),
+        column_names_gp = gpar(fontsize = 10),
+        column_names_rot = 45,
+        show_heatmap_legend = TRUE,
+        heatmap_legend_param = list(title = "Large-scale Importance Heatmap")) 
+
+large_importance_heatmap
+```
+
+
+###############################################################################################
+
+# Heatmap Grouping by Fishering Location (Coastal, Island, Pelagic)
+
+## Attribute Score: Coastal vs. Island vs. Pelagic Location
+
+```{r}
+# Coastal Fisheries: Aguion, Free, Golden, Mills, Pecl, Tokunaga
+
+coastal_score_clust <- attributes_merged_clean %>% 
+  select(case_study, attribute, official_score) %>% 
+  filter(case_study %in% c("Aguion", "Free", "Golden", "Mills", "Pecl", "Tokunaga")) %>% 
+  pivot_wider(names_from = attribute,values_from = official_score)
+
+coastal_score_heatmap <- coastal_score_clust %>% 
+  column_to_rownames(var = "case_study") %>% 
+  mutate(across(everything(),~scale(.x))) %>% 
+  mutate(across(everything(), ~replace_na(.x, 0))) %>%
+  as.matrix() %>% t() %>% 
+  Heatmap(clustering_distance_rows = "euclidean",
+        clustering_method_rows ="ward.D2",
+        clustering_distance_columns = "euclidean",
+        clustering_method_columns = "ward.D2",
+        col = brewer.pal(9,"RdYlBu"),
+        row_names_gp = gpar(fontsize = 8),
+        column_names_gp = gpar(fontsize = 10),
+        column_names_rot = 45,
+        show_heatmap_legend = TRUE,
+        heatmap_legend_param = list(title = "Coastal Fisheries Attribute Score Heatmap")) 
+
+coastal_score_heatmap
+
+# Island Fisheries: Eurich, Friedman, Kleisner, Lau, Zhao
+
+island_score_clust <- attributes_merged_clean %>% 
+  select(case_study, attribute, official_score) %>% 
+  filter(case_study %in% c("Eurich", "Friedman", "Kleisner", "Lau", "Zhao")) %>% 
+  pivot_wider(names_from = attribute,values_from = official_score)
+
+island_score_heatmap <- island_score_clust %>% 
+  column_to_rownames(var = "case_study") %>% 
+  mutate(across(everything(),~scale(.x))) %>% 
+  mutate(across(everything(), ~replace_na(.x, 0))) %>%
+  as.matrix() %>% t() %>% 
+  Heatmap(clustering_distance_rows = "euclidean",
+        clustering_method_rows ="ward.D2",
+        clustering_distance_columns = "euclidean",
+        clustering_method_columns = "ward.D2",
+        col = brewer.pal(9,"RdYlBu"),
+        row_names_gp = gpar(fontsize = 8),
+        column_names_gp = gpar(fontsize = 10),
+        column_names_rot = 45,
+        show_heatmap_legend = TRUE,
+        heatmap_legend_param = list(title = "Island Fisheries Attribute Score Heatmap")) 
+
+island_score_heatmap
+
+# Pelagic Fisheries: Dickey-Collas, Hollowed, Mason, Westfall
+
+pelagic_score_clust <- attributes_merged_clean %>% 
+  select(case_study, attribute, official_score) %>% 
+  filter(case_study %in% c("Dickey_Collas", "Hollowed", "Mason", "Westfall")) %>% 
+  pivot_wider(names_from = attribute,values_from = official_score)
+
+pelagic_score_heatmap <- pelagic_score_clust %>% 
+  column_to_rownames(var = "case_study") %>% 
+  mutate(across(everything(),~scale(.x))) %>% 
+  mutate(across(everything(), ~replace_na(.x, 0))) %>%
+  as.matrix() %>% t() %>% 
+  Heatmap(clustering_distance_rows = "euclidean",
+        clustering_method_rows ="ward.D2",
+        clustering_distance_columns = "euclidean",
+        clustering_method_columns = "ward.D2",
+        col = brewer.pal(9,"RdYlBu"),
+        row_names_gp = gpar(fontsize = 8),
+        column_names_gp = gpar(fontsize = 10),
+        column_names_rot = 45,
+        show_heatmap_legend = TRUE,
+        heatmap_legend_param = list(title = "Pelagic Fisheries Attribute Score Heatmap")) 
+
+pelagic_score_heatmap
+
+```
+
+
+## Importance: Coastal vs. Island vs. Pelagic
+
+```{r}
+# Coastal Fisheries: Aguion, Free, Golden, Mills, Pecl, Tokunaga
+
+coastal_importance_clust <- attributes_merged_clean %>% 
+  select(case_study, attribute, numeric_importance) %>% 
+  filter(case_study %in% c("Aguion", "Free", "Golden", "Mills", "Pecl", "Tokunaga")) %>% 
+  pivot_wider(names_from = attribute,values_from = numeric_importance)
+
+coastal_importance_heatmap <- coastal_importance_clust %>% 
+  column_to_rownames(var = "case_study") %>% 
+  mutate(across(everything(),~scale(.x))) %>% 
+  mutate(across(everything(), ~replace_na(.x, 0))) %>%
+  as.matrix() %>% t() %>% 
+  Heatmap(clustering_distance_rows = "euclidean",
+        clustering_method_rows ="ward.D2",
+        clustering_distance_columns = "euclidean",
+        clustering_method_columns = "ward.D2",
+        col = brewer.pal(9,"RdYlBu"),
+        row_names_gp = gpar(fontsize = 8),
+        column_names_gp = gpar(fontsize = 10),
+        column_names_rot = 45,
+        show_heatmap_legend = TRUE,
+        heatmap_legend_param = list(title = "Coastal Fisheries Importance Heatmap")) 
+
+coastal_importance_heatmap
+
+# Island Fisheries: Eurich, Friedman, Kleisner, Lau, Zhao
+
+island_importance_clust <- attributes_merged_clean %>% 
+  select(case_study, attribute, numeric_importance) %>% 
+  filter(case_study %in% c("Eurich", "Friedman", "Kleisner", "Lau", "Zhao")) %>% 
+  pivot_wider(names_from = attribute,values_from = numeric_importance)
+
+island_importance_heatmap <- island_importance_clust %>% 
+  column_to_rownames(var = "case_study") %>% 
+  mutate(across(everything(),~scale(.x))) %>% 
+  mutate(across(everything(), ~replace_na(.x, 0))) %>%
+  as.matrix() %>% t() %>% 
+  Heatmap(clustering_distance_rows = "euclidean",
+        clustering_method_rows ="ward.D2",
+        clustering_distance_columns = "euclidean",
+        clustering_method_columns = "ward.D2",
+        col = brewer.pal(9,"RdYlBu"),
+        row_names_gp = gpar(fontsize = 8),
+        column_names_gp = gpar(fontsize = 10),
+        column_names_rot = 45,
+        show_heatmap_legend = TRUE,
+        heatmap_legend_param = list(title = "Island Fisheries Importance Heatmap")) 
+
+island_importance_heatmap
+
+# Pelagic Fisheries: Dickey-Collas, Hollowed, Mason, Westfall
+
+pelagic_importance_clust <- attributes_merged_clean %>% 
+  select(case_study, attribute, numeric_importance) %>% 
+  filter(case_study %in% c("Dickey_Collas", "Hollowed", "Mason", "Westfall")) %>% 
+  pivot_wider(names_from = attribute,values_from = numeric_importance)
+
+pelagic_importance_heatmap <- pelagic_importance_clust %>% 
+  column_to_rownames(var = "case_study") %>% 
+  mutate(across(everything(),~scale(.x))) %>% 
+  mutate(across(everything(), ~replace_na(.x, 0))) %>%
+  as.matrix() %>% t() %>% 
+  Heatmap(clustering_distance_rows = "euclidean",
+        clustering_method_rows ="ward.D2",
+        clustering_distance_columns = "euclidean",
+        clustering_method_columns = "ward.D2",
+        col = brewer.pal(9,"RdYlBu"),
+        row_names_gp = gpar(fontsize = 8),
+        column_names_gp = gpar(fontsize = 10),
+        column_names_rot = 45,
+        show_heatmap_legend = TRUE,
+        heatmap_legend_param = list(title = "Pelagic Fisheries Importance Heatmap")) 
+
+pelagic_importance_heatmap
+
+```
 
 
 
