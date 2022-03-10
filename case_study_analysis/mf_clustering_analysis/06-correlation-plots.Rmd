@@ -57,6 +57,45 @@ cor_data %>%
 cor_data %>% write_csv(here("case_study_analysis","mf_clustering_analysis","data","cor_data.csv"))
 ```
 
+# Small-scale Fisheries correlation analyses
+
+```{r}
+small_scale_correlation <- correlation_data %>% 
+  filter(case_study %in% c("Aguion", "Eurich", "Free","Friedman", "Golden", "Kleisner", "Lau", "Mills", "Tokunaga", "Zhao")) %>% 
+  select(attribute, official_score, numeric_importance) %>%
+  group_by(attribute) %>% 
+  summarise(Correlation = cor(official_score, numeric_importance)) %>% 
+  rename(Attribute = attribute)
+
+# Create a table
+small_scale_correlation %>% 
+  kbl(caption = "Correlation between Small-scale Fisheries Score and Importance by Attribute") %>% 
+   kable_classic_2(full_width = F, html_font = "Cambria") %>% 
+  kable_styling(bootstrap_options = c("striped", "hover"))
+```
+
+
+# Large-scale Fisheries correlation analyses
+
+```{r}
+large_scale_correlation <- correlation_data %>% 
+  filter(case_study %in% c("Dickey_Collas", "Hollowed", "Mason","Pecl", "Westfall")) %>% 
+  select(attribute, official_score, numeric_importance) %>%
+  group_by(attribute) %>% 
+  summarise(Correlation = cor(official_score, numeric_importance)) %>% 
+  rename(Attribute = attribute)
+
+# Create a table
+large_scale_correlation %>% 
+  kbl(caption = "Correlation between Large-scale Fisheries Score and Importance by Attribute") %>% 
+   kable_classic_2(full_width = F, html_font = "Cambria") %>% 
+  kable_styling(bootstrap_options = c("striped", "hover"))
+```
+
+
+#######################################################################################################
+
+# Whiteny's Code
 
 
 ```{r}

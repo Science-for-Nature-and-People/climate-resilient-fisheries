@@ -943,7 +943,7 @@ ggplot() +
   scale_fill_manual(values = c("#00AFBB", "#E7B800", "#FC4E07", "#999999")) +
   geom_hline(data=knowledge_diversity, aes(yintercept = mean(official_score)), linetype="dashed") +
   geom_hline(data=population_abundance, aes(yintercept = mean(numeric_importance)), linetype="dashed", colour="blue") +
-  theme_bw() + my_theme
+  theme_bw() + my_theme 
 ```
 
 
