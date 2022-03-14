@@ -58,12 +58,39 @@ library(ape)
 plot(as.phylo(knowledge_hc), type = "unrooted", cex = 0.6,
      no.margin = TRUE)
 
+# Fan plot
+#plot(as.phylo(knowledge_hc), type = "fan")
+
 library(ggdendro)
-ggdendrogram(knowledge_hc, rotate = TRUE, theme_dendro = FALSE)
+#ggdendrogram(knowledge_hc, rotate = TRUE, theme_dendro = FALSE)
 ```
 
 
+## Clustering Analyses for Importance
 
+```{r}
+# Dendrogram based on hclust
+knowledge_importance_clust <- attribs %>% 
+  select(case_study, attribute_id, numeric_importance) %>% 
+  pivot_wider(names_from = attribute_id ,values_from = numeric_importance)
+ 
+knowledge_importance_hc <- knowledge_importance_clust %>% 
+  column_to_rownames(var = "case_study") %>% 
+  mutate(across(everything(),~scale(.x))) %>% 
+  mutate(across(everything(), ~replace_na(.x, 0))) %>% # REVIEW
+  as.matrix() %>% 
+  dist() %>% hclust(method = "ward.D2")
+
+
+plot(knowledge_importance_hc)
+
+library(ape)
+plot(as.phylo(knowledge_importance_hc), type = "unrooted", cex = 0.6,
+     no.margin = TRUE)
+
+library(ggdendro)
+ggdendrogram(knowledge_importance_hc, rotate = TRUE, theme_dendro = FALSE)
+```
 
 
 
