@@ -193,7 +193,7 @@ quality_heatmap
 #############################################################################################
 
 # Heatmap Grouping by Case Clusters
-Create heatmaps using the clusters that came out of the circular diagrams that Whitney had created. Do this for both score and importance
+Create heatmaps using the clusters that came out of the circular diagrams that Whitney had created. Do this for both score and importance.
 
 ## Attribute Score Groupings Heatmaps
 
@@ -746,6 +746,61 @@ pelagic_importance_heatmap
 
 ```
 
+##########################################################################################
 
+# Heatmap Grouping by Case Clusters using Actual Score
+Create heatmaps using the clusters that came out of the circular diagrams that Whitney had created. Do this for just score for now to see what this looks like compared to previous scaled heatmap diagrams.
+
+## Attribute Score Groupings Heatmaps
+
+```{r}
+# 1. Prep the data to separate out the appropriate cases for score grouping
+# 2. create heatmaps of the different groupings
+
+# Tokunaga, Hollowed, Mills, Free
+KT_AH_KM_CF_clust <- attributes_merged_clean %>% 
+  select(case_study, attribute, official_score) %>% 
+  filter(case_study %in% c("Tokunaga", "Hollowed", "Mills", "Free")) %>% 
+  pivot_wider(names_from = case_study, values_from = official_score) %>% 
+  column_to_rownames(var="attribute") %>% 
+  mutate(across(everything(), ~replace_na(.x, 0)))
+
+
+
+library(factoextra)
+res.dist <- get_dist(KT_AH_KM_CF_clust, stand = TRUE, method = "pearson") 
+
+fviz_dist(res.dist, 
+   gradient = list(low = "#00AFBB", mid = "white", high = "#FC4E07"))
+
+#############################################################################################
+KT_AH_KM_CF_clust <- attributes_merged_clean %>% 
+  select(case_study, attribute, official_score) %>% 
+  filter(case_study %in% c("Tokunaga", "Hollowed", "Mills", "Free")) %>% 
+  pivot_wider(names_from = attribute, values_from = official_score) 
+
+
+
+
+pal <- colorRampPalette(colors = c("#ffffb2", "#fecc5c", "#fd8d3c", "#e31a1c"))
+
+# Heatmap based on raw values
+KT_AH_KM_CF_clust %>%
+  column_to_rownames(var = "case_study") %>% 
+  #mutate(across(everything(),~scale(.x))) %>% 
+  mutate(across(everything(), ~replace_na(.x, 0))) %>% # REVIEW
+  as.matrix() %>% t() %>% 
+  Heatmap(
+        cluster_rows = T,
+        clustering_distance_columns = "euclidean",
+        clustering_method_columns = "ward.D2",
+        col = pal(11),
+        row_names_gp = gpar(fontsize = 8),
+        column_names_gp = gpar(fontsize = 10),
+        column_names_rot = 45,
+        show_heatmap_legend = TRUE,
+        heatmap_legend_param = list(title = "Score"))
+
+```
 
 
