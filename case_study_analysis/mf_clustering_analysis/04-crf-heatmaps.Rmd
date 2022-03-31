@@ -52,7 +52,9 @@ library(ggdendro)
 ggdendrogram(score_hc, rotate = TRUE, theme_dendro = FALSE)
 
 
-# Heatmaps based on hc
+# Plot a more finalized verson for the synthesisi paper
+
+plot(score_hc, ylab="", yaxt="n", sub="", main="")
 ```
 
 
