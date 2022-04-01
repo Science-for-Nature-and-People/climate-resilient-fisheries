@@ -232,9 +232,9 @@ Ecological,Flexibility,Hollowed,Hollowed11,Plasticity,Excellent,Medium,yes,3,4,2
 Ecological,Flexibility,Hollowed,Hollowed12,Evolutionary potential,Good,High,yes,2,3,3,Ecological_Evolutionary_potential
 Ecological,Organization,Hollowed,Hollowed14,Ecosystem connectivity,Excellent,High,yes,4,4,3,Ecological_Ecosystem_connectivity
 Ecological,Organization,Hollowed,Hollowed15,Population modularity,Excellent,Medium,yes,3,4,2,Ecological_Population_modularity
-Social-economic,Assets,Hollowed,Hollowed17,Wealth and reserves,Fair,High,yes,4,2,3,Social_economic_Wealth_and_reserves
-Social-economic,Assets,Hollowed,Hollowed18,Economic diversity,Good,High,yes,2,3,3,Social_economic_Economic_diversity
-Social-economic,Assets,Hollowed,Hollowed19,Social diversity,Good,Medium,yes,3,3,2,Social_economic_Social_diversity
+Social-economic,Assets,Hollowed,Hollowed17,Wealth and reserves,Good,High,yes,4,3,3,Social_economic_Wealth_and_reserves
+Social-economic,Assets,Hollowed,Hollowed18,Economic diversity,Excellent,High,yes,2,4,3,Social_economic_Economic_diversity
+Social-economic,Assets,Hollowed,Hollowed19,Social diversity,Excellent,Medium,yes,3,4,2,Social_economic_Social_diversity
 Social-economic,Flexibility,Hollowed,Hollowed21,Flexible and agile infrstructure,Good,High,no,2,3,3,Social_economic_Flexible_and_agile_infrstructure
 Social-economic,Flexibility,Hollowed,Hollowed22,Mobility,Excellent,Medium,no,3,4,2,Social_economic_Mobility
 Social-economic,Flexibility,Hollowed,Hollowed23,Economic opportunity,Good,Low,yes,2,3,1,Social_economic_Economic_opportunity
@@ -242,11 +242,11 @@ Social-economic,Flexibility,Hollowed,Hollowed24,Resilience mindset,Fair,High,yes
 Social-economic,Flexibility,Hollowed,Hollowed25,Place attachment,Excellent,High,yes,4,4,3,Social_economic_Place_attachment
 Social-economic,Organization,Hollowed,Hollowed27,Social capital,Excellent,High,yes,3,4,3,Social_economic_Social_capital
 Social-economic,Organization,Hollowed,Hollowed28,Technology transfer,Excellent,High,yes,4,4,3,Social_economic_Technology_transfer
-Social-economic,Organization,Hollowed,Hollowed29,Modular infrastructure,Low,Medium,yes,1,1,2,Social_economic_Modular_infrastructure
+Social-economic,Organization,Hollowed,Hollowed29,Modular infrastructure,Fair,Medium,yes,1,2,2,Social_economic_Modular_infrastructure
 Social-economic,Learning,Hollowed,Hollowed31,Knowledge diversity,Excellent,Medium,yes,4,4,2,Social_economic_Knowledge_diversity
 Social-economic,Learning,Hollowed,Hollowed32,Knowledge access,Excellent,High,yes,3,4,3,Social_economic_Knowledge_access
 Social-economic,Learning,Hollowed,Hollowed33,Learning capacity,Excellent,High,yes,4,4,3,Social_economic_Learning_capacity
-Social-economic,Agency,Hollowed,Hollowed35,Agency,Excellent,High,yes,4,4,3,Social_economic_Agency
+Social-economic,Agency,Hollowed,Hollowed35,Agency,Excellent,Medium,yes,4,4,2,Social_economic_Agency
 Goverance,Flexibility,Hollowed,Hollowed37,Responsive,Excellent,High,yes,4,4,3,Goverance_Responsive
 Goverance,Organization,Hollowed,Hollowed39,Participatory,Excellent,Medium,yes,3,4,2,Goverance_Participatory
 Goverance,Organization,Hollowed,Hollowed40,Equitable and inclusive,Good,Medium,yes,3,3,2,Goverance_Equitable_and_inclusive

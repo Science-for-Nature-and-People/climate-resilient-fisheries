@@ -232,9 +232,9 @@ Ecological,Flexibility,Hollowed,Hollowed11,Plasticity,3,Excellent,Medium,yes,3,4
 Ecological,Flexibility,Hollowed,Hollowed12,Evolutionary potential,2,Good,High,yes,2,3,3
 Ecological,Organization,Hollowed,Hollowed14,Ecosystem connectivity,4,Excellent,High,yes,4,4,3
 Ecological,Organization,Hollowed,Hollowed15,Population modularity,3,Excellent,Medium,yes,3,4,2
-Social-economic,Assets,Hollowed,Hollowed17,Wealth and reserves,4,Fair,High,yes,4,2,3
-Social-economic,Assets,Hollowed,Hollowed18,Economic diversity,2,Good,High,yes,2,3,3
-Social-economic,Assets,Hollowed,Hollowed19,Social diversity,3,Good,Medium,yes,3,3,2
+Social-economic,Assets,Hollowed,Hollowed17,Wealth and reserves,4,Good,High,yes,4,3,3
+Social-economic,Assets,Hollowed,Hollowed18,Economic diversity,2,Excellent,High,yes,2,4,3
+Social-economic,Assets,Hollowed,Hollowed19,Social diversity,3,Excellent,Medium,yes,3,4,2
 Social-economic,Flexibility,Hollowed,Hollowed21,Flexible and agile infrstructure,2,Good,High,no,2,3,3
 Social-economic,Flexibility,Hollowed,Hollowed22,Mobility,3,Excellent,Medium,no,3,4,2
 Social-economic,Flexibility,Hollowed,Hollowed23,Economic opportunity,2,Good,Low,yes,2,3,1
@@ -242,11 +242,11 @@ Social-economic,Flexibility,Hollowed,Hollowed24,Resilience mindset,3,Fair,High,y
 Social-economic,Flexibility,Hollowed,Hollowed25,Place attachment,4,Excellent,High,yes,4,4,3
 Social-economic,Organization,Hollowed,Hollowed27,Social capital,3,Excellent,High,yes,3,4,3
 Social-economic,Organization,Hollowed,Hollowed28,Technology transfer,4,Excellent,High,yes,4,4,3
-Social-economic,Organization,Hollowed,Hollowed29,Modular infrastructure,1,Low,Medium,yes,1,1,2
+Social-economic,Organization,Hollowed,Hollowed29,Modular infrastructure,1,Fair,Medium,yes,1,2,2
 Social-economic,Learning,Hollowed,Hollowed31,Knowledge diversity,4,Excellent,Medium,yes,4,4,2
 Social-economic,Learning,Hollowed,Hollowed32,Knowledge access,3,Excellent,High,yes,3,4,3
 Social-economic,Learning,Hollowed,Hollowed33,Learning capacity,4,Excellent,High,yes,4,4,3
-Social-economic,Agency,Hollowed,Hollowed35,Agency,4,Excellent,High,yes,4,4,3
+Social-economic,Agency,Hollowed,Hollowed35,Agency,4,Excellent,Medium,yes,4,4,2
 Goverance,Flexibility,Hollowed,Hollowed37,Responsive,4,Excellent,High,yes,4,4,3
 Goverance,Organization,Hollowed,Hollowed39,Participatory,3,Excellent,Medium,yes,3,4,2
 Goverance,Organization,Hollowed,Hollowed40,Equitable and inclusive,3,Good,Medium,yes,3,3,2

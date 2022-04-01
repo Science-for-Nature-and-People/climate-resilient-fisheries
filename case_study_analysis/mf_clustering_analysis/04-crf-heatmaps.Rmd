@@ -785,7 +785,7 @@ KT_AH_KM_CF_clust %>%
         column_names_gp = gpar(fontsize = 10),
         column_names_rot = 45,
         show_heatmap_legend = TRUE,
-        heatmap_legend_param = list(title = "Score"))
+        heatmap_legend_param = list(title = "Score (KT, AH, KM, CF) "))
 
 #################################################################################
 
@@ -809,7 +809,7 @@ GP_KK_CG_clust %>%
         column_names_gp = gpar(fontsize = 10),
         column_names_rot = 45,
         show_heatmap_legend = TRUE,
-        heatmap_legend_param = list(title = "Score"))
+        heatmap_legend_param = list(title = "Score (GP, KK, CG)"))
 
 #################################################################################
 
@@ -833,7 +833,7 @@ JE_AA_clust %>%
         column_names_gp = gpar(fontsize = 10),
         column_names_rot = 45,
         show_heatmap_legend = TRUE,
-        heatmap_legend_param = list(title = "Score"))
+        heatmap_legend_param = list(title = "Score (JE, AA)"))
 
 #################################################################################
 
@@ -857,7 +857,7 @@ MDC_JM_clust %>%
         column_names_gp = gpar(fontsize = 10),
         column_names_rot = 45,
         show_heatmap_legend = TRUE,
-        heatmap_legend_param = list(title = "Score"))
+        heatmap_legend_param = list(title = "Score (MD, JM)"))
 
 
 ################################################################################
@@ -882,7 +882,7 @@ WF_LZ_JL_KW_clust %>%
         column_names_gp = gpar(fontsize = 10),
         column_names_rot = 45,
         show_heatmap_legend = TRUE,
-        heatmap_legend_param = list(title = "Score"))
+        heatmap_legend_param = list(title = "Score (WF, LZ, JL, KW)"))
 
 
 
@@ -917,7 +917,7 @@ small_score_heatmap <- small_scale_clust %>%
         column_names_gp = gpar(fontsize = 10),
         column_names_rot = 45,
         show_heatmap_legend = TRUE,
-        heatmap_legend_param = list(title = "Score")) 
+        heatmap_legend_param = list(title = "Score (Small-scale)")) 
 
 small_score_heatmap
 
@@ -944,7 +944,7 @@ large_score_heatmap <- large_scale_clust %>%
         column_names_gp = gpar(fontsize = 10),
         column_names_rot = 45,
         show_heatmap_legend = TRUE,
-        heatmap_legend_param = list(title = "Score"))  
+        heatmap_legend_param = list(title = "Score (Large-scale)"))  
 
 large_score_heatmap
 ```
@@ -976,7 +976,7 @@ coastal_score_heatmap2 <- coastal_score_clust %>%
         column_names_gp = gpar(fontsize = 10),
         column_names_rot = 45,
         show_heatmap_legend = TRUE,
-        heatmap_legend_param = list(title = "Score"))  
+        heatmap_legend_param = list(title = "Score (Coastal)"))  
 
 coastal_score_heatmap2
 
@@ -1001,7 +1001,7 @@ island_score_heatmap2 <- island_score_clust %>%
         column_names_gp = gpar(fontsize = 10),
         column_names_rot = 45,
         show_heatmap_legend = TRUE,
-        heatmap_legend_param = list(title = "Score"))  
+        heatmap_legend_param = list(title = "Score (Island)"))  
 
 island_score_heatmap2
 
@@ -1026,7 +1026,7 @@ pelagic_score_heatmap2 <- pelagic_score_clust %>%
         column_names_gp = gpar(fontsize = 10),
         column_names_rot = 45,
         show_heatmap_legend = TRUE,
-        heatmap_legend_param = list(title = "Score"))  
+        heatmap_legend_param = list(title = "Score (Pelagic)"))  
 
 pelagic_score_heatmap2
 
