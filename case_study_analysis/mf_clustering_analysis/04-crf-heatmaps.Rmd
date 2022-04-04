@@ -900,7 +900,7 @@ WF_LZ_JL_KW_clust %>%
 
 small_scale_clust <- attributes_merged_clean %>% 
   select(case_study, attribute, official_score) %>% 
-  filter(case_study %in% c("Aguion", "Eurich", "Free","Friedman", "Golden", "Kleisner", "Lau", "Mills", "Tokunaga", "Zhao")) %>% 
+  filter(case_study %in% c("Aguion", "Eurich", "Free","Friedman", "Golden", "Kleisner", "Lau", "Mills", "Tokunaga", "Zhao")) %>%
   pivot_wider(names_from = attribute,values_from = official_score)
 
 small_score_heatmap <- small_scale_clust %>% 
@@ -948,6 +948,38 @@ large_score_heatmap <- large_scale_clust %>%
 
 large_score_heatmap
 ```
+
+#### Correlation plots for small-scale and large-scale fisheries
+
+```{r}
+library(corrplot)
+
+# small-scale
+small_scale_clust[is.na(small_scale_clust)] <- 0
+
+small_scale_corr <- small_scale_clust %>% 
+  column_to_rownames(var="case_study") 
+
+S <- cor(small_scale_corr)
+
+corrplot(S, method="color", tl.cex = 0.5)
+
+# large-scale
+large_scale_clust[is.na(large_scale_clust)] <- 0
+
+large_scale_corr <- large_scale_clust %>% 
+  column_to_rownames(var="case_study") 
+
+L <- cor(large_scale_corr)
+
+corrplot(L, method="color", tl.cex = 0.5)
+
+## Because species diversity is the same across all case studies, the SD is 0 ad thus a correlaiton plot doesn't make sense for this dataset
+```
+
+
+
+
 
 
 ## Attribute Score Grouping by Fishering Location (Coastal, Island, Pelagic)
