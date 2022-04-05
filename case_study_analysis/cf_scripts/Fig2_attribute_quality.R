@@ -60,7 +60,7 @@ data_ordered <- data %>%
 # Stats for manuscript
 ################################################################################
 
-#
+# % Complete
 data %>% 
   count(dimension, quality) %>% 
   group_by(dimension) %>% 
