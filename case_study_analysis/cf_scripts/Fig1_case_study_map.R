@@ -9,8 +9,8 @@ rm(list = ls())
 library(tidyverse)
 
 # Directories
-datadir <- "case_studies/data"
-plotdir <- "case_studies/figures"
+datadir <- "case_study_analysis/cf_scripts/data"
+plotdir <- "case_study_analysis/cf_scripts/figures"
 
 # Read data
 data_orig <- readxl::read_excel(file.path(datadir, "case_study_meta_data.xlsx")) 

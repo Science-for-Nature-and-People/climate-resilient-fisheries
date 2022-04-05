@@ -10,8 +10,8 @@ library(ggplot2)
 library(tidyverse)
 
 # Directories
-datadir <- "case_studies/data"
-plotdir <- "case_studies/figures"
+datadir <- "case_study_analysis/cf_scripts/data"
+plotdir <- "case_study_analysis/cf_scripts/figures"
 
 # Read data
 data_orig <- read.csv(file.path(datadir, "attribute_table_clean.csv"), as.is=T)
