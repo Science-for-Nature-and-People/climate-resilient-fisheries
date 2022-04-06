@@ -15,7 +15,7 @@ source(here("case_study_analysis", "00-load-libraries.R"))
 
 # Read in the data from Google Sheets
 ```{r, results=FALSE, message = FALSE, warning = FALSE, class.source = 'fold-hide', warning = FALSE}
-aguion_barnacle <- read_sheet(ss = "https://docs.google.com/spreadsheets/d/1WfGsKOT0gFSN1yHUObDNSQflqd5avodSuf3kOZLTyLk/edit#gid=1947230832", 
+aguion_barnacle <- read_sheet(ss = "https://docs.google.com/spreadsheets/d/1BFTzr_ITZPHZ0-tdItB13VorTMrSfI9he-nWA4SZBSo/edit#gid=2102752751", 
                            sheet = "UPDATED_S4_ResilienceAttributes",
                            range = "A6:P61",
                            col_names = TRUE,
