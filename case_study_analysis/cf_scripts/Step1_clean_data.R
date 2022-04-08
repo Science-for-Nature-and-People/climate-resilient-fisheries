@@ -49,7 +49,6 @@ data_orig <- purrr::map_df(files2merge, function(x){
 # Format data
 ################################################################################
 
-# Add author names
 # Add case study names
 # Fix those lingering issues after reducing to only updated data
 
@@ -63,12 +62,39 @@ data <- data_orig %>%
                           "Don't know 3?"="Don't know",
                           "Don't know about the Yellow tail."="Don't know",
                           "Don't Know; prob varies greatly by species and population size"="Don't know",
-                          "Don't know:"="Don't know"))
+                          "Don't know:"="Don't know")) %>% 
+  # Add author names
+  mutate(authors=recode(filename, 
+                        "Burden Pacific sardine case study.xlsx"="Burden",                                        
+                        "Case Study Bering Sea.xlsx"="Hollowed",                                                    
+                        "Chris Golden_Case Study Rubric.xlsx"="Golden",                                           
+                        "Dickey-Collas_EUR_case study template.xlsx"="Dickey-Collas",                                    
+                        "Eurich_KiribatiClam_Case_Study.xlsx"="Eurich",                                           
+                        "Free_Dungeness_crab.xlsx"="Free",                                                      
+                        "Kleisner_Cunningham_JuanFernandez_Case Study Template.xlsx"="Kleisner/Cunningham",                    
+                        "Lau_PNG_Madang_Reef_Case Study Template.xlsx"="Lau",                                  
+                        "Mangubhai_Friedman_Fiji_Case_Study.xlsx"="Mangubhai/Friedman",                                       
+                        "Mar 19_Copy of Yuga and Gaku@Japan SNAPP Case Study  - March 19, 10_03 AM.xlsx"="Yuga/Gaku",
+                        "Mason_Iceland_groundfish_Case Study Template.xlsx"="Mason",                             
+                        "Mills_Lobster_Case Study Template.xlsx"="Mills",                                        
+                        "Pecl_Tasmania rock lobster_case study template.xlsx"="Pecl",                           
+                        "PRIMARY Burden Pacific sardine case study.xlsx"="Burden",                               
+                        "PRIMARY Updated Aguion_Barnacles_Case Study.xlsx"="Aguion",                              
+                        "Primary_Updated_Aguion_Barnacles_Case Study.xlsx"="Aguion",                             
+                        "Schmidt_case study template.xlsx"="Schmidt",                                         
+                        "Tokunaga_JapaneseSpinyLobster_Case Study Template.xlsx"="Tokunaga",                   
+                        "Updated Westfall_AtlanticandGulfPLLFishery_Case Study.xlsx"="Westfall",                
+                        "Updated_Aguion_Barnacles_Case Study.xlsx"="Aguion",                                
+                        "Zhao_Moorea_coral_reef_fishery_Case_Study.xlsx"="Zhao")) %>% 
+  # Arrange
+  select(filename, authors, everything())
+  
 
 # Inspect
 str(data)
 
 # Inspect
+table(data$authors)
 table(data$dimension)
 table(data$domain)
 unique(data$attribute)
@@ -77,6 +103,7 @@ table(data$not_relevant)
 table(data$data_quality) # E-No data is not formatted consistently
 table(data$importance) # "not sure" looks wrong
 table(data$mech_apply_yn)
+sort(unique(data$filename))
 
 
 
