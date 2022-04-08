@@ -39,6 +39,7 @@ data <- data_orig %>%
                            "Iceland groundfish"="Iceland\ngroundfish",
                            "Maine lobster"="Maine\nlobster",
                            "Tasmania rock lobster"="Tasmania\nrock lobster",
+                           "Senegalese small pelagics"="Senegalese\nsmall pelagics",
                            "Japanese spiny lobster"="Japanese\nspiny lobster",
                            "US Atlantic pelagic longline"="US Atlantic\npelagic longline",
                            "Moorea coral reef"="Moorea\ncoral reef")) %>% 
@@ -59,6 +60,7 @@ data <- data_orig %>%
                       "Maine lobster"="0",
                       "Tasmania rock lobster"="0",
                       "Japanese spiny lobster"="1",
+                      "Senegalese small pelagics"="0",
                       "US Atlantic pelagic longline"="0",
                       "Moorea coral reef"="1") %>% as.numeric())
 
