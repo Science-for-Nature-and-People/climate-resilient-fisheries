@@ -86,6 +86,26 @@ data <- data_orig %>%
                         "Updated Westfall_AtlanticandGulfPLLFishery_Case Study.xlsx"="Westfall",                
                         "Updated_Aguion_Barnacles_Case Study.xlsx"="Aguion",                                
                         "Zhao_Moorea_coral_reef_fishery_Case_Study.xlsx"="Zhao")) %>% 
+  # Add case studies
+  mutate(case_study=recode(authors,
+                           "Aguion"="Galacia stalked barnacles",
+                           "Burden"="US West Coast Pacific sardine",
+                           "Dickey-Collas"="NE Atlantic pelagic",
+                           "Eurich"="Kiribati giant clam",
+                           "Free"="California Dungeness crab",
+                           "Mangubhai/Friedman"="Fiji nearshore",
+                           "Golden"="Madagascar reef fish",
+                           "Hollowed"="Bering Sea groundfish",
+                           "Yuga/Gaku"="Japan common squid",
+                           "Kleisner/Cunningham"="Juan Fernandez Islands",
+                           "Lau"="Madang reef fish",
+                           "Mason"="Iceland groundfish",
+                           "Mills"="Maine lobster",
+                           "Pecl"="Tasmania rock lobster",
+                           "Schmidt"="Senegalese small pelagics",
+                           "Tokunaga"="Japanese spiny lobster",
+                           "Westfall"="US Atlantic pelagic longline",
+                           "Zhao"="Moorea coral reef")) %>% 
   # Arrange
   select(filename, authors, everything())
   
@@ -95,6 +115,7 @@ str(data)
 
 # Inspect
 table(data$authors)
+table(data$case_study)
 table(data$dimension)
 table(data$domain)
 unique(data$attribute)
