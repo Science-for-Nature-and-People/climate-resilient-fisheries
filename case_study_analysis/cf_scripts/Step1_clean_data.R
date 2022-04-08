@@ -49,7 +49,8 @@ data_orig <- purrr::map_df(files2merge, function(x){
 # Format data
 ################################################################################
 
-# Add case study names
+# To-do list
+# Which files are up to date?
 # Fix those lingering issues after reducing to only updated data
 
 # Format data
@@ -109,7 +110,6 @@ data <- data_orig %>%
   # Arrange
   select(filename, authors, everything())
   
-
 # Inspect
 str(data)
 
@@ -125,7 +125,6 @@ table(data$data_quality) # E-No data is not formatted consistently
 table(data$importance) # "not sure" looks wrong
 table(data$mech_apply_yn)
 sort(unique(data$filename))
-
 
 
 # Export data
