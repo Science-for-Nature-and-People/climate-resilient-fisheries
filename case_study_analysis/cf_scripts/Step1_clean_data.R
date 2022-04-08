@@ -28,7 +28,7 @@ colnames_use <- c("dimension", "domain", "question_id", "attribute", "definition
                   "mechanism", "mech_apply_yn", "mech_apply_notes", "notes", "references") # Only Kanae's has the reference column
 
 # Loop through files and merge
-x <- files2merge[18]
+x <- files2merge[1]
 data_orig <- purrr::map_df(files2merge, function(x){
   
   # Read data
@@ -49,6 +49,10 @@ data_orig <- purrr::map_df(files2merge, function(x){
 # Format data
 ################################################################################
 
+# Add author names
+# Add case study names
+# Fix those lingering issues after reducing to only updated data
+
 # Format data
 data <- data_orig %>% 
   # Convert to numeric
@@ -59,8 +63,7 @@ data <- data_orig %>%
                           "Don't know 3?"="Don't know",
                           "Don't know about the Yellow tail."="Don't know",
                           "Don't Know; prob varies greatly by species and population size"="Don't know",
-                          "Don't know:"="Don't know")) %>% 
-  # Format data
+                          "Don't know:"="Don't know"))
 
 # Inspect
 str(data)
@@ -71,7 +74,7 @@ table(data$domain)
 unique(data$attribute)
 table(data$dont_know)
 table(data$not_relevant)
-table(data$data_quality) # potentially a mistake
+table(data$data_quality) # E-No data is not formatted consistently
 table(data$importance) # "not sure" looks wrong
 table(data$mech_apply_yn)
 
