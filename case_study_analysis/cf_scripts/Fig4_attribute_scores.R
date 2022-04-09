@@ -10,7 +10,7 @@ library(ggplot2)
 library(tidyverse)
 
 # Directories
-datadir <- "case_study_analysis/cf_scripts/data"
+datadir <- "case_study_analysis/clean_data"
 plotdir <- "case_study_analysis/cf_scripts/figures"
 
 # Read data

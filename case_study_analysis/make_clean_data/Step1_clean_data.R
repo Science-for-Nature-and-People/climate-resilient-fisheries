@@ -11,9 +11,8 @@ library(googledrive)
 library(googlesheets4)
 
 # Directories
-indir <- "case_study_analysis/cf_scripts/data/raw"
-outdir <- "case_study_analysis/cf_scripts/data"
-plotdir <- "case_study_analysis/cf_scripts/figures"
+indir <- "case_study_analysis/make_clean_data/raw"
+outdir <- "case_study_analysis/clean_data"
 
 # Read files
 files2merge <- list.files(indir) %>% sort()
