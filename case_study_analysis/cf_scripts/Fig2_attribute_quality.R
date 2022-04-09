@@ -14,7 +14,7 @@ datadir <- "case_study_analysis/cf_scripts/data"
 plotdir <- "case_study_analysis/cf_scripts/figures"
 
 # Read data
-data_orig <- read.csv(file.path(datadir, "attribute_table_clean.csv"), as.is=T)
+data_orig <- readRDS(file.path(datadir, "case_study_attribute_score_data.Rds"))
 
 
 # Build data
@@ -27,14 +27,6 @@ n_cases <- n_distinct(data_orig$case_study)
 data <- data_orig %>% 
   # Simplify
   select(case_study, dimension, attribute, quality) %>% 
-  # Fix data quality errors
-  mutate(quality=recode(quality, "E - No data"="No data")) %>% 
-  # Complete missing
-  complete(attribute, case_study, fill=list(quality="Not provided")) %>%
-  # Fill dimensions
-  group_by(attribute) %>% 
-  mutate(dimension=dimension %>% na.omit() %>% unique()) %>% 
-  ungroup() %>% 
   # Summarize
   group_by(dimension, attribute, quality) %>% 
   summarise(n=n()) %>% 
@@ -44,7 +36,14 @@ data <- data_orig %>%
   mutate(prop=n/n_cases) %>% 
   ungroup() %>% 
   # Order quality
-  mutate(quality=factor(quality, levels=c("Not provided",
+  mutate(quality=ifelse(is.na(quality), "Not provided", quality),
+         quality=recode(quality, 
+                        "A - adequate and reliable data/information"="Excellent",
+                        "B - limited data/information and expert judgement"="Good",
+                        "C - fairly confident that the answer provided reflects the true state of the system"="Fair",
+                        "D - not confident that the answer provided reflects the true state of the system"="Low",
+                        "E - No data"="No data"),
+         quality=factor(quality, levels=c("Not provided",
                                           "No data", "Low", "Fair", "Good", "Excellent")))
 
 # Average importance by attribute
@@ -94,9 +93,10 @@ g <- ggplot(data_ordered, aes(y=attribute, x=prop, fill=quality)) +
   facet_grid(dimension~., space="free_y", scale="free_y") +
   geom_bar(stat="identity") +
   # Labels
-  labs(x="Proportion of case studies", y="") +
+  labs(x="Percent of case studies", y="") +
+  scale_x_continuous(labels = scales::percent) +
   # Legend
-  scale_fill_manual(name="Quality", values=c("grey80", RColorBrewer::brewer.pal(5, "Blues"))) +
+  scale_fill_manual(name="Data quality", values=c("grey80", RColorBrewer::brewer.pal(5, "Blues"))) +
   # Theme
   theme_bw() + my_theme
 g
