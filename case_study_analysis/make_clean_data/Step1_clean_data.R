@@ -72,7 +72,7 @@ data <- data_orig %>%
                           "Don't know:"="Don't know")) %>% 
   # Add author names
   mutate(authors=recode(filename,           
-                        "Case Study Bering Sea.xlsx"="Hollowed",                                                    
+                        "Case Study Bering Sea.xlsx"="Hollowed/Kasperski",                                                    
                         "Chris Golden_Case Study Rubric.xlsx"="Golden",                                           
                         "Dickey-Collas_EUR_case study template.xlsx"="Dickey-Collas",                                    
                         "Eurich_KiribatiClam_Case_Study.xlsx"="Eurich",                                           
@@ -99,7 +99,7 @@ data <- data_orig %>%
                            "Free"="California Dungeness crab",
                            "Mangubhai/Friedman"="Fiji nearshore",
                            "Golden"="Madagascar reef fish",
-                           "Hollowed"="Bering Sea groundfish",
+                           "Hollowed/Kasperski"="Bering Sea groundfish",
                            "Yuga/Gaku"="Japan common squid",
                            "Kleisner/Cunningham"="Juan Fernandez Islands",
                            "Lau"="Madang reef fish",

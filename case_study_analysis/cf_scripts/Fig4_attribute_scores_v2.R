@@ -14,44 +14,17 @@ datadir <- "case_study_analysis/clean_data"
 plotdir <- "case_study_analysis/cf_scripts/figures"
 
 # Read data
-data_orig <- read.csv(file.path(datadir, "attribute_table_clean.csv"), as.is=T)
+data_orig <- readRDS(file.path(datadir, "case_study_attribute_score_data.Rds"))
+
 
 
 # Build data
 ################################################################################
 
-# Domain attribute key
-att_key <- data_orig %>% 
-  select(dimension, domain, attribute) %>% 
-  unique()
-
 # Format data
 data <- data_orig %>% 
-  # Recode case studies
-  mutate(case_study=recode(case_study,
-                           "Aguion"="Galacia stalked barnacles",
-                           "Burden"="US West Coast Pacific sardine",
-                           "Dickey_Collas"="NE Atlantic pelagic",
-                           "Eurich"="Kiribati giant clam",
-                           "Free"="California Dungeness crab",
-                           "Friedman"="Fiji nearshore",
-                           "Golden"="Madagascar reef fish",
-                           "Hollowed"="Bering Sea groundfish",
-                           "Kisara"="Japan common squid",
-                           "Kleisner"="Juan Fernandez Islands",
-                           "Lau"="Madang reef fish",
-                           "Mason"="Iceland groundfish",
-                           "Mills"="Maine lobster",
-                           "Pecl"="Tasmania rock lobster",
-                           "Tokunaga"="Japanese spiny lobster",
-                           "Westfall"="US Atlantic pelagic longline",
-                           "Zhao"="Moorea coral reef")) %>% 
   # Simplify
-  select(case_study, attribute, score) %>% 
-  # Expand for all attributes
-  complete(attribute, case_study, fill=list(score=NA)) %>% 
-  # Add dimension/domian
-  left_join(att_key, by="attribute")
+  select(case_study, dimension, attribute, score, importance)
 
 # Average score by case study
 stats_case <- data %>% 
@@ -69,7 +42,7 @@ stats_attr <- data %>%
   arrange(dimension, score_avg)
 
 # Order data
-data1 <- data %>% 
+data_ordered <- data %>% 
   # Order case studies and attributes
   mutate(attribute=factor(attribute, levels=stats_attr$attribute),
          case_study=factor(case_study, levels=stats_case$case_study)) %>% 
@@ -80,10 +53,10 @@ data1 <- data %>%
          score=factor(score, levels=c("Not provided", "1", "2", "3", "4")))
 
 # Number of case studies
-n_cases <- n_distinct(data$case_study)
+n_cases <- n_distinct(data_ordered$case_study)
 
 # Importance stats
-stats_score <- data1 %>% 
+stats_score <- data_ordered %>% 
   # Summarize
   group_by(dimension, attribute, score) %>% 
   summarise(n=n()) %>% 
@@ -114,25 +87,26 @@ my_theme <-  theme(axis.text=element_text(size=6),
 
 
 # Plot data
-g1 <- ggplot(data1, aes(y=attribute, x=case_study, fill=score, size=importance)) +
+g1 <- ggplot(data_ordered, aes(y=attribute, x=case_study, color=score, size=importance)) +
   facet_grid(dimension~., space="free_y", scale="free_y") +
   geom_point() +
   # Labels
   labs(x="", y="", tag="A") +
   # Legend
-  scale_fill_manual(name="Score", values=c("grey80", RColorBrewer::brewer.pal(4, "Blues"))) +
+  scale_color_manual(name="Score", values=c("grey80", RColorBrewer::brewer.pal(4, "Blues"))) +
   # Theme
   theme_bw() + my_theme +
-  theme(legend.position = "none",
+  theme(legend.position="bottom",
         axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
 g1 
 
 # Plot data
-g2 <- ggplot(stats_score, aes(y=factor(attribute, levels=stats_attr$attribute), x=prop, fill=score)) +
+g2 <- ggplot(stats_score, aes(y=attribute, x=prop, fill=score)) +
   facet_grid(dimension~., space="free_y", scale="free_y") +
   geom_bar(stat="identity") +
   # Labels
-  labs(x="Proportion of case studies\n \n \n \n ", y="", tag="B") +
+  labs(x="Percent of case studies\n \n \n \n ", y="", tag="B") +
+  scale_x_continuous(labels = scales::percent) +
   # Legend
   scale_fill_manual(name="Score", values=c("grey80", RColorBrewer::brewer.pal(4, "Blues"))) +
   guides(fill = guide_legend(title.position="top")) +

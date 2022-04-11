@@ -68,6 +68,9 @@ data <- data_orig %>%
 # Plot data
 ################################################################################
 
+# Projection
+moll <- sf::st_crs("+proj=moll +datum=WGS84")
+
 # World
 world <- rnaturalearth::ne_countries(scale="small", returnclass = "sf")
 
