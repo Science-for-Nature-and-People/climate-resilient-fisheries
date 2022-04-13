@@ -16,11 +16,20 @@ knitr::opts_chunk$set(echo = TRUE)
 ```{r}
 library(here)
 source(here("case_study_analysis","00-load-libraries.R"))
-load(here("case_study_analysis", "clean_data","attribute_table_clean.Rdata")) # from 01-prep-attribute-tables.Rmd
-
 library(kableExtra)
 library(ggrepel)
+
+# new attrib file from chris 4/12/2022
+attribs_new <- readRDS(here("case_study_analysis", "clean_data","case_study_attribute_score_data.Rds")) 
 ```
+
+```{r}
+attribs <- attribs_new %>% 
+  mutate(attribute_id = str_c(dimension, attribute, sep = "::"))
+
+attribs$attribute_id
+```
+
 
 
 # Factor Analysis
@@ -168,7 +177,6 @@ df_corr %>%
 # attribute scores only
 df_clust <- attribs %>% 
   select(case_study, attribute_id, score) %>% 
-  filter(case_study != "Kisara") %>% 
   pivot_wider(names_from = attribute_id ,values_from = score)
 
 # atribute PLUS numeric scores (uncomment to run)
@@ -185,7 +193,7 @@ hc <- df_clust %>%
   dist() %>% hclust(method = "ward.D2")
 
 
-plot(hc)
+plot(hc, main = "")
 
 library(ape)
 plot(as.phylo(hc), type = "unrooted", cex = 0.6,
