@@ -69,10 +69,17 @@ data <- data_orig %>%
 ################################################################################
 
 # Projection
+wgs84 <- sf::st_crs("+proj=longlat +datum=WGS84")
 moll <- sf::st_crs("+proj=moll +datum=WGS84")
+rob <- sf::st_crs("+proj=robin +lon_0=0 +x_0=0 +y_0=0 +ellps=WGS84 +datum=WGS84 +units=m +no_defs")
+
+# Make sites a SF object
+data_sf <- sf::st_as_sf(data, coords = c("long_dd", "lat_dd"), crs = wgs84) %>% 
+  sf::st_transform(wgs84)
 
 # World
-world <- rnaturalearth::ne_countries(scale="small", returnclass = "sf")
+world <- rnaturalearth::ne_countries(scale="small", returnclass = "sf") %>% 
+  sf::st_transform(wgs84)
 
 # Theme
 my_theme <-  theme(axis.text=element_blank(),
@@ -92,8 +99,10 @@ my_theme <-  theme(axis.text=element_blank(),
 g <- ggplot() +
   geom_sf(data=world, fill="grey80", color="white", lwd=0.2) +
   # Fisheries
-  geom_point(data=data, mapping=aes(x=long_dd, y=lat_dd, size=scale, color=type)) +
-  geom_text(data=data, mapping=aes(x=long_dd, y=lat_dd, label=name_label, hjust=hjust), size=2.5, lineheight=0.8) +
+  geom_sf(data=data_sf, mapping=aes(size=scale, color=type)) +
+  geom_sf_text(data=data_sf, mapping=aes(label=name_label, hjust=hjust), size=2.5, lineheight=0.8) +
+  # geom_point(data=data, mapping=aes(x=long_dd, y=lat_dd, size=scale, color=type)) +
+  # geom_text(data=data, mapping=aes(x=long_dd, y=lat_dd, label=name_label, hjust=hjust), size=2.5, lineheight=0.8) +
   # Labels
   labs(x="", y="") +
   # Crop
