@@ -22,8 +22,7 @@ library(here)
 source(here("case_study_analysis","mf_clustering_analysis","00-load-libraries.R"))
 load(here("case_study_analysis","mf_clustering_analysis","data","attribs.Rdata")) # from 01-prep-data.Rmd
 load(here("case_study_analysis","mf_clustering_analysis","data","attributes_merged_clean.Rdata"))
-load(here("case_study_analysis","mf_clustering_analysis","data","case_study_attribute_score_data.Rdata")) # From Chris's cleaned data
-
+load(here("case_study_analysis","mf_clustering_analysis","data","case_study_attribute_score_data.csv")) # From Chris's cleaned data
 ```
 
 ######################################################################################################
@@ -32,7 +31,7 @@ load(here("case_study_analysis","mf_clustering_analysis","data","case_study_attr
 
 ```{r}
 # Dendrogram based on hclust
-score_clust <- case_study_attribute_score_data %>% 
+score_clust <- data %>% 
   select(case_study, attribute, score) %>% 
   filter(case_study != "Kisara") %>% 
   pivot_wider(names_from = attribute, values_from = score)
