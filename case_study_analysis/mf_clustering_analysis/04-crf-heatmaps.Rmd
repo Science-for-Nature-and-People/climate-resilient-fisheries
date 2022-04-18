@@ -25,6 +25,21 @@ load(here("case_study_analysis","mf_clustering_analysis","data","attributes_merg
 load(here("case_study_analysis","mf_clustering_analysis","data","case_study_attribute_score_data.csv")) # From Chris's cleaned data
 ```
 
+# Clean data
+
+```{r}
+# Need to clean Chris's data to create a column with numeric importance value
+
+clean_data <- data %>% 
+  mutate(numeric_importance = case_when(
+    importance == "low" ~ "1",
+    importance == "medium" ~ "2",
+    importance == "high" ~ "3",
+    importance == "NA" ~ "0")) %>% 
+  mutate(numeric_importance=as.numeric(numeric_importance))
+```
+
+
 ######################################################################################################
 
 # Attribute Score Dendrograms & Heatmap
@@ -92,9 +107,9 @@ score_heatmap
 
 ```{r}
 # Dendrogram based on hclust
-importance_clust <- attribs %>% 
-  select(case_study, attribute_id, numeric_importance) %>% 
-  pivot_wider(names_from = attribute_id ,values_from = numeric_importance)
+importance_clust <- clean_data %>% 
+  select(case_study, attribute, numeric_importance) %>% 
+  pivot_wider(names_from = attribute, values_from = numeric_importance)
  
 importance_hc <- importance_clust %>% 
   column_to_rownames(var = "case_study") %>% 
@@ -113,8 +128,9 @@ plot(as.phylo(importance_hc), type = "unrooted", cex = 0.6,
 library(ggdendro)
 ggdendrogram(importance_hc, rotate = TRUE, theme_dendro = FALSE)
 
+# Plot a more finalized verson for the synthesisi paper
 
-# Heatmaps based on hc
+plot(importance_hc, ylab="", yaxt="n", sub="", main="")
 ```
 
 
@@ -146,9 +162,9 @@ importance_heatmap
 
 ```{r}
 # Dendrogram based on hclust
-quality_clust <- attribs %>% 
-  select(case_study, attribute_id, numeric_quality) %>% 
-  pivot_wider(names_from = attribute_id ,values_from = numeric_quality)
+quality_clust <- clean_data %>% 
+  select(case_study, attribute, numeric_quality) %>% 
+  pivot_wider(names_from = attribute, values_from = numeric_quality)
  
 quality_hc <- quality_clust %>% 
   column_to_rownames(var = "case_study") %>% 
@@ -206,8 +222,8 @@ Create heatmaps using the clusters that came out of the circular diagrams that W
 # 2. create heatmaps of the different groupings
 
 # Tokunaga, Hollowed, Mills, Free
-KT_AH_KM_CF_clust <- attributes_merged_clean %>% 
-  select(case_study, attribute, official_score) %>% 
+KT_AH_KM_CF_clust <- clean_data %>% 
+  select(case_study, attribute, score) %>% 
   filter(case_study %in% c("Tokunaga", "Hollowed", "Mills", "Free")) %>% 
   pivot_wider(names_from = attribute,values_from = official_score)
 
@@ -754,7 +770,7 @@ pelagic_importance_heatmap
 ##########################################################################################
 
 # Heatmap Grouping by Case Clusters using **Actual Score**
-Create heatmaps using the clusters that came out of the circular diagrams that Whitney had created. Do this for just score for now to see what this looks like compared to previous scaled heatmap diagrams.
+Create heatmaps using the clusters that came out of the score clustering. Do this for just score for now to see what this looks like compared to previous scaled heatmap diagrams.
 
 ## Attribute Score Groupings Heatmaps
 
@@ -767,13 +783,13 @@ pal <- colorRampPalette(colors = c("#ffffb2", "#fecc5c", "#fd8d3c", "#e31a1c"))
 
 ### Create heatmaps based on raw values
 
-# Tokunaga, Hollowed, Mills, Free
-KT_AH_KM_CF_clust <- attributes_merged_clean %>% 
-  select(case_study, attribute, official_score) %>% 
-  filter(case_study %in% c("Tokunaga", "Hollowed", "Mills", "Free")) %>% 
-  pivot_wider(names_from = attribute, values_from = official_score) 
+# Moorea coral reef, Senegalese small pelagics, US Atlantic pelagic longline
+clust1 <- clean_data %>% 
+  select(case_study, attribute, score) %>% 
+  filter(case_study %in% c("Moorea coral reef", "Senegalese small pelagics", "US Atlantic pelagic longline")) %>% 
+  pivot_wider(names_from = attribute, values_from = score) 
 
-KT_AH_KM_CF_clust %>%
+clust1 %>%
   column_to_rownames(var = "case_study") %>% 
   #mutate(across(everything(),~scale(.x))) %>% 
   mutate(across(everything(), ~replace_na(.x, 0))) %>% # REVIEW
@@ -787,17 +803,17 @@ KT_AH_KM_CF_clust %>%
         column_names_gp = gpar(fontsize = 10),
         column_names_rot = 45,
         show_heatmap_legend = TRUE,
-        heatmap_legend_param = list(title = "Score (KT, AH, KM, CF) "))
+        heatmap_legend_param = list(title = "Score"))
 
 #################################################################################
 
-# Pecl, Kleisner, Godlen
-GP_KK_CG_clust <- attributes_merged_clean %>% 
-  select(case_study, attribute, official_score) %>% 
-  filter(case_study %in% c("Pecl", "Kleisner", "Golden")) %>% 
-  pivot_wider(names_from = attribute, values_from = official_score) 
+# Madang reef fish, Fiji nearshore, Madagascar reef fish, Kiribati giant clam
+clust2 <- clean_data %>% 
+  select(case_study, attribute, score) %>% 
+  filter(case_study %in% c("Madang reef fish", "Fiji nearshore", "Madagascar reef fish", "Kiribati giant clam")) %>% 
+  pivot_wider(names_from = attribute, values_from = score) 
 
-GP_KK_CG_clust %>%
+clust2 %>%
   column_to_rownames(var = "case_study") %>% 
   #mutate(across(everything(),~scale(.x))) %>% 
   mutate(across(everything(), ~replace_na(.x, 0))) %>% # REVIEW
@@ -811,17 +827,17 @@ GP_KK_CG_clust %>%
         column_names_gp = gpar(fontsize = 10),
         column_names_rot = 45,
         show_heatmap_legend = TRUE,
-        heatmap_legend_param = list(title = "Score (GP, KK, CG)"))
+        heatmap_legend_param = list(title = "Score"))
 
 #################################################################################
 
-# Eurich, Aguion
-JE_AA_clust <- attributes_merged_clean %>% 
-  select(case_study, attribute, official_score) %>% 
-  filter(case_study %in% c("Eurich", "Aguion")) %>% 
-  pivot_wider(names_from = attribute, values_from = official_score) 
+# Tasmania rock lobster, US West Coast Pacific sardine, NE Atlantic pelagic, Iceland groundfish
+clust3 <- clean_data %>% 
+  select(case_study, attribute, score) %>% 
+  filter(case_study %in% c("Tasmania rock lobster", "US West Coast Pacific sardine", "NE Atlantic pelagic", "Iceland groundfish")) %>% 
+  pivot_wider(names_from = attribute, values_from = score) 
 
-JE_AA_clust %>%
+clust3 %>%
   column_to_rownames(var = "case_study") %>% 
   #mutate(across(everything(),~scale(.x))) %>% 
   mutate(across(everything(), ~replace_na(.x, 0))) %>% # REVIEW
@@ -835,17 +851,17 @@ JE_AA_clust %>%
         column_names_gp = gpar(fontsize = 10),
         column_names_rot = 45,
         show_heatmap_legend = TRUE,
-        heatmap_legend_param = list(title = "Score (JE, AA)"))
+        heatmap_legend_param = list(title = "Score"))
 
 #################################################################################
 
-# Dickey-Collas, Mason
-MDC_JM_clust <- attributes_merged_clean %>% 
-  select(case_study, attribute, official_score) %>% 
-  filter(case_study %in% c("Dickey_Collas", "Mason")) %>% 
-  pivot_wider(names_from = attribute, values_from = official_score) 
+# Japan common squid, Juan Fernandez Islands, Japanese spiny lobster
+clust4 <- clean_data %>% 
+  select(case_study, attribute, score) %>% 
+  filter(case_study %in% c("Japan common squid", "Juan Fernandez Islands", "Japanese spiny lobster")) %>% 
+  pivot_wider(names_from = attribute, values_from = score) 
 
-MDC_JM_clust %>%
+clust4 %>%
   column_to_rownames(var = "case_study") %>% 
   #mutate(across(everything(),~scale(.x))) %>% 
   mutate(across(everything(), ~replace_na(.x, 0))) %>% # REVIEW
@@ -859,18 +875,18 @@ MDC_JM_clust %>%
         column_names_gp = gpar(fontsize = 10),
         column_names_rot = 45,
         show_heatmap_legend = TRUE,
-        heatmap_legend_param = list(title = "Score (MD, JM)"))
+        heatmap_legend_param = list(title = "Score"))
 
 
 ################################################################################
 
-# Friedman, Zhao, Lau, Westfall
-WF_LZ_JL_KW_clust <- attributes_merged_clean %>% 
-  select(case_study, attribute, official_score) %>% 
-  filter(case_study %in% c("Friedman", "Zhao", "Lau", "Westfall")) %>% 
-  pivot_wider(names_from = attribute, values_from = official_score) 
+# California Dungeness crab, Galacia stalked barnacles, Bering Sea groundfish, Maine lobster
+clust5 <- clean_data %>% 
+  select(case_study, attribute, score) %>% 
+  filter(case_study %in% c("California Dungeness crab", "Galacia stalked barnacles", "Bering Sea groundfish", "Maine lobster")) %>% 
+  pivot_wider(names_from = attribute, values_from = score) 
 
-WF_LZ_JL_KW_clust %>%
+clust5 %>%
   column_to_rownames(var = "case_study") %>% 
   #mutate(across(everything(),~scale(.x))) %>% 
   mutate(across(everything(), ~replace_na(.x, 0))) %>% # REVIEW
@@ -884,10 +900,7 @@ WF_LZ_JL_KW_clust %>%
         column_names_gp = gpar(fontsize = 10),
         column_names_rot = 45,
         show_heatmap_legend = TRUE,
-        heatmap_legend_param = list(title = "Score (WF, LZ, JL, KW)"))
-
-
-
+        heatmap_legend_param = list(title = "Score"))
 ```
 
 ## Attribute Score Grouping by Fishery Scale
@@ -895,15 +908,15 @@ WF_LZ_JL_KW_clust %>%
 ### Attribute Score: Small-scale vs. Large-scale
 
 ```{r}
-# Small-scale fisheres: Aguion, Eurich, Free, Friedman, Golden, Kleisner, Lau, Mills, Tokunaga, Zhao
+# Small-scale fisheries
 
 # 1. Create the datasets
 # 2. Create the heatmaps
 
-small_scale_clust <- attributes_merged_clean %>% 
-  select(case_study, attribute, official_score) %>% 
-  filter(case_study %in% c("Aguion", "Eurich", "Free","Friedman", "Golden", "Kleisner", "Lau", "Mills", "Tokunaga", "Zhao")) %>%
-  pivot_wider(names_from = attribute,values_from = official_score)
+small_scale_clust <- clean_data %>% 
+  select(case_study, attribute, score) %>% 
+  filter(case_study %in% c("Galacia stalked barnacles", "Kiribati giant clam", "California Dungeness crab","Fiji nearshore", "Madagascar reef fish", "Juan Fernandez Islands", "Mandang reef fish", "Maine lobster", "Japanese spiny lobster", "Senegalese small pelagics", "Moorea coral reef")) %>%
+  pivot_wider(names_from = attribute, values_from = score)
 
 small_score_heatmap <- small_scale_clust %>% 
   column_to_rownames(var = "case_study") %>% 
@@ -925,12 +938,12 @@ small_score_heatmap
 
 ###################################################################################################
 
-# Large-scale fisheries: Dickey-Collas, Hollowed, Mason, Pecl, Westfall
+# Large-scale fisheries
 
-large_scale_clust <- attributes_merged_clean %>% 
-  select(case_study, attribute, official_score) %>% 
-  filter(case_study %in% c("Dickey_Collas", "Hollowed", "Mason","Pecl", "Westfall")) %>% 
-  pivot_wider(names_from = attribute,values_from = official_score)
+large_scale_clust <- clean_data %>% 
+  select(case_study, attribute, score) %>% 
+  filter(case_study %in% c("US Atlantic pelagic longline", "US West Coast Pacific sardine", "NE Atlantic pelagic", "Tasmania rock lobster", "Iceland groundfish", "Japan common squid", "Bering Sea groundfish")) %>% 
+  pivot_wider(names_from = attribute, values_from = score)
 
 large_score_heatmap <- large_scale_clust %>% 
   column_to_rownames(var = "case_study") %>% 
@@ -979,11 +992,6 @@ corrplot(L, method="color", tl.cex = 0.5)
 ## Because species diversity is the same across all case studies, the SD is 0 ad thus a correlaiton plot doesn't make sense for this dataset
 ```
 
-
-
-
-
-
 ## Attribute Score Grouping by Fishering Location (Coastal, Island, Pelagic)
 
 ### Attribute Score: Coastal vs. Island vs. Pelagic Location
@@ -991,10 +999,10 @@ corrplot(L, method="color", tl.cex = 0.5)
 ```{r}
 # Coastal Fisheries: Aguion, Free, Golden, Mills, Pecl, Tokunaga
 
-coastal_score_clust <- attributes_merged_clean %>% 
-  select(case_study, attribute, official_score) %>% 
-  filter(case_study %in% c("Aguion", "Free", "Golden", "Mills", "Pecl", "Tokunaga")) %>% 
-  pivot_wider(names_from = attribute,values_from = official_score)
+coastal_score_clust <- clean_data %>% 
+  select(case_study, attribute, score) %>% 
+  filter(case_study %in% c("Galacia stalked barnacles", "California Dungeness crab", "Madagascar reef fish", "Maine lobster", "Tasmania rock lobster", "Japanese spiny lobster")) %>% 
+  pivot_wider(names_from = attribute, values_from = score)
 
 coastal_score_heatmap2 <- coastal_score_clust %>% 
   column_to_rownames(var = "case_study") %>% 
@@ -1016,10 +1024,10 @@ coastal_score_heatmap2
 
 # Island Fisheries: Eurich, Friedman, Kleisner, Lau, Zhao
 
-island_score_clust <- attributes_merged_clean %>% 
-  select(case_study, attribute, official_score) %>% 
-  filter(case_study %in% c("Eurich", "Friedman", "Kleisner", "Lau", "Zhao")) %>% 
-  pivot_wider(names_from = attribute,values_from = official_score)
+island_score_clust <- clean_data %>% 
+  select(case_study, attribute, score) %>% 
+  filter(case_study %in% c("Kiribati giant clam", "Fiji nearshore", "Juan Fernandez Islands", "Mandang reef fish", "Moorea coral reef")) %>% 
+  pivot_wider(names_from = attribute,values_from = score)
 
 island_score_heatmap2 <- island_score_clust %>% 
   column_to_rownames(var = "case_study") %>% 
@@ -1039,12 +1047,12 @@ island_score_heatmap2 <- island_score_clust %>%
 
 island_score_heatmap2
 
-# Pelagic Fisheries: Dickey-Collas, Hollowed, Mason, Westfall
+# Pelagic Fisheries: Schmidt, Dickey-Collas, Hollowed, Mason, Westfall
 
-pelagic_score_clust <- attributes_merged_clean %>% 
-  select(case_study, attribute, official_score) %>% 
-  filter(case_study %in% c("Dickey_Collas", "Hollowed", "Mason", "Westfall")) %>% 
-  pivot_wider(names_from = attribute,values_from = official_score)
+pelagic_score_clust <- clean_data %>% 
+  select(case_study, attribute, score) %>% 
+  filter(case_study %in% c("Senegalese small pelagics", "US Atlantic pelagic longline", "US West Coast Pacific sardine", "NE Atlantic pelagic", "Iceland groundfish", "Japan common squid", "Bering Sea groundfish")) %>% 
+  pivot_wider(names_from = attribute,values_from = score)
 
 pelagic_score_heatmap2 <- pelagic_score_clust %>% 
   column_to_rownames(var = "case_study") %>% 

@@ -22,6 +22,21 @@ library(here)
 source(here("case_study_analysis","mf_clustering_analysis","00-load-libraries.R"))
 load(here("case_study_analysis","mf_clustering_analysis","data","attribs.Rdata")) # from 01-prep-data.Rmd
 load(here("case_study_analysis","mf_clustering_analysis","data","attributes_merged_clean.Rdata"))
+load(here("case_study_analysis","mf_clustering_analysis","data","case_study_attribute_score_data.csv")) # From Chris's cleaned data
+```
+
+# Clean data
+
+```{r}
+# Need to clean Chris's data to create a column with numeric importance value
+
+clean_data <- data %>% 
+  mutate(numeric_importance = case_when(
+    importance == "low" ~ "1",
+    importance == "medium" ~ "2",
+    importance == "high" ~ "3",
+    importance == "NA" ~ "0")) %>% 
+  mutate(numeric_importance=as.numeric(numeric_importance))
 ```
 
 
@@ -31,9 +46,9 @@ load(here("case_study_analysis","mf_clustering_analysis","data","attributes_merg
 
 ```{r}
 # Create a subset of data with only the knowledge and learning attributes
-knowledge_data <- attribs %>% 
-  select(case_study, attribute_id, score, numeric_importance) %>% 
-  filter(attribute_id %in% c("Social_economic_Knowledge_diversity", "Social_economic_Knowledge_access", "Social_economic_Learning_capacity", "Goverance_Adaptive"))
+knowledge_data <- clean_data %>% 
+  select(case_study, attribute, score, numeric_importance) %>% 
+  filter(attribute %in% c("Knowledge diversity", "Knowledge access", "Learning capacity", "Adaptive"))
 ```
 
 ## Clustering Analyses for Attibute Score
@@ -41,8 +56,8 @@ knowledge_data <- attribs %>%
 ```{r}
 # Dendrogram based on hclust
 knowledge_clust <- knowledge_data %>% 
-  select(case_study, attribute_id, score) %>% 
-  pivot_wider(names_from = attribute_id ,values_from = score)
+  select(case_study, attribute, score) %>% 
+  pivot_wider(names_from = attribute, values_from = score)
  
 knowledge_hc <- knowledge_clust %>% 
   column_to_rownames(var = "case_study") %>% 
@@ -70,9 +85,9 @@ library(ggdendro)
 
 ```{r}
 # Dendrogram based on hclust
-knowledge_importance_clust <- attribs %>% 
-  select(case_study, attribute_id, numeric_importance) %>% 
-  pivot_wider(names_from = attribute_id ,values_from = numeric_importance)
+knowledge_importance_clust <- clean_data %>% 
+  select(case_study, attribute, numeric_importance) %>% 
+  pivot_wider(names_from = attribute, values_from = numeric_importance)
  
 knowledge_importance_hc <- knowledge_importance_clust %>% 
   column_to_rownames(var = "case_study") %>% 
