@@ -60,11 +60,17 @@ data <- data_orig %>%
   mutate(importance=ifelse(importance=="not sure", NA, importance)) %>% 
   # Format data quality
   mutate(quality=recode(quality, 
+                        "adequate data are available"="A - adequate and reliable data/information",
+                        "adequate data is available"="A - adequate and reliable data/information",
+                        "C - solely expert judgement; fairly confident"="C - fairly confident that the answer provided reflects the true state of the system",
+                        "D - solely expert judgment; not confident"="D - not confident that the answer provided reflects the true state of the system",
                         "NA - Not relevant in this system"="NA",
+                        "expert judgement, high confidence"="C - fairly confident that the answer provided reflects the true state of the system",
                         "E - No data/information; no basis for expert judgement"="E - No data"),
          quality=ifelse(quality=="NA", NA, quality)) %>% 
   # Format "don't know" column
   mutate(dont_know=recode(dont_know,
+                          ":"="Don't know",
                           "Don't Know"="Don't know",
                           "Don't know 3?"="Don't know",
                           "Don't know about the Yellow tail."="Don't know",
@@ -123,7 +129,7 @@ table(data$dimension)
 table(data$domain)
 unique(data$attribute)
 table(data$dont_know)
-table(data$not_relevant)
+table(data$not_relevant) # something bizarro here
 table(data$quality)
 table(data$importance)
 table(data$mech_apply_yn)
