@@ -122,6 +122,6 @@ g <- gridExtra::grid.arrange(g1, g2, ncol=2, widths=c(0.7, 0.3))
 g
 
 # Export plot
-ggsave(g, filename=file.path(plotdir, "Fig4_attribute_scores.png"), 
+ggsave(g, filename=file.path(plotdir, "Fig4_attribute_scores_v2.png"), 
        width=6.5, height=5, units="in", dpi=600)
 
