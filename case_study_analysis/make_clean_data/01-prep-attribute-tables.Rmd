@@ -16,13 +16,13 @@ knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
 
 #Load libraries
 library(here)
-source(here("case_studies_wrf","00-load-libraries.R"))
+source(here("case_study_analysis","00-load-libraries.R"))
 ```
 
 
 # Read in the data from Google Sheets
 ```{r, results=FALSE, message = FALSE, warning = FALSE, class.source = 'fold-hide', warning = FALSE}
-aguion_barnacle <- read_sheet(ss = "https://docs.google.com/spreadsheets/d/1BFTzr_ITZPHZ0-tdItB13VorTMrSfI9he-nWA4SZBSo/edit#gid=2102752751", 
+aguion_barnacle <- read_sheet(ss = "https://docs.google.com/spreadsheets/d/1BFTzr_ITZPHZ0-tdItB13VorTMrSfI9he-nWA4SZBSo/edit#gid=429676283", 
                            sheet = "UPDATED_S4_ResilienceAttributes",
                            range = "A6:P61",
                            col_names = TRUE,
@@ -175,7 +175,7 @@ hollowed_bering_sea <- read_sheet(ss = "https://docs.google.com/spreadsheets/d/1
 
 
 ########################################################################################################################
-kisara_squid <- read_sheet(ss = "https://docs.google.com/spreadsheets/d/1RX1iUmEKsOUmuPZkn4SMA6zts9TTPz-gi0D6XFrY1RQ/edit#gid=934077877", 
+kisara_squid <- read_sheet(ss = "https://docs.google.com/spreadsheets/d/1fz-aouYW__YjretfedT13l2ttET5THh1IEYcoycnSB4/edit#gid=934077877", 
                            sheet = "UPDATED_S4_ResilienceAttributes",
                            range = "A6:P61",
                            col_names = TRUE,
@@ -328,7 +328,7 @@ tokunaga_lobster <- read_sheet(ss = "https://docs.google.com/spreadsheets/d/1jgF
 
 
 ############################################################################################################################
-westfall_hms <- read_sheet(ss = "https://docs.google.com/spreadsheets/d/1DMx0Ux9Li1LhIe4ee5bbAYtJaw1vCezziRGyeERBthY/edit#gid=1818956842", 
+westfall_hms <- read_sheet(ss = "https://docs.google.com/spreadsheets/d/1DMx0Ux9Li1LhIe4ee5bbAYtJaw1vCezziRGyeERBthY/edit#gid=932661307", 
                            sheet = "UPDATED_S4_ResilienceAttributes",
                            range = "A6:P61",
                            col_names = TRUE,
