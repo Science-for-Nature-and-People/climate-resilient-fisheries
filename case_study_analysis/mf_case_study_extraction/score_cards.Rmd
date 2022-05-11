@@ -28,7 +28,7 @@ library(kableExtra)
 ################################################################################
 
 ```{r}
-aguion_barnacle <- read_sheet(ss = "https://docs.google.com/spreadsheets/d/1WfGsKOT0gFSN1yHUObDNSQflqd5avodSuf3kOZLTyLk/edit#gid=1947230832", 
+aguion_barnacle <- read_sheet(ss = "https://docs.google.com/spreadsheets/d/1BFTzr_ITZPHZ0-tdItB13VorTMrSfI9he-nWA4SZBSo/edit#gid=429676283", 
                            sheet = "UPDATED_S4_ResilienceAttributes",
                            range = "A6:P61",
                            col_names = TRUE,
@@ -366,7 +366,7 @@ hollowed_bering_sea <- read_sheet(ss = "https://docs.google.com/spreadsheets/d/1
 
 
 ########################################################################################################################
-kisara_squid <- read_sheet(ss = "https://docs.google.com/spreadsheets/d/1RX1iUmEKsOUmuPZkn4SMA6zts9TTPz-gi0D6XFrY1RQ/edit#gid=934077877", 
+kisara_squid <- read_sheet(ss = "https://docs.google.com/spreadsheets/d/1fz-aouYW__YjretfedT13l2ttET5THh1IEYcoycnSB4/edit#gid=934077877", 
                            sheet = "UPDATED_S4_ResilienceAttributes",
                            range = "A6:P61",
                            col_names = TRUE,
@@ -613,43 +613,43 @@ pecl_lobster <- read_sheet(ss = "https://docs.google.com/spreadsheets/d/11Z-SLlA
 
 
 ###########################################################################################################################
-#schmidt_senegal <- read_sheet(ss = "https://docs.google.com/spreadsheets/d/1bUY6yII5y0FZfDRJ5lxpA7iD2p3o__2A1xsWivxwKB0/edit#gid=2000123802", 
-#                           sheet = "UPDATED_S4_ResilienceAttributes",
-#                           range = "A6:P61",
-#                           col_names = TRUE,
-#                           na = "",
-#                           guess_max = 10000,
-#                           trim_ws = TRUE,
-#                           col_types = "c"
-#                           ) %>%
-#  as_tibble() %>%
-#  clean_names() %>% 
-#  rename(dimension=dimensions, 
-#         domain=new_domain, 
-#         attribute=resilience_attribute, 
-#         score=score_1_4,
-#         quality=information_quality, 
-#         importance=importance_of_attribute_in_study_system_high_medium_low, 
-#         work_as_described=does_the_mechanism_work_as_described_in_this_fishery_system) %>% 
-#  select(dimension, domain, attribute, score, quality, importance, work_as_described) %>% 
-#  filter(!is.na(attribute)) %>% 
-#  mutate(score=as.numeric(score)) %>% 
-#  mutate(dimension=recode_factor(dimension, 
-#                                 "Ecological"="Ecological",
-#                                 "Socio-economic"="Social-economic",
-#                                 "Governance-management"="Goverance")) %>% 
-#  mutate(quality=ifelse(quality=="NA - Not relevant in this system", NA, quality),
-#         quality=recode_factor(quality,
-#                               "E - No data"="No data", 
-#                               "D - not confident that the answer provided reflects the true state of the system"="Low",
-#                               "C - fairly confident that the answer provided reflects the true state of the system"="Fair",
-#                               "B - limited data/information and expert judgement"="Good",
-#                               "A - adequate and reliable data/information"="Excellent")) %>% 
-#  mutate(importance=stringr::str_to_sentence(importance),
-#         importance=factor(importance, levels=c("Low", "Medium", "High"))) %>% 
-#  mutate(attribute=ifelse(work_as_described=="no", paste0(attribute, "*"), attribute)) %>% 
-#  arrange(dimension, domain, score) %>% 
-#  mutate(attribute=factor(attribute, levels=attribute)) 
+schmidt_senegal <- read_sheet(ss = "https://docs.google.com/spreadsheets/d/1bUY6yII5y0FZfDRJ5lxpA7iD2p3o__2A1xsWivxwKB0/edit#gid=2000123802", 
+                           sheet = "UPDATED_S4_ResilienceAttributes",
+                           range = "A6:P61",
+                           col_names = TRUE,
+                           na = "",
+                           guess_max = 10000,
+                           trim_ws = TRUE,
+                           col_types = "c"
+                           ) %>%
+  as_tibble() %>%
+  clean_names() %>% 
+  rename(dimension=dimensions, 
+         domain=new_domain, 
+         attribute=resilience_attribute, 
+         score=score_1_4,
+         quality=information_quality, 
+         importance=importance_of_attribute_in_study_system_high_medium_low, 
+         work_as_described=does_the_mechanism_work_as_described_in_this_fishery_system) %>% 
+  select(dimension, domain, attribute, score, quality, importance, work_as_described) %>% 
+  filter(!is.na(attribute)) %>% 
+  mutate(score=as.numeric(score)) %>% 
+  mutate(dimension=recode_factor(dimension, 
+                                 "Ecological"="Ecological",
+                                 "Socio-economic"="Social-economic",
+                                 "Governance-management"="Goverance")) %>% 
+  mutate(quality=ifelse(quality=="NA - Not relevant in this system", NA, quality),
+         quality=recode_factor(quality,
+                               "E - No data"="No data", 
+                               "D - not confident that the answer provided reflects the true state of the system"="Low",
+                               "C - fairly confident that the answer provided reflects the true state of the system"="Fair",
+                               "B - limited data/information and expert judgement"="Good",
+                               "A - adequate and reliable data/information"="Excellent")) %>% 
+  mutate(importance=stringr::str_to_sentence(importance),
+         importance=factor(importance, levels=c("Low", "Medium", "High"))) %>% 
+  mutate(attribute=ifelse(work_as_described=="no", paste0(attribute, "*"), attribute)) %>% 
+  arrange(dimension, domain, score) %>% 
+  mutate(attribute=factor(attribute, levels=attribute)) 
 
 
 
@@ -1112,6 +1112,28 @@ pecl_plot
 
 # Save the plot
 ggsave("pecl_attribute_score_card.png", 
+      width=6.5, height=6.5, units="in", dpi=600)
+```
+
+
+## Schmidt score Card
+
+```{r}
+schmidt_plot <- ggplot() +
+  facet_grid(dimension~., space="free", scales="free_y") +
+  geom_segment(data=schmidt_senegal, mapping=aes(y=attribute, yend=attribute, x=0.5, xend=score, color=domain, alpha=quality)) +
+  geom_point(schmidt_senegal, mapping=aes(x=score, y=attribute, color=domain, alpha=quality, shape=importance), size=3.5, inherit.aes = F) +
+  scale_x_continuous(lim=c(0.5, 4.3), breaks=1:4, labels=c("1\n(none)", "2\n(low)", "3\n(medium)", "4\n(high)")) +
+  labs(x="Attribute score", y="", title="Senegalese small pelagics resilience score card") +
+  scale_alpha_ordinal(name="Data quality") +
+  scale_color_discrete(name="Domain") +
+  scale_shape_discrete(name="Importance") +
+  guides(color = guide_legend(order = 1), size = guide_legend(order = 2), alpha = guide_legend(order = 3)) +
+  theme_bw() + my_theme
+schmidt_plot
+
+# Save the plot
+ggsave("schmidt_attribute_score_card.png", 
       width=6.5, height=6.5, units="in", dpi=600)
 ```
 
