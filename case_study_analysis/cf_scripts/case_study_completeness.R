@@ -44,9 +44,9 @@ my_theme <-  theme(axis.text=element_text(size=5),
                    panel.grid.major = element_blank(), 
                    panel.grid.minor = element_blank(),
                    panel.background = element_blank(), 
-                   axis.line = element_line(colour = "black"),
+                   axis.line = element_line(colour = "black"))
                    # Legend
-                   legend.background = element_rect(fill=alpha('blue', 0)))
+                   #legend.background = element_rect(fill=alpha('blue', 0)))
 
 # Plot data
 g <- ggplot(data, aes(x=type, y=attribute)) +

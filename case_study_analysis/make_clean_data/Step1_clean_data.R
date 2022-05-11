@@ -146,3 +146,4 @@ saveRDS(data, file=file.path(outdir, "case_study_attribute_score_data.Rds"))
 save(data, file = here("case_study_analysis","mf_clustering_analysis","data","case_study_attribute_score_data.Rdata"))
 data %>% write_csv(here("case_study_analysis","mf_clustering_analysis","data","case_study_attribute_score_data.csv"))
 
+
