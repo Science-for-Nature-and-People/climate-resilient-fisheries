@@ -22,7 +22,7 @@ library(here)
 source(here("case_study_analysis","mf_clustering_analysis","00-load-libraries.R"))
 load(here("case_study_analysis","mf_clustering_analysis","data","attribs.Rdata")) # from 01-prep-data.Rmd
 load(here("case_study_analysis","mf_clustering_analysis","data","attributes_merged_clean.Rdata"))
-#load(here("case_study_analysis","mf_clustering_analysis","data","case_study_attribute_score_data.csv")) # From Chris's cleaned data
+data <- readRDS(here("case_study_analysis/clean_data","case_study_attribute_score_data.Rds")) # From Chris's cleaned data
 ```
 
 # Clean data
