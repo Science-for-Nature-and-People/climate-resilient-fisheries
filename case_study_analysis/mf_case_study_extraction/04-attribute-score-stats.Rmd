@@ -193,11 +193,11 @@ pecl_dim <- attributes_merged_clean %>%
   rename(Pecl = score)
 
 # Schmidt mean
-#schmidt_dim <- attributes_merged_clean %>% 
-#  filter(case_study == "Schmidt") %>% 
-#  group_by(dimension) %>% 
-#  summarise_at(vars(official_score), list(score = mean)) %>% 
-#  rename(Schmidt = score)
+schmidt_dim <- attributes_merged_clean %>% 
+  filter(case_study == "Schmidt") %>% 
+  group_by(dimension) %>% 
+  summarise_at(vars(official_score), list(score = mean)) %>% 
+  rename(Schmidt = score)
 
 # Tokunaga mean
 tokunaga_dim <- attributes_merged_clean %>% 
@@ -223,9 +223,10 @@ zhao_dim <- attributes_merged_clean %>%
 
 ```{r}
 ### Kisara Case Study missing b/c no information for some of the dimensions 
+## Schmidt also not working...
 
 # Merge all mean datasets together
-dimension_means_merged <- cbind(aguion_dim, burden_dim, dickey_collas_dim, eurich_dim, free_dim, friedman_dim, golden_dim, hollowed_dim,  kleisner_dim, lau_dim, mason_dim, mills_dim, pecl_dim, tokunaga_dim, westfall_dim, zhao_dim) %>% 
+dimension_means_merged <- cbind(aguion_dim, burden_dim, dickey_collas_dim, eurich_dim, free_dim, friedman_dim, golden_dim, hollowed_dim, kleisner_dim, lau_dim, mason_dim, mills_dim, pecl_dim, tokunaga_dim, westfall_dim, zhao_dim) %>% 
   select(Dimension, Aguion, Burden, Dickey_Collas, Eurich, Free, Friedman, Golden, Hollowed, Kleisner, Lau, Mason, Mills, Pecl, Tokunaga, Westfall, Zhao) %>% 
   mutate(across(where(is.numeric), ~ round(., 3)))
 
