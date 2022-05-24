@@ -19,9 +19,9 @@ knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
 
 ```{r}
 library(here)
-source(here("00-load-libraries.R"))
-load(here("data","attribs.Rdata")) # from 01-prep-attribute-tables.Rmd
-load(here("data","attributes_merged_clean.Rdata"))
+source(here("case_study_analysis","00-load-libraries.R"))
+load(here("case_study_analysis","mf_case_study_extraction","data","attribute_table_clean.Rdata")) # from 01-prep-attribute-tables.Rmd
+load(here("case_study_analysis","mf_case_study_extraction","data","attributes_merged_clean.Rdata"))
 
 ```
 

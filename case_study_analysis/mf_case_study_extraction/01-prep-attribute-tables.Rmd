@@ -15,7 +15,7 @@ source(here("case_study_analysis", "00-load-libraries.R"))
 
 # Read in the data from Google Sheets
 ```{r, results=FALSE, message = FALSE, warning = FALSE, class.source = 'fold-hide', warning = FALSE}
-aguion_barnacle <- read_sheet(ss = "https://docs.google.com/spreadsheets/d/1BFTzr_ITZPHZ0-tdItB13VorTMrSfI9he-nWA4SZBSo/edit#gid=2102752751", 
+aguion_barnacle <- read_sheet(ss = "https://docs.google.com/spreadsheets/d/1BFTzr_ITZPHZ0-tdItB13VorTMrSfI9he-nWA4SZBSo/edit", 
                            sheet = "UPDATED_S4_ResilienceAttributes",
                            range = "A6:P61",
                            col_names = TRUE,
@@ -168,7 +168,7 @@ hollowed_bering_sea <- read_sheet(ss = "https://docs.google.com/spreadsheets/d/1
 
 
 ########################################################################################################################
-kisara_squid <- read_sheet(ss = "https://docs.google.com/spreadsheets/d/1RX1iUmEKsOUmuPZkn4SMA6zts9TTPz-gi0D6XFrY1RQ/edit#gid=934077877", 
+kisara_squid <- read_sheet(ss = "https://docs.google.com/spreadsheets/d/1fz-aouYW__YjretfedT13l2ttET5THh1IEYcoycnSB4/edit", 
                            sheet = "UPDATED_S4_ResilienceAttributes",
                            range = "A6:P61",
                            col_names = TRUE,
@@ -283,21 +283,21 @@ pecl_lobster <- read_sheet(ss = "https://docs.google.com/spreadsheets/d/11Z-SLlA
 
 
 ###########################################################################################################################
-#schmidt_senegal <- read_sheet(ss = #"https://docs.google.com/spreadsheets/d/1bUY6yII5y0FZfDRJ5lxpA7iD2p3o__2A1xsWivxwKB0/edit#gid=2000123802", 
-#                           sheet = "UPDATED_S4_ResilienceAttributes",
-#                           range = "A6:P61",
-#                           col_names = TRUE,
-#                           na = c("NA","na","NAN","nan",""),
-#                           guess_max = 10000,
-#                           trim_ws = TRUE,
-#                           col_types = "c"
-#                           ) %>%
-#  as_tibble() %>%
-#  clean_names() %>% 
-#  add_column(case_study = "Schmidt",
-#             reference = seq(1:nrow(.)),
-#             .after = "question_id") %>% 
-#  mutate(reference = str_c(case_study, reference))
+schmidt_senegal <- read_sheet(ss = "https://docs.google.com/spreadsheets/d/1bUY6yII5y0FZfDRJ5lxpA7iD2p3o__2A1xsWivxwKB0/edit#gid=2000123802", 
+                           sheet = "UPDATED_S4_ResilienceAttributes",
+                           range = "A6:P61",
+                           col_names = TRUE,
+                           na = c("NA","na","NAN","nan",""),
+                           guess_max = 10000,
+                           trim_ws = TRUE,
+                           col_types = "c"
+                           ) %>%
+  as_tibble() %>%
+  clean_names() %>% 
+  add_column(case_study = "Schmidt",
+             reference = seq(1:nrow(.)),
+             .after = "question_id") %>% 
+  mutate(reference = str_c(case_study, reference))
 
 
 
@@ -363,7 +363,7 @@ zhao_moorea <- read_sheet(ss = "https://docs.google.com/spreadsheets/d/1-Muz76--
 # Merge the datasets
 
 ```{r}
-attributes_merged <- rbind(aguion_barnacle, burden_sardine, dickey_collas_eur, eurich_clam, free_crab, friedman_fiji, golden_madagascar, hollowed_bering_sea, kisara_squid, kleisner_jfi, lau_png, mason_iceland, mills_lobster, pecl_lobster, tokunaga_lobster, westfall_hms, zhao_moorea)
+attributes_merged <- rbind(aguion_barnacle, burden_sardine, dickey_collas_eur, eurich_clam, free_crab, friedman_fiji, golden_madagascar, hollowed_bering_sea, kisara_squid, kleisner_jfi, lau_png, mason_iceland, mills_lobster, pecl_lobster, schmidt_senegal, tokunaga_lobster, westfall_hms, zhao_moorea)
 
 ```
 
