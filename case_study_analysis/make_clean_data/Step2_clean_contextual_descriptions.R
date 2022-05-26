@@ -109,6 +109,6 @@ table(data$case_study)
 ################################################################################
 
 # Export data
-write.csv(data, file=file.path("case_study_contextual_descriptions.csv"), row.names=F)
+write.csv(data, file=file.path(outdir, "case_study_contextual_descriptions.csv"), row.names=F)
 
 
