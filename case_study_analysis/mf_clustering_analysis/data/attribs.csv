@@ -37,14 +37,14 @@ Goverance,Organization,Aguion,Aguion44,Polycentric,Excellent,High,yes,4,4,3,Gove
 Goverance,Organization,Aguion,Aguion45,Cross-scale integration,Good,High,yes,3,3,3,Goverance_Cross_scale_integration
 Goverance,Learning,Aguion,Aguion47,Adaptive,Excellent,High,yes,4,4,3,Goverance_Adaptive
 Goverance,Agency,Aguion,Aguion49,Leadership and initiative,Good,High,yes,3,3,3,Goverance_Leadership_and_initiative
-Ecological,Assets,Burden,Burden1,Population abundance,adequate data is available,High,NA,2,NA,3,Ecological_Population_abundance
+Ecological,Assets,Burden,Burden1,Population abundance,Excellent,High,NA,2,4,3,Ecological_Population_abundance
 Ecological,Assets,Burden,Burden2,Age structure,Excellent,High,NA,1,4,3,Ecological_Age_structure
 Ecological,Assets,Burden,Burden3,Genetic diversity,No data,Low,NA,2,0,1,Ecological_Genetic_diversity
 Ecological,Assets,Burden,Burden4,Species diversity,D - solely expert judgment; not confident,Low,NA,2,NA,1,Ecological_Species_diversity
 Ecological,Flexibility,Burden,Burden6,Adult mobility,Good,High,NA,3,3,3,Ecological_Adult_mobility
 Ecological,Flexibility,Burden,Burden7,Larval dispersal,Excellent,High,NA,3,4,3,Ecological_Larval_dispersal
 Ecological,Flexibility,Burden,Burden8,Environmental niche breadth,Excellent,High,NA,2,4,3,Ecological_Environmental_niche_breadth
-Ecological,Flexibility,Burden,Burden9,Dietary flexibility,adequate data are available,High,NA,2,NA,3,Ecological_Dietary_flexibility
+Ecological,Flexibility,Burden,Burden9,Dietary flexibility,Excellent,High,NA,2,4,3,Ecological_Dietary_flexibility
 Ecological,Flexibility,Burden,Burden10,Habitat diversity,D - solely expert judgment; not confident,Low,NA,2,NA,1,Ecological_Habitat_diversity
 Ecological,Flexibility,Burden,Burden11,Plasticity,Good,Low,NA,2,3,1,Ecological_Plasticity
 Ecological,Flexibility,Burden,Burden12,Evolutionary potential,Good,Medium,NA,3,3,2,Ecological_Evolutionary_potential
