@@ -19,10 +19,10 @@ knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
 
 ```{r}
 library(here)
-source(here("case_study_analysis","00-load-libraries.R"))
-load(here("case_study_analysis","mf_case_study_extraction","data","attribute_table_clean.Rdata")) # from 01-prep-attribute-tables.Rmd
-load(here("case_study_analysis","mf_case_study_extraction","data","attributes_merged_clean.Rdata"))
-
+#source(here("case_study_analysis","00-load-libraries.R"))
+#load(here("case_study_analysis","mf_case_study_extraction","data","attribute_table_clean.Rdata")) # from 01-prep-attribute-tables.Rmd
+#load(here("case_study_analysis","mf_case_study_extraction","data","attributes_merged_clean.Rdata"))
+attributees_merged_clean <- readRDS(here("case_study_analysis/clean_data","case_study_attribute_score_data.Rds")) # From Chris's cleaned data
 ```
 
 ############################################################################################
