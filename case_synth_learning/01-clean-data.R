@@ -356,9 +356,11 @@ clean_learning_data <- learning_merged %>%
   select("topic", "question_id", "case_study", "question", "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l") 
 
 
+####################################################################################################################################
 
-
-
+# Export data
+save(clean_learning_data, file = here("case_synth_learning", "data","clean_learning_data.Rdata"))
+clean_learning_data %>% write_csv(here("case_synth_learning", "data","clean_learning_data.csv"))
 
 
 
