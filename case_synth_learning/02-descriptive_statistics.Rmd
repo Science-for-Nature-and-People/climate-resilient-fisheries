@@ -104,8 +104,29 @@ Q2211 <- learning_frequnecy_data %>%
   count(a,b,c,d,e,f,g,h,i,j) 
 ```
 
+#############################################################################################################
+
+# Fixed the data in Excel to perform summary statistics
+
+```{r}
+final_data <- clean_learning_data_fixed %>% 
+  rename("a" = "Sum of a",
+         "b" = "Sum of b",
+         "c" = "Sum of c",
+         "d" = "Sum of d",
+         "e" = "Sum of e",
+         "f" = "Sum of f",
+         "g" = "Sum of g",
+         "h" = "Sum of h",
+         "i" = "Sum of i",
+         "j" = "Sum of j")
+```
 
 
+## Build out sumamry statistic graphs
+
+#### 2.2.1.1 - Are cultural, traditional, and historic practices observable?
+####2.2.3.2
 
 
 

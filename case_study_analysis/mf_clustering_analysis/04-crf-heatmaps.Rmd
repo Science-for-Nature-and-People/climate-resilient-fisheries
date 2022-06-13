@@ -59,7 +59,7 @@ final_attribs <- attribs %>%
     case_study == "Mills" ~ "Maine lobster",
     case_study == "Pecl" ~ "Tasmania rock lobster",
     case_study == "Schmidt" ~ "Senegalese small pelagics",
-    case_study == "Tokunaga" ~ "Japan spiney lobster",
+    case_study == "Tokunaga" ~ "Japan spiny lobster",
     case_study == "Westfall" ~ "US Atlantic pelagic longline",
     case_study == "Zhao" ~ "Moorea coral reef"
   ))
