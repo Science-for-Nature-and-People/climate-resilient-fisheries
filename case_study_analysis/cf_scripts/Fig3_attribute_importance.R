@@ -77,7 +77,7 @@ g <- ggplot(data_ordered, aes(y=attribute, x=prop, fill=importance)) +
   labs(x="Percent of case studies", y="") +
   scale_x_continuous(labels = scales::percent) +
   # Legend
-  scale_fill_manual(name="Importance", values=c("grey80", RColorBrewer::brewer.pal(3, "Blues"))) +
+  scale_fill_manual(name="Importance", values=c(RColorBrewer::brewer.pal(3, "Blues"))) +
   # Theme
   theme_bw() + my_theme
 g
