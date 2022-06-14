@@ -109,24 +109,31 @@ Q2211 <- learning_frequnecy_data %>%
 # Fixed the data in Excel to perform summary statistics
 
 ```{r}
-final_data <- clean_learning_data_fixed %>% 
-  rename("a" = "Sum of a",
-         "b" = "Sum of b",
-         "c" = "Sum of c",
-         "d" = "Sum of d",
-         "e" = "Sum of e",
-         "f" = "Sum of f",
-         "g" = "Sum of g",
-         "h" = "Sum of h",
-         "i" = "Sum of i",
-         "j" = "Sum of j")
+final_data <- clean_learning_data_fixed %>%
+  clean_names()
 ```
 
 
 ## Build out sumamry statistic graphs
 
-#### 2.2.1.1 - Are cultural, traditional, and historic practices observable?
-####2.2.3.2
+#### 2.2.1.1. - Are cultural, traditional, and historic practices observable?
+
+```{r}
+Q2211 <- final_data %>% 
+  filter(row_labels == "2.2.d.d.")
+
+# graph
+ggplot(Q2211, aes(x = row_labels, y = a)) +
+  geom_bar(stat="identity", width=0.7, position=position_dodge(width=1)) +
+  geom_bar(aes(y=b))
+
++
+  theme_bw()
+```
+
+
+#### 2.2.3.2. - What kind of sectors operate in the fishery?
+#### 2.3.5.3 - 
 
 
 
