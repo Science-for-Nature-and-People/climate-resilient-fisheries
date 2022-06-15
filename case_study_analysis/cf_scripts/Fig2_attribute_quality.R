@@ -36,20 +36,22 @@ data <- data_orig %>%
   mutate(prop=n/n_cases) %>% 
   ungroup() %>% 
   # Order quality
-  mutate(quality=ifelse(is.na(quality), "Not provided", quality),
-         quality=recode(quality, 
+  mutate(quality=recode(quality, 
                         "A - adequate and reliable data/information"="Excellent",
                         "B - limited data/information and expert judgement"="Good",
                         "C - fairly confident that the answer provided reflects the true state of the system"="Fair",
                         "D - not confident that the answer provided reflects the true state of the system"="Low",
                         "E - No data"="No data"),
-         quality=factor(quality, levels=c("Not provided",
-                                          "No data", "Low", "Fair", "Good", "Excellent")))
+         quality=factor(quality, levels=c("No data", "Low", "Fair", "Good", "Excellent"))) %>% 
+  # Add numeric quality
+  mutate(quality_num=as.numeric(quality))
 
-# Average importance by attribute
+# Average quality by attribute
 data_ord <- data %>% 
-  filter(quality=="Excellent") %>% 
-  arrange(dimension, prop)
+  group_by(dimension, attribute) %>% 
+  summarize(quality_avg=sum(prop*quality_num)) %>% 
+  ungroup() %>% 
+  arrange(dimension, quality_avg)
 
 # Order data
 data_ordered <- data %>% 
@@ -96,7 +98,7 @@ g <- ggplot(data_ordered, aes(y=attribute, x=prop, fill=quality)) +
   labs(x="Percent of case studies", y="") +
   scale_x_continuous(labels = scales::percent) +
   # Legend
-  scale_fill_manual(name="Data quality", values=c("grey80", RColorBrewer::brewer.pal(5, "Blues"))) +
+  scale_fill_manual(name="Data quality", values=c(RColorBrewer::brewer.pal(6, "Blues"))) +
   # Theme
   theme_bw() + my_theme
 g

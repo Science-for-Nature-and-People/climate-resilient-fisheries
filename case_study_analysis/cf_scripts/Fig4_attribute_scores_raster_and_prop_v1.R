@@ -17,14 +17,13 @@ plotdir <- "case_study_analysis/cf_scripts/figures"
 data_orig <- readRDS(file.path(datadir, "case_study_attribute_score_data.Rds"))
 
 
-
 # Build data
 ################################################################################
 
 # Format data
 data <- data_orig %>% 
   # Simplify
-  select(case_study, dimension, attribute, score, importance)
+  select(case_study, dimension, attribute, score)
 
 # Average score by case study
 stats_case <- data %>% 
@@ -48,9 +47,12 @@ data_ordered <- data %>%
          case_study=factor(case_study, levels=stats_case$case_study)) %>% 
   # Order score
   mutate(score=as.character(score), 
-         score=ifelse(is.na(score), "NA", score),
-         score=recode(score, "NA"="Not provided"),
-         score=factor(score, levels=c("Not provided", "1", "2", "3", "4")))
+         score=recode_factor(score, 
+                             "1"="Very low", 
+                             "2"="Low", 
+                             "3"="Moderate", 
+                             "4"="High"))
+         # score=factor(score, levels=c("1", "2", "3", "4"))
 
 # Number of case studies
 n_cases <- n_distinct(data_ordered$case_study)
@@ -87,16 +89,16 @@ my_theme <-  theme(axis.text=element_text(size=6),
 
 
 # Plot data
-g1 <- ggplot(data_ordered, aes(y=attribute, x=case_study, color=score, size=importance)) +
+g1 <- ggplot(data_ordered, aes(y=attribute, x=case_study, fill=score)) +
   facet_grid(dimension~., space="free_y", scale="free_y") +
-  geom_point() +
+  geom_tile() +
   # Labels
   labs(x="", y="", tag="A") +
   # Legend
-  scale_color_manual(name="Score", values=c("grey80", RColorBrewer::brewer.pal(4, "Blues"))) +
+  scale_fill_manual(name="Strength", values=RColorBrewer::brewer.pal(4, "Blues")) +
   # Theme
   theme_bw() + my_theme +
-  theme(legend.position="bottom",
+  theme(legend.position = "none",
         axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
 g1 
 
@@ -108,7 +110,7 @@ g2 <- ggplot(stats_score, aes(y=attribute, x=prop, fill=score)) +
   labs(x="Percent of case studies\n \n \n \n ", y="", tag="B") +
   scale_x_continuous(labels = scales::percent) +
   # Legend
-  scale_fill_manual(name="Score", values=c("grey80", RColorBrewer::brewer.pal(4, "Blues"))) +
+  scale_fill_manual(name="Strength", values=RColorBrewer::brewer.pal(4, "Blues")) +
   guides(fill = guide_legend(title.position="top")) +
   # Theme
   theme_bw() + my_theme +
@@ -122,6 +124,6 @@ g <- gridExtra::grid.arrange(g1, g2, ncol=2, widths=c(0.7, 0.3))
 g
 
 # Export plot
-ggsave(g, filename=file.path(plotdir, "Fig4_attribute_scores_v2.png"), 
+ggsave(g, filename=file.path(plotdir, "Fig4_attribute_scores_raster_and_prop_v1.png"), 
        width=6.5, height=5, units="in", dpi=600)
 

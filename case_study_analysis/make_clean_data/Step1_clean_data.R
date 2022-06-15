@@ -56,6 +56,9 @@ data <- data_orig %>%
   mutate(dimension=recode(dimension,
                           "Governance-management"="Governance",
                           "Social-economic"="Socio-economic")) %>% 
+  # Format attribute
+  mutate(attribute=recode(attribute,
+                          "Flexible and agile infrstructure"="Flexible and agile infrastructure")) %>% 
   # Format importance
   mutate(importance=ifelse(importance=="not sure", NA, importance)) %>% 
   # Format data quality
@@ -86,7 +89,7 @@ data <- data_orig %>%
                         "Kleisner_Cunningham_JuanFernandez_Case Study Template.xlsx"="Kleisner/Cunningham",                    
                         "Lau_PNG_Madang_Reef_Case Study Template.xlsx"="Lau",                                  
                         "Mangubhai_Friedman_Fiji_Case_Study.xlsx"="Mangubhai/Friedman",                                       
-                        "Mar 19_Copy of Yuga and Gaku@Japan SNAPP Case Study  - March 19, 10_03 AM.xlsx"="Yuga/Gaku",
+                        "Yuga and Gaku SNAPP Case Study_.xlsx"="Yuga/Gaku",
                         "Mason_Iceland_groundfish_Case Study Template.xlsx"="Mason",                             
                         "Mills_Lobster_Case Study Template.xlsx"="Mills",                                        
                         "Pecl_Tasmania rock lobster_case study template.xlsx"="Pecl",                           
