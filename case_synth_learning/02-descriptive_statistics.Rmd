@@ -23,45 +23,6 @@ source(here("case_study_analysis", "00-load-libraries.R"))
 load(here("case_synth_learning", "data","clean_learning_data.Rdata")) # from 01-prep-data.Rmd
 ```
 
-
-# Completeness Table
-```{r}
-learning_completeness <- clean_learning_data %>% 
-  select("question_id", "case_study", "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "h") %>% 
-  # Gather
-  gather(key="type", value="value", 13:ncol(.)) %>%
-  mutate(type=stringr::str_to_sentence(type),
-         type=factor(type, levels=c("a", "b", "c", "d", "e", "f", "g", "h", "i", "j")))
-```
-
-```{r}
-# Theme
-my_theme <-  theme(axis.text=element_text(size=5),
-                   axis.title=element_blank(),
-                   strip.text=element_text(size=6),
-                   axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1),
-                   # Gridlines
-                   panel.grid.major = element_blank(), 
-                   panel.grid.minor = element_blank(),
-                   panel.background = element_blank(), 
-                   axis.line = element_line(colour = "black"))
-                   # Legend
-                   #legend.background = element_rect(fill=alpha('blue', 0)))
-
-# Plot data
-g <- ggplot(learning_completeness, aes(x=type, y=question_id)) +
-  facet_grid(space="free_y", scales="free_y") +
-  geom_tile() +
-  # Labels
-  labs(x="", y="") +
-  # Theme
-  theme_bw() + my_theme
-g
-```
-
-
-
-
 # Frequency Table
 
 ```{r}
@@ -97,43 +58,24 @@ learning_frequnecy_counts <- learning_frequnecy_data %>%
 ```
 
 
+###############################################################################################################
 
+# Completeness Table
 ```{r}
-Q2211 <- learning_frequnecy_data %>% 
-  filter(question_id == "2.2.1.1.") %>% 
-  count(a,b,c,d,e,f,g,h,i,j) 
-```
+# This is some code that Chris had made for the completeness table for the attributes paper - I haven't had enought time to figure out how to properly graph it
 
-#############################################################################################################
-
-# Fixed the data in Excel to perform summary statistics
-
-```{r}
-final_data <- clean_learning_data_fixed %>%
-  clean_names()
-```
-
-
-## Build out sumamry statistic graphs
-
-#### 2.2.1.1. - Are cultural, traditional, and historic practices observable?
-
-```{r}
-Q2211 <- final_data %>% 
-  filter(row_labels == "2.2.d.d.")
-
-# graph
-ggplot(Q2211, aes(x = row_labels, y = a)) +
-  geom_bar(stat="identity", width=0.7, position=position_dodge(width=1)) +
-  geom_bar(aes(y=b))
-
-+
-  theme_bw()
+learning_completeness <- clean_learning_data %>% 
+  select("question_id", "case_study", "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "h") %>% 
+  # Gather
+  gather(key="type", value="value", 13:ncol(.)) %>%
+  mutate(type=stringr::str_to_sentence(type),
+         type=factor(type, levels=c("a", "b", "c", "d", "e", "f", "g", "h", "i", "j")))
 ```
 
 
-#### 2.2.3.2. - What kind of sectors operate in the fishery?
-#### 2.3.5.3 - 
+
+
+
 
 
 

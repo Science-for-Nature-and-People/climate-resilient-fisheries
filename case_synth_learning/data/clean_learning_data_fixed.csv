@@ -1,88 +1,87 @@
-Fishery scale,Yes,No,,,,,,,,
-large-scale,5,1,,,,,,,,
-small-scale,10,2,,,,,,,,
-,,,,,,,,,,
-Fishery scale,Small operators,Large operators,Recreational ,Artisinal,Indigenous,Other,,,,
-large-scale,4,5,1,1,2,0,,,,
-small-scale,9,2,4,8,4,3,,,,
-,,,,,,,,,,
-Fishery scale,Confers,Limits,Neither confers or limits,Both confers and limits,,,,,,
-large-scale,3,1,2,0,,,,,,
-small-scale,4,3,2,4,,,,,,
-,,,,,,,,,,
-,,,,,,,,,,
-,,,,,,,,,,
-,,,,,,,,,,
-,,,,,,,,,,
-,,,,,,,,,,
-,,,,,,,,,,
-2.3.5.4.,6,4,5,2,0,0,0,0,0,0
-large-scale,3,1,1,1,0,0,0,0,0,0
-small-scale,3,3,4,1,0,0,0,0,0,0
-2.3.6.1.,6,9,0,0,0,0,0,0,0,0
-large-scale,2,3,0,0,0,0,0,0,0,0
-small-scale,4,6,0,0,0,0,0,0,0,0
-2.3.7.1.,10,4,0,0,0,0,0,0,0,0
-large-scale,5,0,0,0,0,0,0,0,0,0
-small-scale,5,4,0,0,0,0,0,0,0,0
-2.4.3.5.,2,3,2,0,2,0,0,2,2,1
-large-scale,2,2,1,0,1,0,0,1,1,1
-small-scale,0,1,1,0,1,0,0,1,1,0
-2.4.7.2.,8,7,2,4,2,1,2,5,0,0
-large-scale,4,3,0,1,1,0,0,0,0,0
-small-scale,4,4,2,3,1,1,2,5,0,0
-2.4.7.3.,12,6,0,0,0,0,0,0,0,0
-large-scale,5,0,0,0,0,0,0,0,0,0
-small-scale,7,6,0,0,0,0,0,0,0,0
-2.4.7.4.,11,5,0,2,0,3,2,8,2,0
-large-scale,5,1,0,1,0,0,1,2,0,0
-small-scale,6,4,0,1,0,3,1,6,2,0
-2.4.7.5.,5,5,2,3,2,0,0,0,0,0
-large-scale,3,4,1,0,0,0,0,0,0,0
-small-scale,2,1,1,3,2,0,0,0,0,0
-2.4.7.6.,5,9,8,6,6,0,0,0,0,0
-large-scale,2,3,2,2,5,0,0,0,0,0
-small-scale,3,6,6,4,1,0,0,0,0,0
-2.4.7.7.,12,2,3,1,3,4,9,3,0,0
-large-scale,5,1,1,1,1,2,3,1,0,0
-small-scale,7,1,2,0,2,2,6,2,0,0
-2.4.8.1.,9,15,12,2,0,0,0,0,0,0
-large-scale,2,6,6,1,0,0,0,0,0,0
-small-scale,7,9,6,1,0,0,0,0,0,0
-2.4.9.1.,0,0,0,0,0,0,0,0,0,0
-large-scale,0,0,0,0,0,0,0,0,0,0
-small-scale,0,0,0,0,0,0,0,0,0,0
-2.4.9.2.,0,0,0,0,0,0,0,0,0,0
-large-scale,0,0,0,0,0,0,0,0,0,0
-small-scale,0,0,0,0,0,0,0,0,0,0
-2.4.9.3.,0,0,0,0,0,0,0,0,0,0
-large-scale,0,0,0,0,0,0,0,0,0,0
-small-scale,0,0,0,0,0,0,0,0,0,0
-2.5.1.1.,2,16,7,11,1,0,0,0,0,0
-large-scale,0,6,2,3,1,0,0,0,0,0
-small-scale,2,10,5,8,0,0,0,0,0,0
-2.5.2.1.,0,1,0,0,0,0,0,0,0,0
-large-scale,0,0,0,0,0,0,0,0,0,0
-small-scale,0,1,0,0,0,0,0,0,0,0
-2.5.3.1.,0,0,0,0,0,0,0,0,0,0
-large-scale,0,0,0,0,0,0,0,0,0,0
-small-scale,0,0,0,0,0,0,0,0,0,0
-2.5.4.1.,0,0,0,0,0,0,0,0,0,0
-large-scale,0,0,0,0,0,0,0,0,0,0
-small-scale,0,0,0,0,0,0,0,0,0,0
-2.5.5.1.,2,3,5,0,5,0,0,0,0,0
-large-scale,1,2,2,0,2,0,0,0,0,0
-small-scale,1,1,3,0,3,0,0,0,0,0
-2.5.6.1.,0,0,0,0,0,0,0,0,0,0
-large-scale,0,0,0,0,0,0,0,0,0,0
-small-scale,0,0,0,0,0,0,0,0,0,0
-2.5.7.1.,0,0,0,0,0,0,0,0,0,0
-large-scale,0,0,0,0,0,0,0,0,0,0
-small-scale,0,0,0,0,0,0,0,0,0,0
-2.6.1.1.,11,12,2,0,0,0,0,0,0,0
-large-scale,2,6,1,0,0,0,0,0,0,0
-small-scale,9,6,1,0,0,0,0,0,0,0
-2.6.3.1.,0,0,0,0,0,0,0,0,0,0
-large-scale,0,0,0,0,0,0,0,0,0,0
-small-scale,0,0,0,0,0,0,0,0,0,0
-Grand Total,136,115,57,44,27,11,13,18,4,1
+,Fishery scale,Yes,No,,,,,,,,,,,
+2.2.1.1.,large-scale,5,1,,,,,,,,,,,
+,small-scale,10,2,,,,,,,,,,,
+,,,,,,,,,,,,,,
+2.2.3.2.,Fishery scale,Small operators,Large operators,Recreational ,Artisinal,Indigenous,Other,,,,,,,
+,large-scale,4,5,1,1,2,0,,,,,,,
+,small-scale,9,2,4,8,4,3,,,,,,,
+,,,,,,,,,,,,,,
+2.3.5.3.,Fishery scale,Confers,Limits,Neither confers or limits,Both confers and limits,,,,,,,,,
+,large-scale,3,1,2,0,,,,,,,,,
+,small-scale,4,3,2,4,,,,,,,,,
+,,,,,,,,,,,,,,
+2.3.5.4.,Fishery scale,Confers,Limits,Neither confers or limits,Both confers and limits,,,,,,,,,
+,large-scale,3,1,1,1,,,,,,,,,
+,small-scale,3,3,4,1,,,,,,,,,
+,,,,,,,,,,,,,,
+2.3.6.1.,Fishery scale,Yes,No,,,,,,,,,,,
+,large-scale,2,3,,,,,,,,,,,
+,small-scale,4,6,,,,,,,,,,,
+,,,,,,,,,,,,,,
+2.3.7.1.,Fishery scale,Yes,No,,,,,,,,,,,
+,large-scale,5,0,,,,,,,,,,,
+,small-scale,5,4,,,,,,,,,,,
+,,,,,,,,,,,,,,
+2.4.3.5.,Fishery scale,There are no discrete variables here for people to have recorded specific answers…,,,,,,,,,,,,
+,large-scale,2,2,1,0,1,0,0,1,1,1,,,
+,small-scale,0,1,1,0,1,0,0,1,1,0,,,
+,,,,,,,,,,,,,,
+2.4.7.2.,Fishery scale,National government agencies,"Regional (State, Province, Prefecture, etc.) government agencies",Municipal/local government agencies,Individual harvesters or harvester associations,"Dealers, processors or their associations",Environmental NGOs,Community organizations,Other,,,,,
+,large-scale,4,3,0,1,1,0,0,0,,,,,
+,small-scale,4,4,2,3,1,1,2,5,,,,,
+,,,,,,,,,,,,,,
+2.4.7.3.,Fishery scale,Yes,No,,,,,,,,,,,
+,large-scale,5,0,,,,,,,,,,,
+,small-scale,7,6,,,,,,,,,,,
+,,,,,,,,,,,,,,
+2.4.7.4.,Fishery scale,National government agencies,"Regional (State, Province, Prefecture, etc.) government agencies",Municipal/local government agencies,Idividual harvesters or harvester associations,"Dealers, processors or their associations",Environmental NGOs,Community organizations,Universities and/or other scientific organizations,Other,,,,
+,large-scale,5,1,0,1,0,0,1,2,0,,,,
+,small-scale,6,4,0,1,0,3,1,6,2,,,,
+,,,,,,,,,,,,,,
+2.4.7.5.,Fishery scale,Seasonal (2 ~ 4 times a year),Annual,Every 2 ~ 5 years,Undermined frequency,Other,,,,,,,,
+,large-scale,3,4,1,0,0,,,,,,,,
+,small-scale,2,1,1,3,2,,,,,,,,
+,,,,,,,,,,,,,,
+2.4.7.6.,Fishery scale,No,"Yes, in situ samples","Yes, from buoys","Yes, from remote sensing","Yes, other",,,,,,,,
+,large-scale,2,3,2,2,5,,,,,,,,
+,small-scale,3,6,6,4,1,,,,,,,,
+,,,,,,,,,,,,,,
+2.4.7.7.,Fishery scale,National government agencies,Municipal/local government agencies,Idividual harvesters or harvester associations,"Dealers, processors or their associations",Environmental NGOs,Community organizations,Universities and/or other scientific organizations,Other,,,,,
+,large-scale,5,1,1,1,1,2,3,1,,,,,
+,small-scale,7,1,2,0,2,2,6,2,,,,,
+,,,,,,,,,,,,,,
+2.4.8.1.,Fishery scale,Local knowledge,Scientific observation,Stock assessment process,Other,,,,,,,,,
+,large-scale,2,6,6,1,,,,,,,,,
+,small-scale,7,9,6,1,,,,,,,,,
+,,,,,,,,,,,,,,
+2.4.9.1.,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,
+2.4.9.2.,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,
+2.4.9.3.,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,
+2.5.1.1.,Fishery scale,No shocks,Environmental shocks,Governance/management shocks,Socioeconomic shocks,Other,,,,,,,,
+,large-scale,0,6,2,3,1,,,,,,,,
+,small-scale,2,10,5,8,0,,,,,,,,
+,,,,,,,,,,,,,,
+2.5.2.1.,Fishery scale,Only 1 response,,,,,,,,,,,,
+,large-scale,0,0,,,,,,,,,,,
+,small-scale,0,1,,,,,,,,,,,
+,,,,,,,,,,,,,,
+2.5.3.1.,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,
+2.5.4.1.,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,
+2.5.5.1.,Fishery scale,Full recovery to the pre-shock state,Recovering towards the pre-shock state,Transformed to a different state but still providing valuable services,Transformed to different state but losing a majority of services,"System still responding, outcome not yet known",,,,,,,,
+,large-scale,1,2,2,0,2,,,,,,,,
+,small-scale,1,1,3,0,3,,,,,,,,
+,,,,,,,,,,,,,,
+2.5.6.1.,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,
+2.5.7.1.,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,
+2.6.1.1.,Fishery scale,Global climate models only,Downscaled regional projects,Other,,,,,,,,,,
+,large-scale,2,6,1,,,,,,,,,,
+,small-scale,9,6,1,,,,,,,,,,
+,,,,,,,,,,,,,,
+2.6.3.1.,,,,,,,,,,,,,,
