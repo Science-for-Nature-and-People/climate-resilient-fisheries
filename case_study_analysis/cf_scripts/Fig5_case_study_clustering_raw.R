@@ -19,44 +19,6 @@ plotdir <- "case_study_analysis/cf_scripts/figures"
 data_orig <- readRDS(file.path(datadir, "case_study_attribute_score_data.Rds"))
 
 
-# Build data
-################################################################################
-
-# # Format data
-# data <- data_orig %>% 
-#   # Simplify
-#   select(case_study, dimension, attribute, score)
-# 
-# # Average score by case study
-# stats_case <- data %>% 
-#   group_by(case_study) %>% 
-#   summarize(score_avg=mean(score, na.rm=T)) %>% 
-#   ungroup() %>% 
-#   arrange(score_avg)
-# 
-# # Average score by case study
-# stats_attr <- data %>% 
-#   group_by(dimension, attribute) %>% 
-#   summarize(score_avg=mean(score, na.rm=T)) %>% 
-#   ungroup() %>% 
-#   # Arrange
-#   arrange(dimension, score_avg)
-# 
-# # Order data
-# data_ordered <- data %>% 
-#   # Order case studies and attributes
-#   mutate(attribute=factor(attribute, levels=stats_attr$attribute),
-#          case_study=factor(case_study, levels=stats_case$case_study)) %>% 
-#   # Order score
-#   mutate(score=as.character(score), 
-#          score=recode_factor(score, 
-#                              "1"="Very low", 
-#                              "2"="Low", 
-#                              "3"="Moderate", 
-#                              "4"="High"))
-#          # score=factor(score, levels=c("1", "2", "3", "4"))
-
-
 # Cluster analysis
 ################################################################################
 
