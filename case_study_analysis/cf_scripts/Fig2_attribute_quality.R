@@ -67,8 +67,16 @@ data %>%
   group_by(dimension) %>% 
   mutate(ntot=sum(n)) %>% 
   ungroup() %>% 
-  mutate(perc=100-(n/ntot*100)) %>% 
-  filter(quality=="Not provided")
+  mutate(perc=100-(n/ntot*100)) 
+
+# % Complete
+data %>% 
+  group_by(dimension, attribute) %>% 
+  summarize(quality_avg=quality_num %>% mean()) %>%
+  ungroup() %>% 
+  group_by(dimension) %>% 
+  summarize(quality_avg=quality_avg %>% mean()) %>%
+  ungroup() 
 
 # Plot data
 ################################################################################
