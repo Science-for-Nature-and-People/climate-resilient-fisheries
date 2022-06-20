@@ -1,0 +1,232 @@
+---
+title: 'Learning Synthesis Paper: Descriptive Statistics'
+author: "Meghan Fletcher"
+date: "6/8/2022"
+output: 
+  html_document:
+    theme: flatly
+    code_folding: hide
+    toc: true
+    toc_float: true
+---
+
+```{r setup, include=FALSE, message = FALSE, warning=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
+
+theme_set(theme_bw())
+
+```
+
+# Load data
+
+```{r}
+library(here)
+source(here("case_study_analysis", "00-load-libraries.R"))
+load(here("case_synth_learning", "data","clean_learning_data.Rdata")) # from 01-prep-data.Rmd
+```
+
+# Frequency Table
+
+```{r}
+learning_frequnecy_data <- clean_learning_data %>% 
+  select("question_id", "a", "b", "c", "d", "e", "f", "g", "h", "i", "j") %>% # no responses for K or L
+  # For converting categorical variables in numeric values
+   mutate(a = case_when(
+    a == "a" ~ 1)) %>% 
+  mutate(b = case_when(
+    b == "b" ~ 1)) %>% 
+  mutate(c = case_when(
+    c == "c" ~ 1)) %>% 
+  mutate(d = case_when(
+    d == "d" ~ 1)) %>% 
+  mutate(e = case_when(
+    e == "e" ~ 1)) %>% 
+  mutate(f = case_when(
+    f == "f" ~ 1)) %>% 
+  mutate(g = case_when(
+    g == "g" ~ 1)) %>% 
+  mutate(h = case_when(
+    h == "h" ~ 1)) %>% 
+  mutate(i = case_when(
+    i == "i" ~ 1)) %>% 
+  mutate(j = case_when(
+    j == "j" ~ 1)) %>% 
+  group_by(question_id) %>% 
+  mutate_all(~replace(., is.na(.), 0))
+
+
+learning_frequnecy_counts <- learning_frequnecy_data %>% 
+  count(a,b,c,d,e,f,g,h,i,j) 
+```
+
+```{r}
+clean_learning_data %>% 
+  distinct(case_study)
+learning_frequnecy_data
+learning_frequnecy_counts
+
+# Count table 
+count <- clean_learning_data %>% 
+  mutate(id = paste0(question_id, " ", case_study)) %>% 
+  select(question_id, case_study, id, a:l) %>% 
+  gather(type, temp, a:l) %>% 
+  mutate(answer = ifelse(is.na(temp) == FALSE, 1, NA)) %>% 
+  select(-temp) %>% 
+  arrange(question_id) %>% 
+  group_by(question_id, type) %>% 
+  summarise(total = sum(answer, na.rm=TRUE)) %>% 
+  spread(type, total) %>% 
+  replace(is.na(.), 0) %>% 
+  ungroup() %>% 
+  rowwise() %>% 
+  mutate(total_count = sum(c(a,b,c,d,e,f,g,h,i,j,k,l)))
+
+count %>% 
+  filter(question_id == "2.4.7.2.")
+
+# Percentage table
+perc <- clean_learning_data %>% 
+  mutate(id = paste0(question_id, " ", case_study)) %>% 
+  select(question_id, case_study, id, a:l) %>% 
+  gather(type, temp, a:l) %>% 
+  mutate(answer = ifelse(is.na(temp) == FALSE, 1, NA)) %>% 
+  select(-temp) %>% 
+  arrange(question_id) %>% 
+  group_by(question_id, type) %>% 
+  summarise(total = sum(answer, na.rm=TRUE)) %>% 
+  ungroup() %>% 
+  group_by(question_id) %>% 
+  mutate(total_count = sum(total)) %>% 
+  ungroup() %>% 
+  rowwise() %>% 
+  mutate(perc = round(total/total_count*100, 1)) %>% 
+  select(-total, -total_count) %>% 
+  spread(type, perc)
+
+
+
+
+```
+
+```{r}
+clean_learning_data %>% 
+  filter(question_id == "2.4.7.2.") %>% 
+  select(question_id, case_study, a:l) %>% 
+  gather(type, temp, a:l) %>% 
+  mutate(answer = ifelse(is.na(temp) == FALSE, 1, NA)) %>% 
+  group_by(case_study) %>% 
+  summarise(total_choice = sum(answer, na.rm = TRUE)) %>% 
+  arrange(desc(total_choice))
+
+
+clean_learning_data %>% 
+  filter(question_id == "2.4.7.2.") %>% 
+   filter(case_study == "Free" | case_study == "Mills")  
+
+clean_learning_data %>% 
+  filter(question_id == "2.4.7.3.") %>% 
+  select(question_id, case_study, a:l) %>% 
+  gather(type, temp, a:l) %>% 
+  mutate(answer = ifelse(is.na(temp) == FALSE, 1, NA)) %>% 
+  group_by(case_study) %>% 
+  summarise(total_choice = sum(answer, na.rm = TRUE)) %>% 
+  arrange(desc(total_choice))
+
+
+clean_learning_data %>% 
+  filter(question_id == "2.4.7.3.") %>% 
+   filter(case_study == "Free" | case_study == "Mills") 
+
+
+clean_learning_data %>% 
+  filter(question_id == "2.4.7.3.") %>% 
+  select(question_id, case_study, a:l) %>% 
+  gather(type, temp, a:l) %>% 
+  mutate(answer = ifelse(is.na(temp) == FALSE, 1, NA)) %>% 
+  group_by(case_study) %>% 
+  summarise(total_choice = sum(answer, na.rm = TRUE)) %>% 
+  arrange(desc(total_choice))
+
+
+clean_learning_data %>% 
+  filter(question_id == "2.4.7.3.") %>% 
+   filter(case_study == "Free" | case_study == "Mills") 
+
+clean_learning_data %>% 
+  filter(question_id == "2.4.7.7.") %>% 
+  select(question_id, case_study, a:l) %>% 
+  gather(type, temp, a:l) %>% 
+  mutate(answer = ifelse(is.na(temp) == FALSE, 1, NA)) %>% 
+  group_by(case_study) %>% 
+  summarise(total_choice = sum(answer, na.rm = TRUE)) %>% 
+  arrange(desc(total_choice))
+
+
+clean_learning_data %>% 
+  filter(question_id == "2.4.7.7.") %>% 
+   filter(case_study == "Free" | case_study == "Mills") 
+
+clean_learning_data %>% 
+  filter(question_id == "2.4.8.1.") %>% 
+  select(question_id, case_study, a:l) %>% 
+  gather(type, temp, a:l) %>% 
+  mutate(answer = ifelse(is.na(temp) == FALSE, 1, NA)) %>% 
+  group_by(case_study) %>% 
+  summarise(total_choice = sum(answer, na.rm = TRUE)) %>% 
+  arrange(desc(total_choice))
+
+
+clean_learning_data %>% 
+  filter(question_id == "2.4.8.1.") %>% 
+  select(case_study, a:d) %>% 
+   filter(case_study == "Free" | case_study == "Mills") 
+
+clean_learning_data %>% 
+  mutate(id = paste0(question_id, " ", case_study)) %>% 
+  select(question_id, case_study, id, a:l) %>% 
+  gather(type, temp, a:l) %>% 
+  mutate(answer = ifelse(is.na(temp) == FALSE, 1, NA)) %>% 
+  select(-temp) %>% 
+  arrange(question_id) %>% 
+  filter(question_id == "2.4.8.1.") %>% 
+  filter(type == "a" | type == "b" | type == "c" | type == "d") %>% 
+  ggplot(aes(type, case_study, fill = answer)) + geom_tile() 
+  
+
+```
+
+###############################################################################################################
+
+# Completeness Table
+```{r}
+# This is some code that Chris had made for the completeness table for the attributes paper - I haven't had enought time to figure out how to properly graph it
+
+learning_completeness <- clean_learning_data %>% 
+  select("question_id", "case_study", a:l) %>% 
+  # Gather
+  gather(key="type", value="value", a:l) %>%
+  mutate(type=stringr::str_to_sentence(type),
+         type=factor(type, levels=c("a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l")))
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
