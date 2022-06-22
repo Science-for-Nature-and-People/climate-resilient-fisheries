@@ -62,7 +62,9 @@ data <- data_orig %>%
                       "Japanese spiny lobster"="1",
                       "Senegalese small pelagics"="0",
                       "US Atlantic pelagic longline"="0",
-                      "Moorea coral reef"="1") %>% as.numeric())
+                      "Moorea coral reef"="1") %>% as.numeric()) %>% 
+  # Adjust hjust
+  mutate(hjust=ifelse(hjust==0, -0.15, 1.15))
 
 
 # Plot data
@@ -110,7 +112,8 @@ g <- ggplot() +
   # Legend
   # scale_color_discrete(name="Fishery type") +
   scale_fill_manual(name="Fishery type", values=RColorBrewer::brewer.pal(9, "Blues")[c(2,7)]) +
-  scale_size_ordinal(name="Fishery scale") +
+  # scale_size_ordinal(name="Fishery scale") + 
+  scale_size_manual(name="Fishery scale", values=c(2, 4)) +
   # Theme
   theme_bw() + my_theme
 g
