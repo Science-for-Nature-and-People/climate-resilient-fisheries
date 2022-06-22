@@ -56,11 +56,20 @@ clusters <- data_mat %>%
   # Calculate cluster
   stats::hclust(method = "ward.D2")
 
+# Attribute order
+attr_order <- data %>% 
+  group_by(dimension, attribute) %>% 
+  summarize(score_avg=mean(score)) %>% 
+  ungroup() %>% 
+  arrange(dimension, score_avg)
+
 # Order data
 case_studies_ordered <- clusters$labels[clusters$order]
 data_ordered <- data %>% 
   # Order case studies
-  mutate(case_study=factor(case_study, levels=case_studies_ordered))
+  mutate(case_study=factor(case_study, levels=case_studies_ordered)) %>% 
+  # Order attributes
+  mutate(attribute=factor(attribute, levels=attr_order$attribute))
   
 # Megan's version
 # My version is a bit cleaner and produces the same results

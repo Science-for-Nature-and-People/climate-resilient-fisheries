@@ -99,7 +99,7 @@ my_theme <-  theme(axis.text=element_blank(),
 g <- ggplot() +
   geom_sf(data=world, fill="grey80", color="white", lwd=0.2) +
   # Fisheries
-  geom_sf(data=data_sf, mapping=aes(size=scale, color=type)) +
+  geom_sf(data=data_sf, mapping=aes(size=scale, fill=type), pch=21, stroke=0.3, color="grey20") +
   geom_sf_text(data=data_sf, mapping=aes(label=name_label, hjust=hjust), size=2.5, lineheight=0.8) +
   # geom_point(data=data, mapping=aes(x=long_dd, y=lat_dd, size=scale, color=type)) +
   # geom_text(data=data, mapping=aes(x=long_dd, y=lat_dd, label=name_label, hjust=hjust), size=2.5, lineheight=0.8) +
@@ -108,7 +108,8 @@ g <- ggplot() +
   # Crop
   coord_sf(ylim=c(-55,80)) +
   # Legend
-  scale_color_discrete(name="Fishery type") +
+  # scale_color_discrete(name="Fishery type") +
+  scale_fill_manual(name="Fishery type", values=RColorBrewer::brewer.pal(9, "Blues")[c(2,7)]) +
   scale_size_ordinal(name="Fishery scale") +
   # Theme
   theme_bw() + my_theme
