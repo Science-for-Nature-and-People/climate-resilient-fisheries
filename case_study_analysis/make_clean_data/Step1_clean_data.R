@@ -101,7 +101,7 @@ data <- data_orig %>%
                         "Zhao_Moorea_coral_reef_fishery_Case_Study.xlsx"="Zhao")) %>% 
   # Add case studies
   mutate(case_study=recode(authors,
-                           "Aguion"="Galacia stalked barnacles",
+                           "Aguion"="Galicia stalked barnacles",
                            "Burden"="US West Coast Pacific sardine",
                            "Dickey-Collas"="NE Atlantic pelagic",
                            "Eurich"="Kiribati giant clam",

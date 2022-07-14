@@ -25,7 +25,7 @@ data <- data_orig %>%
   mutate(scale=factor(scale, levels=c("small", "medium", "large"))) %>% 
   # Format case study name
   mutate(name_label=recode(name,
-                           "Galacia stalked barnacles"="Galacia\nbarnacles",
+                           "Galacia stalked barnacles"="Galicia\nbarnacles",
                            "US West Coast Pacific sardine"="US West Coast\nPacific sardine",
                            "NE Atlantic pelagic"="NE Atlantic\npelagics",
                            "Kiribati giant clam"="Kiribati\ngiant clam",
@@ -45,7 +45,7 @@ data <- data_orig %>%
                            "Moorea coral reef"="Moorea\ncoral reef")) %>% 
   # Add hjust
   mutate(hjust=recode(name,
-                      "Galacia stalked barnacles"="1",
+                      "Galicia stalked barnacles"="1",
                       "US West Coast Pacific sardine"="1",
                       "NE Atlantic pelagic"="0",
                       "Kiribati giant clam"="1",
