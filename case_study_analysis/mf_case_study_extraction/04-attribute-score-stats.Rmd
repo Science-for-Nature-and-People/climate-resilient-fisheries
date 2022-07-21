@@ -695,10 +695,83 @@ attribute_score_stats %>%
 ```
 
 
+#####################################################################################################
+
+# Attribute COmparison for Tool Development & Content
+
+## Load in Correct Data
+```{r}
+library(here)
+source(here("case_study_analysis","mf_clustering_analysis","00-load-libraries.R"))
+load(here("case_study_analysis","mf_clustering_analysis","data","attribs.Rdata")) # from 01-prep-data.Rmd
+load(here("case_study_analysis","mf_clustering_analysis","data","attributes_merged_clean.Rdata"))
+data <- readRDS(here("case_study_analysis/clean_data","case_study_attribute_score_data.Rds")) # From Chris's cleaned data
+```
 
 
+### Generate attribute groupings
+```{r}
+# Group 1: Population & Age Structure (Critical)
+
+group1 <- data %>% 
+  select(case_study, attribute, score) %>% 
+  filter(attribute %in% c("Population abundance","Age structure"))
 
 
+# Group 2: Habitat Diversity & Dietary Flexibility (Critical)
+
+
+# Group 3: Ecosystem Connectivity & Larval Dispersal (Critical)
+
+
+# Group 4: Genetic Diversity, Plasticity, & Evolutionary Potential
+
+
+# Group 5: Adult Mobility & Environmental Niche Breadth 
+
+
+# Group 6: Access to Economic Opportunity, Mobility, & Flexible and Agile Infrastructure (Critical)
+
+
+# Group 7:  Learning Capacity, Access to Knowledge, & Diversity of Knowledge Sources (Critical)
+
+
+# Group 8: Participatory, Equitable and Inclusive, Transparent, & Accountable (Critical)
+
+
+# Group 9: Polycentric & Integrated Across Scales and Sectors
+```
+
+
+# Graph the DifferentAttributes Groups for the Tool Content
+
+
+### Create theme
+```{r}
+# Create theme
+my_theme1 <-  theme(axis.text.x=element_text(size=8, angle=60, hjust=1),
+                   axis.text.y=element_text(size=8),
+                   legend.text=element_text(size=8),
+                   legend.title=element_text(size=9),
+                   strip.text=element_text(size=9),
+                   # Gridlines
+                   panel.grid.major = element_blank(), 
+                   panel.grid.minor = element_blank(),
+                   panel.background = element_rect(), 
+                   axis.line = element_line())
+```
+
+
+### Group 1
+```{r}
+# Group 1
+ggplot(group1, aes(x=case_study, y=score, fill=attribute)) +
+  geom_col(stat="identity", position="dodge") +
+  theme_bw() + my_theme1 +
+  theme(legend.position="top") +
+  labs(title="Group 1: Population Abundance & Age Structure", x="Case Studies", y="Score (1-4)") +
+  scale_fill_brewer(palette = "Pastel1") 
+```
 
 
 
