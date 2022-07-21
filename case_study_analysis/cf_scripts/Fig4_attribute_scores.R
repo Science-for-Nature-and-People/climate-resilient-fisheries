@@ -85,7 +85,7 @@ g <- ggplot(data_ordered, aes(y=attribute, x=prop, fill=score)) +
   labs(x="Percent of case studies", y="") +
   scale_x_continuous(labels = scales::percent) +
   # Legend
-  scale_fill_manual(name="Strength", values=c(RColorBrewer::brewer.pal(4, "Blues"))) +
+  scale_fill_manual(name="Score", values=c(RColorBrewer::brewer.pal(4, "Blues"))) +
   # Theme
   theme_bw() + my_theme
 g
