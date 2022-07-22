@@ -719,27 +719,45 @@ group1 <- data %>%
 
 
 # Group 2: Habitat Diversity & Dietary Flexibility (Critical)
-
+group2 <- data %>% 
+  select(case_study, attribute, score) %>% 
+  filter(attribute %in% c("Habitat diversity","Dietary flexibility"))
 
 # Group 3: Ecosystem Connectivity & Larval Dispersal (Critical)
-
+group3 <- data %>% 
+  select(case_study, attribute, score) %>% 
+  filter(attribute %in% c("Ecosystem connectivity","Larval dispersal"))
 
 # Group 4: Genetic Diversity, Plasticity, & Evolutionary Potential
-
+group4 <- data %>% 
+  select(case_study, attribute, score) %>% 
+  filter(attribute %in% c("Genetic diversity","Plasticity", "Evolutionary potential"))
 
 # Group 5: Adult Mobility & Environmental Niche Breadth 
-
+group5 <- data %>% 
+  select(case_study, attribute, score) %>% 
+  filter(attribute %in% c("Adult mobility","Environmental niche breadth"))
 
 # Group 6: Access to Economic Opportunity, Mobility, & Flexible and Agile Infrastructure (Critical)
-
+group6 <- data %>% 
+  select(case_study, attribute, score) %>% 
+  filter(attribute %in% c("Economic opportunity","Mobility", "Flexible and agile infrastructure"))
 
 # Group 7:  Learning Capacity, Access to Knowledge, & Diversity of Knowledge Sources (Critical)
-
+group7 <- data %>% 
+  select(case_study, attribute, score) %>% 
+  filter(attribute %in% c("Learning capacity","Knowledge access", "Knowledge diversity"))
 
 # Group 8: Participatory, Equitable and Inclusive, Transparent, & Accountable (Critical)
-
+group8 <- data %>% 
+  select(case_study, attribute, score) %>% 
+  filter(attribute %in% c("Participatory","Equitable and inclusive", "Transparent", "Accountable"))
 
 # Group 9: Polycentric & Integrated Across Scales and Sectors
+group9 <- data %>% 
+  select(case_study, attribute, score) %>% 
+  filter(attribute %in% c("Polycentric","Cross-scale integration"))
+
 ```
 
 
@@ -774,6 +792,18 @@ ggplot(group1, aes(x=case_study, y=score, fill=attribute)) +
 ```
 
 
+### Group 2
+
+```{r}
+
+ggplot(group2, aes(x=case_study, y=score, fill=attribute)) +
+  geom_col(stat="identity", position="dodge") +
+  theme_bw() + my_theme1 +
+  theme(legend.position="top") +
+  labs(title="Group 2: Habitat Diversity & Dietary Flexibility", x="Case Studies", y="Score (1-4)") +
+  scale_fill_brewer(palette = "Pastel1")
+
+```
 
 
 
