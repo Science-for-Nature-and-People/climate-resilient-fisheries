@@ -784,7 +784,7 @@ my_theme1 <-  theme(axis.text.x=element_text(size=8, angle=60, hjust=1),
 ```{r}
 # Group 1
 ggplot(group1, aes(x=case_study, y=score, fill=attribute)) +
-  geom_col(stat="identity", position="dodge") +
+  geom_col(stat="identity", position="dodge", color="navy", width=0.7) +
   theme_bw() + my_theme1 +
   theme(legend.position="top") +
   labs(title="Group 1: Population Abundance & Age Structure", x="Case Studies", y="Score (1-4)") +
@@ -797,7 +797,7 @@ ggplot(group1, aes(x=case_study, y=score, fill=attribute)) +
 ```{r}
 
 ggplot(group2, aes(x=case_study, y=score, fill=attribute)) +
-  geom_col(stat="identity", position="dodge") +
+  geom_col(stat="identity", position="dodge", color="navy", width=0.7) +
   theme_bw() + my_theme1 +
   theme(legend.position="top") +
   labs(title="Group 2: Habitat Diversity & Dietary Flexibility", x="Case Studies", y="Score (1-4)") +
@@ -806,6 +806,102 @@ ggplot(group2, aes(x=case_study, y=score, fill=attribute)) +
 ```
 
 
+### Group 3
+
+```{r}
+
+ggplot(group3, aes(x=case_study, y=score, fill=attribute)) +
+  geom_col(stat="identity", position="dodge", color="black", width=0.7) +
+  theme_bw() + my_theme1 +
+  theme(legend.position="top") +
+  labs(title="Group 3: Ecosystem Connectivity & Larval Dispersal", x="Case Studies", y="Score (1-4)") +
+  scale_fill_brewer(palette = "Pastel1")
+
+```
+
+
+### Group 4
+
+```{r}
+
+ggplot(group4, aes(x=case_study, y=score, fill=attribute)) +
+  geom_col(stat="identity", position="dodge", color="navy", width=0.7) +
+  theme_bw() + my_theme1 +
+  theme(legend.position="top") +
+  labs(title="Group 4: Genetic Diversity, Plasticity, & Evolutionary Potential", x="Case Studies", y="Score (1-4)") +
+  scale_fill_brewer(palette = "Pastel1")
+
+```
+
+
+### Group 5
+
+```{r}
+
+ggplot(group5, aes(x=case_study, y=score, fill=attribute)) +
+  geom_col(stat="identity", position="dodge", color="navy", width=0.7) +
+  theme_bw() + my_theme1 +
+  theme(legend.position="top") +
+  labs(title="Group 5: Adult Mobility & Environmental Niche Breadth", x="Case Studies", y="Score (1-4)") +
+  scale_fill_brewer(palette = "Pastel1")
+
+```
+
+
+### Group 6
+
+```{r}
+
+ggplot(group6, aes(x=case_study, y=score, fill=attribute)) +
+  geom_col(stat="identity", position="dodge", color="navy", width=0.7) +
+  theme_bw() + my_theme1 +
+  theme(legend.position="top") +
+  labs(title="Group 6: Access to Economic Opportunity, Mobility, & Flexible and Agile Infrastructure", x="Case Studies", y="Score (1-4)") +
+  scale_fill_brewer(palette = "Pastel1")
+
+```
+
+
+### Group 7
+
+```{r}
+
+ggplot(group7, aes(x=case_study, y=score, fill=attribute)) +
+  geom_col(stat="identity", position="dodge", color="navy", width=0.7) +
+  theme_bw() + my_theme1 +
+  theme(legend.position="top") +
+  labs(title="Group 7: Learning Capacity, Access to Knowledge, & Diversity of Knowledge Sources", x="Case Studies", y="Score (1-4)") +
+  scale_fill_brewer(palette = "Pastel1")
+
+```
+
+
+### Group 8
+
+```{r}
+
+ggplot(group8, aes(x=case_study, y=score, fill=attribute)) +
+  geom_col(stat="identity", position="dodge", color="navy", width=0.7) +
+  theme_bw() + my_theme1 +
+  theme(legend.position="top") +
+  labs(title="Group 8: Participatory, Equitable and Inclusive, Transparent, & Accountable", x="Case Studies", y="Score (1-4)") +
+  scale_fill_brewer(palette = "Pastel1")
+
+```
+
+
+### Group 9
+
+```{r}
+
+ggplot(group9, aes(x=case_study, y=score, fill=attribute)) +
+  geom_col(stat="identity", position="dodge", color="navy", width=0.7) +
+  theme_bw() + my_theme1 +
+  theme(legend.position="top") +
+  labs(title="Group 9: Polycentric & Integrated Across Scales and Sectors", x="Case Studies", y="Score (1-4)") +
+  scale_fill_brewer(palette = "Pastel1")
+
+```
 
 
 
