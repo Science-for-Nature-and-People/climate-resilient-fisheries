@@ -22,7 +22,7 @@ library(here)
 source(here("case_study_analysis","00-load-libraries.R"))
 load(here("case_study_analysis","mf_case_study_extraction","data","attribute_table_clean.Rdata")) # from 01-prep-attribute-tables.Rmd
 load(here("case_study_analysis","mf_case_study_extraction","data","attributes_merged_clean.Rdata"))
-
+data <- readRDS(here("case_study_analysis/clean_data","case_study_attribute_score_data.Rds")) # From Chris's cleaned data
 ```
 
 ############################################################################################
@@ -32,9 +32,9 @@ The attribute score means of each attribute are reflected in the table. These me
 
 ```{r}
 # Build a table
-merged_mean <- attributes_merged_clean %>% 
+merged_mean <- data %>% 
   group_by(attribute) %>% 
-  summarise_at(vars(official_score), list(score = mean)) %>% 
+  summarise_at(vars(score), list(score = mean)) %>% 
   rename(Score = score,
          Attribute = attribute) %>% 
   mutate(across(where(is.numeric), ~ round(., 3)))
@@ -697,16 +697,7 @@ attribute_score_stats %>%
 
 #####################################################################################################
 
-# Attribute COmparison for Tool Development & Content
-
-## Load in Correct Data
-```{r}
-library(here)
-source(here("case_study_analysis","mf_clustering_analysis","00-load-libraries.R"))
-load(here("case_study_analysis","mf_clustering_analysis","data","attribs.Rdata")) # from 01-prep-data.Rmd
-load(here("case_study_analysis","mf_clustering_analysis","data","attributes_merged_clean.Rdata"))
-data <- readRDS(here("case_study_analysis/clean_data","case_study_attribute_score_data.Rds")) # From Chris's cleaned data
-```
+# Attribute Comparison for Tool Development & Content
 
 
 ### Generate attribute groupings
@@ -757,6 +748,21 @@ group8 <- data %>%
 group9 <- data %>% 
   select(case_study, attribute, score) %>% 
   filter(attribute %in% c("Polycentric","Cross-scale integration"))
+
+####################################################################################################
+
+## New Additions from Jacob
+
+# Group 10: Wealth and Reserves, Economic Diversity, & Access to Economic Opportunity
+group10 <- data %>% 
+  select(case_study, attribute, score) %>% 
+  filter(attribute %in% c("Wealth and reserves", "Economic diversity", "Economic opportunity"))
+
+
+# Group 11: Resilience Mindset & Place Attachment
+group11 <- data %>% 
+  select(case_study, attribute, score) %>% 
+  filter(attribute %in% c("Resilience mindset", "Place attachment"))
 
 ```
 
@@ -902,6 +908,40 @@ ggplot(group9, aes(x=case_study, y=score, fill=attribute)) +
   scale_fill_brewer(palette = "Pastel1")
 
 ```
+
+
+### Group 10
+
+```{r}
+
+ggplot(group10, aes(x=case_study, y=score, fill=attribute)) +
+  geom_col(stat="identity", position="dodge", color="navy", width=0.7) +
+  theme_bw() + my_theme1 +
+  theme(legend.position="top") +
+  labs(title="Group 10: Wealth and Reserves, Economic Diversity, & Access to Economic Opportunity", x="Case Studies", y="Score (1-4)") +
+  scale_fill_brewer(palette = "Pastel1")
+
+```
+
+
+
+### Group 11
+
+```{r}
+
+ggplot(group11, aes(x=case_study, y=score, fill=attribute)) +
+  geom_col(stat="identity", position="dodge", color="navy", width=0.7) +
+  theme_bw() + my_theme1 +
+  theme(legend.position="top") +
+  labs(title="Group 11: Resilience Mindset & Place Attachment", x="Case Studies", y="Score (1-4)") +
+  scale_fill_brewer(palette = "Pastel1")
+
+```
+
+
+
+
+
 
 
 
