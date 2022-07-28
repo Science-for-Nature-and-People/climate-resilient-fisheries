@@ -115,8 +115,8 @@ data <- data_orig %>%
                            "Mason"="Iceland groundfish",
                            "Mills"="Maine lobster",
                            "Pecl"="Tasmania rock lobster",
-                           "Schmidt"="Senegalese small pelagics",
-                           "Tokunaga"="Japanese spiny lobster",
+                           "Schmidt"="Senegal small pelagics",
+                           "Tokunaga"="Japan spiny lobster",
                            "Westfall"="US Atlantic pelagic longline",
                            "Zhao"="Moorea coral reef")) %>% 
   # Arrange

@@ -39,8 +39,8 @@ data <- data_orig %>%
                            "Iceland groundfish"="Iceland\ngroundfish",
                            "Maine lobster"="Maine\nlobster",
                            "Tasmania rock lobster"="Tasmania\nrock lobster",
-                           "Senegalese small pelagics"="Senegalese\nsmall pelagics",
-                           "Japanese spiny lobster"="Japanese\nspiny lobster",
+                           "Senegal small pelagics"="Senegal\nsmall pelagics",
+                           "Japan spiny lobster"="Japan\nspiny lobster",
                            "US Atlantic pelagic longline"="US Atlantic\npelagic longline",
                            "Moorea coral reef"="Moorea\ncoral reef")) %>% 
   # Add hjust
@@ -59,8 +59,8 @@ data <- data_orig %>%
                       "Iceland groundfish"="1",
                       "Maine lobster"="0",
                       "Tasmania rock lobster"="0",
-                      "Japanese spiny lobster"="1",
-                      "Senegalese small pelagics"="0",
+                      "Japan spiny lobster"="1",
+                      "Senegal small pelagics"="0",
                       "US Atlantic pelagic longline"="0",
                       "Moorea coral reef"="1") %>% as.numeric(),
          vjust=ifelse(name=="Kiribati giant clam", 0, 0.5)) %>% 
