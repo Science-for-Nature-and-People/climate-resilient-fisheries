@@ -758,6 +758,10 @@ group10 <- data %>%
   select(case_study, attribute, score) %>% 
   filter(attribute %in% c("Wealth and reserves", "Economic diversity", "Economic opportunity"))
 
+group10_2 <- data %>% 
+  select(case_study, attribute, score) %>% 
+  filter(attribute %in% c("Economic diversity", "Economic opportunity"))
+
 
 # Group 11: Resilience Mindset & Place Attachment
 group11 <- data %>% 
@@ -919,6 +923,20 @@ ggplot(group10, aes(x=case_study, y=score, fill=attribute)) +
   theme_bw() + my_theme1 +
   theme(legend.position="top") +
   labs(title="Group 10: Wealth and Reserves, Economic Diversity, & Access to Economic Opportunity", x="Case Studies", y="Score (1-4)") +
+  scale_fill_brewer(palette = "Pastel1")
+
+```
+
+
+### Group 10 (#2)
+
+```{r}
+
+ggplot(group10_2, aes(x=case_study, y=score, fill=attribute)) +
+  geom_col(stat="identity", position="dodge", color="navy", width=0.7) +
+  theme_bw() + my_theme1 +
+  theme(legend.position="top") +
+  labs(title="Group 10 (#2): Economic Diversity, & Access to Economic Opportunity", x="Case Studies", y="Score (1-4)") +
   scale_fill_brewer(palette = "Pastel1")
 
 ```
