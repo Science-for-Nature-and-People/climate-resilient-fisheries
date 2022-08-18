@@ -199,7 +199,8 @@ g3 <- ggdendro::ggdendrogram(clusters, rotate = F, theme_dendro = FALSE) +
   theme_bw() + my_theme +
   theme(axis.text.y=element_blank(),
         axis.ticks.y=element_blank(),
-        axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1),
+        # axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1), # vertical
+        axis.text.x = element_text(angle = 45, vjust = 0.95, hjust=1), # diagonal
         plot.margin = margin(0, 0.75, 0, 0.2, "cm"))
 g3
 
