@@ -13,12 +13,12 @@ Ecological,Flexibility,Aguion,Aguion12,Evolutionary potential,3,Fair,Medium,yes,
 Ecological,Organization,Aguion,Aguion14,Ecosystem connectivity,4,Good,High,yes,4,3,3
 Ecological,Organization,Aguion,Aguion15,Population modularity,3,Fair,High,yes,3,2,3
 Social-economic,Assets,Aguion,Aguion17,Wealth and reserves,3,Fair,Medium,yes,3,2,2
-Social-economic,Assets,Aguion,Aguion18,Economic diversity,2,Fair,Medium,yes,2,2,2
-Social-economic,Assets,Aguion,Aguion19,Social diversity,2,Fair,Medium,yes,2,2,2
+Social-economic,Assets,Aguion,Aguion18,Economic diversity,2,Good,Medium,yes,2,3,2
+Social-economic,Assets,Aguion,Aguion19,Social diversity,2,Good,Medium,yes,2,3,2
 Social-economic,Flexibility,Aguion,Aguion21,Flexible and agile infrstructure,3,Good,High,yes,3,3,3
-Social-economic,Flexibility,Aguion,Aguion22,Mobility,3,Excellent,High,yes,3,4,3
+Social-economic,Flexibility,Aguion,Aguion22,Mobility,2,Excellent,High,yes,2,4,3
 Social-economic,Flexibility,Aguion,Aguion23,Economic opportunity,2,Good,Low,yes,2,3,1
-Social-economic,Flexibility,Aguion,Aguion24,Resilience mindset,3,Fair,High,yes,3,2,3
+Social-economic,Flexibility,Aguion,Aguion24,Resilience mindset,3,Good,High,yes,3,3,3
 Social-economic,Flexibility,Aguion,Aguion25,Place attachment,4,Excellent,High,yes,4,4,3
 Social-economic,Organization,Aguion,Aguion27,Social capital,4,Excellent,High,yes,4,4,3
 Social-economic,Organization,Aguion,Aguion28,Technology transfer,2,Fair,Low,yes,2,2,1
@@ -27,14 +27,14 @@ Social-economic,Learning,Aguion,Aguion31,Knowledge diversity,3,Excellent,High,ye
 Social-economic,Learning,Aguion,Aguion32,Knowledge access,4,Excellent,High,yes,4,4,3
 Social-economic,Learning,Aguion,Aguion33,Learning capacity,4,Good,High,yes,4,3,3
 Social-economic,Agency,Aguion,Aguion35,Agency,3,Excellent,High,yes,3,4,3
-Goverance,Flexibility,Aguion,Aguion37,Responsive,3,Good,High,yes,3,3,3
+Goverance,Flexibility,Aguion,Aguion37,Responsive,4,Good,High,yes,4,3,3
 Goverance,Organization,Aguion,Aguion39,Participatory,4,Excellent,High,yes,4,4,3
-Goverance,Organization,Aguion,Aguion40,Equitable and inclusive,3,Fair,Medium,yes,3,2,2
+Goverance,Organization,Aguion,Aguion40,Equitable and inclusive,3,Good,Medium,yes,3,3,2
 Goverance,Organization,Aguion,Aguion41,Accountable,2,Fair,Medium,yes,2,2,2
-Goverance,Organization,Aguion,Aguion42,Transparent,3,Fair,High,yes,3,2,3
+Goverance,Organization,Aguion,Aguion42,Transparent,3,Good,High,yes,3,3,3
 Goverance,Organization,Aguion,Aguion43,Effective and efficient,3,Fair,Medium,yes,3,2,2
 Goverance,Organization,Aguion,Aguion44,Polycentric,4,Excellent,High,yes,4,4,3
-Goverance,Organization,Aguion,Aguion45,Cross-scale integration,3,Good,High,yes,3,3,3
+Goverance,Organization,Aguion,Aguion45,Cross-scale integration,4,Excellent,High,yes,4,4,3
 Goverance,Learning,Aguion,Aguion47,Adaptive,4,Excellent,High,yes,4,4,3
 Goverance,Agency,Aguion,Aguion49,Leadership and initiative,3,Good,High,yes,3,3,3
 Ecological,Assets,Burden,Burden1,Population abundance,2,Excellent,High,NA,2,4,3
@@ -53,10 +53,12 @@ Ecological,Organization,Burden,Burden15,Population modularity,2,C - solely exper
 Social-economic,Assets,Burden,Burden17,Wealth and reserves,3,C - solely expert judgement; fairly confident,Medium,NA,3,NA,2
 Social-economic,Assets,Burden,Burden18,Economic diversity,4,Excellent,High,NA,4,4,3
 Social-economic,Assets,Burden,Burden19,Social diversity,2,Good,Low,NA,2,3,1
+Social-economic,Flexibility,Burden,Burden21,Flexible and agile infrstructure,2,C - solely expert judgement; fairly confident,Low,NA,2,NA,1
 Social-economic,Flexibility,Burden,Burden22,Mobility,3,Excellent,High,NA,3,4,3
 Social-economic,Flexibility,Burden,Burden23,Economic opportunity,4,Good,High,NA,4,3,3
 Social-economic,Flexibility,Burden,Burden24,Resilience mindset,3,C - solely expert judgement; fairly confident,High,NA,3,NA,3
 Social-economic,Flexibility,Burden,Burden25,Place attachment,3,C - solely expert judgement; fairly confident,Low,NA,3,NA,1
+Social-economic,Organization,Burden,Burden27,Social capital,3,C - solely expert judgement; fairly confident,Medium,NA,3,NA,2
 Social-economic,Organization,Burden,Burden28,Technology transfer,3,C - solely expert judgement; fairly confident,Medium,NA,3,NA,2
 Social-economic,Organization,Burden,Burden29,Modular infrastructure,2,C - solely expert judgement; fairly confident,Medium,NA,2,NA,2
 Social-economic,Learning,Burden,Burden31,Knowledge diversity,2,Good,Medium,NA,2,3,2
@@ -464,14 +466,15 @@ Ecological,Flexibility,Mills,Mills9,Dietary flexibility,4,Excellent,Low,no,4,4,1
 Ecological,Flexibility,Mills,Mills10,Habitat diversity,2,Excellent,Low,no,2,4,1
 Ecological,Flexibility,Mills,Mills11,Plasticity,3,Excellent,Medium,yes,3,4,2
 Ecological,Flexibility,Mills,Mills12,Evolutionary potential,2,Good,Low,yes,2,3,1
-Ecological,Organization,Mills,Mills14,Ecosystem connectivity,2,Good,Low,no,2,3,1
+Ecological,Organization,Mills,Mills14,Ecosystem connectivity,3,Good,Medium,no,3,3,2
 Ecological,Organization,Mills,Mills15,Population modularity,4,Excellent,High,yes,4,4,3
 Social-economic,Assets,Mills,Mills17,Wealth and reserves,4,Excellent,High,yes,4,4,3
 Social-economic,Assets,Mills,Mills18,Economic diversity,2,Excellent,High,no,2,4,3
 Social-economic,Assets,Mills,Mills19,Social diversity,2,Good,Low,no,2,3,1
-Social-economic,Flexibility,Mills,Mills22,Mobility,2,Good,Medium,yes,2,3,2
+Social-economic,Flexibility,Mills,Mills21,Flexible and agile infrstructure,3,Good,High,yes,3,3,3
+Social-economic,Flexibility,Mills,Mills22,Mobility,2,Good,High,yes,2,3,3
 Social-economic,Flexibility,Mills,Mills23,Economic opportunity,3,Excellent,High,yes,3,4,3
-Social-economic,Flexibility,Mills,Mills24,Resilience mindset,2,Good,High,yes,2,3,3
+Social-economic,Flexibility,Mills,Mills24,Resilience mindset,3,Good,Medium,yes,3,3,2
 Social-economic,Flexibility,Mills,Mills25,Place attachment,4,Good,High,yes,4,3,3
 Social-economic,Organization,Mills,Mills27,Social capital,3,Good,Medium,no,3,3,2
 Social-economic,Organization,Mills,Mills28,Technology transfer,3,Good,Medium,yes,3,3,2
@@ -480,24 +483,24 @@ Social-economic,Learning,Mills,Mills31,Knowledge diversity,4,Excellent,Medium,ye
 Social-economic,Learning,Mills,Mills32,Knowledge access,4,Excellent,Medium,yes,4,4,2
 Social-economic,Learning,Mills,Mills33,Learning capacity,4,Good,Medium,yes,4,3,2
 Social-economic,Agency,Mills,Mills35,Agency,4,Good,Medium,yes,4,3,2
-Goverance,Flexibility,Mills,Mills37,Responsive,4,Good,Medium,yes,4,3,2
+Goverance,Flexibility,Mills,Mills37,Responsive,3,Good,Medium,yes,3,3,2
 Goverance,Organization,Mills,Mills39,Participatory,4,Excellent,High,yes,4,4,3
-Goverance,Organization,Mills,Mills40,Equitable and inclusive,2,Good,Medium,no,2,3,2
+Goverance,Organization,Mills,Mills40,Equitable and inclusive,3,Good,Medium,no,3,3,2
 Goverance,Organization,Mills,Mills41,Accountable,4,Good,Medium,yes,4,3,2
 Goverance,Organization,Mills,Mills42,Transparent,4,Excellent,Medium,yes,4,4,2
 Goverance,Organization,Mills,Mills43,Effective and efficient,3,Excellent,Low,yes,3,4,1
 Goverance,Organization,Mills,Mills44,Polycentric,4,Excellent,Medium,yes,4,4,2
-Goverance,Organization,Mills,Mills45,Cross-scale integration,2,Good,High,NA,2,3,3
-Goverance,Learning,Mills,Mills47,Adaptive,2,Good,Medium,yes,2,3,2
-Goverance,Agency,Mills,Mills49,Leadership and initiative,4,Good,Medium,yes,4,3,2
-Ecological,Assets,Pecl,Pecl1,Population abundance,2,Excellent,High,yes,2,4,3
+Goverance,Organization,Mills,Mills45,Cross-scale integration,3,Good,High,yes,3,3,3
+Goverance,Learning,Mills,Mills47,Adaptive,3,Good,Medium,yes,3,3,2
+Goverance,Agency,Mills,Mills49,Leadership and initiative,3,Good,Medium,yes,3,3,2
+Ecological,Assets,Pecl,Pecl1,Population abundance,3,Excellent,High,yes,3,4,3
 Ecological,Assets,Pecl,Pecl2,Age structure,2,Excellent,High,yes,2,4,3
 Ecological,Assets,Pecl,Pecl3,Genetic diversity,3,Fair,Medium,yes,3,2,2
 Ecological,Assets,Pecl,Pecl4,Species diversity,3,Excellent,Medium,no,3,4,2
 Ecological,Flexibility,Pecl,Pecl6,Adult mobility,2,Excellent,High,yes,2,4,3
 Ecological,Flexibility,Pecl,Pecl7,Larval dispersal,4,Excellent,High,yes,4,4,3
 Ecological,Flexibility,Pecl,Pecl8,Environmental niche breadth,2,Good,High,yes,2,3,3
-Ecological,Flexibility,Pecl,Pecl9,Dietary flexibility,2,Excellent,High,yes,2,4,3
+Ecological,Flexibility,Pecl,Pecl9,Dietary flexibility,3,Excellent,High,yes,3,4,3
 Ecological,Flexibility,Pecl,Pecl10,Habitat diversity,2,Excellent,High,yes,2,4,3
 Ecological,Flexibility,Pecl,Pecl11,Plasticity,2,Fair,High,yes,2,2,3
 Ecological,Flexibility,Pecl,Pecl12,Evolutionary potential,2,Good,High,yes,2,3,3
@@ -511,15 +514,15 @@ Social-economic,Flexibility,Pecl,Pecl22,Mobility,2,Fair,Medium,no,2,2,2
 Social-economic,Flexibility,Pecl,Pecl23,Economic opportunity,3,Fair,Medium,yes,3,2,2
 Social-economic,Flexibility,Pecl,Pecl24,Resilience mindset,2,Fair,High,yes,2,2,3
 Social-economic,Flexibility,Pecl,Pecl25,Place attachment,4,Excellent,High,yes,4,4,3
-Social-economic,Organization,Pecl,Pecl27,Social capital,4,Excellent,Medium,yes,4,4,2
+Social-economic,Organization,Pecl,Pecl27,Social capital,3,Good,Medium,yes,3,3,2
 Social-economic,Organization,Pecl,Pecl28,Technology transfer,2,Fair,High,yes,2,2,3
 Social-economic,Organization,Pecl,Pecl29,Modular infrastructure,3,Fair,Medium,yes,3,2,2
 Social-economic,Learning,Pecl,Pecl31,Knowledge diversity,3,Fair,Medium,yes,3,2,2
 Social-economic,Learning,Pecl,Pecl32,Knowledge access,4,Excellent,Medium,yes,4,4,2
-Social-economic,Learning,Pecl,Pecl33,Learning capacity,3,Fair,High,yes,3,2,3
+Social-economic,Learning,Pecl,Pecl33,Learning capacity,2,Fair,High,yes,2,2,3
 Social-economic,Agency,Pecl,Pecl35,Agency,3,Excellent,Medium,yes,3,4,2
 Goverance,Flexibility,Pecl,Pecl37,Responsive,3,Good,Medium,yes,3,3,2
-Goverance,Organization,Pecl,Pecl39,Participatory,3,Excellent,High,yes,3,4,3
+Goverance,Organization,Pecl,Pecl39,Participatory,2,Excellent,High,yes,2,4,3
 Goverance,Organization,Pecl,Pecl40,Equitable and inclusive,2,Excellent,High,yes,2,4,3
 Goverance,Organization,Pecl,Pecl41,Accountable,4,Excellent,High,yes,4,4,3
 Goverance,Organization,Pecl,Pecl42,Transparent,4,Excellent,Medium,yes,4,4,2
@@ -529,12 +532,18 @@ Goverance,Organization,Pecl,Pecl45,Cross-scale integration,3,Good,Medium,yes,3,3
 Goverance,Learning,Pecl,Pecl47,Adaptive,2,Good,High,yes,2,3,3
 Goverance,Agency,Pecl,Pecl49,Leadership and initiative,2,Good,High,yes,2,3,3
 Ecological,Assets,Schmidt,Schmidt1,Population abundance,2,Good,High,NA,2,3,3
-Ecological,Assets,Schmidt,Schmidt2,Age structure,3,Good,Low,NA,3,3,1
+Ecological,Assets,Schmidt,Schmidt2,Age structure,3,Good,Low,yes,3,3,1
+Ecological,Assets,Schmidt,Schmidt3,Genetic diversity,2,Low,Low,yes,2,1,1
 Ecological,Assets,Schmidt,Schmidt4,Species diversity,2,Excellent,Low,yes,2,4,1
 Ecological,Flexibility,Schmidt,Schmidt6,Adult mobility,4,Good,High,yes,4,3,3
+Ecological,Flexibility,Schmidt,Schmidt7,Larval dispersal,2,Low,Medium,yes,2,1,2
 Ecological,Flexibility,Schmidt,Schmidt8,Environmental niche breadth,3,Fair,High,yes,3,2,3
+Ecological,Flexibility,Schmidt,Schmidt9,Dietary flexibility,2,Low,Low,yes,2,1,1
 Ecological,Flexibility,Schmidt,Schmidt10,Habitat diversity,4,Good,High,NA,4,3,3
+Ecological,Flexibility,Schmidt,Schmidt11,Plasticity,4,No data,Medium,yes,4,0,2
+Ecological,Flexibility,Schmidt,Schmidt12,Evolutionary potential,2,Low,Low,NA,2,1,1
 Ecological,Organization,Schmidt,Schmidt14,Ecosystem connectivity,4,Good,High,yes,4,3,3
+Ecological,Organization,Schmidt,Schmidt15,Population modularity,1,Low,Low,NA,1,1,1
 Social-economic,Assets,Schmidt,Schmidt17,Wealth and reserves,2,Fair,High,yes,2,2,3
 Social-economic,Assets,Schmidt,Schmidt18,Economic diversity,3,Good,High,yes,3,3,3
 Social-economic,Assets,Schmidt,Schmidt19,Social diversity,4,Good,High,no,4,3,3

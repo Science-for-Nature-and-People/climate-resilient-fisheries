@@ -25,7 +25,7 @@ data <- data_orig %>%
   mutate(scale=factor(scale, levels=c("small", "medium", "large"))) %>% 
   # Format case study name
   mutate(name_label=recode(name,
-                           "Galacia stalked barnacles"="Galacia\nbarnacles",
+                           "Galicia stalked barnacles"="Galicia\nbarnacles",
                            "US West Coast Pacific sardine"="US West Coast\nPacific sardine",
                            "NE Atlantic pelagic"="NE Atlantic\npelagics",
                            "Kiribati giant clam"="Kiribati\ngiant clam",
@@ -39,13 +39,13 @@ data <- data_orig %>%
                            "Iceland groundfish"="Iceland\ngroundfish",
                            "Maine lobster"="Maine\nlobster",
                            "Tasmania rock lobster"="Tasmania\nrock lobster",
-                           "Senegalese small pelagics"="Senegalese\nsmall pelagics",
-                           "Japanese spiny lobster"="Japanese\nspiny lobster",
+                           "Senegal small pelagics"="Senegal\nsmall pelagics",
+                           "Japan spiny lobster"="Japan\nspiny lobster",
                            "US Atlantic pelagic longline"="US Atlantic\npelagic longline",
                            "Moorea coral reef"="Moorea\ncoral reef")) %>% 
   # Add hjust
   mutate(hjust=recode(name,
-                      "Galacia stalked barnacles"="1",
+                      "Galicia stalked barnacles"="1",
                       "US West Coast Pacific sardine"="1",
                       "NE Atlantic pelagic"="0",
                       "Kiribati giant clam"="1",
@@ -59,10 +59,11 @@ data <- data_orig %>%
                       "Iceland groundfish"="1",
                       "Maine lobster"="0",
                       "Tasmania rock lobster"="0",
-                      "Japanese spiny lobster"="1",
-                      "Senegalese small pelagics"="0",
+                      "Japan spiny lobster"="1",
+                      "Senegal small pelagics"="0",
                       "US Atlantic pelagic longline"="0",
-                      "Moorea coral reef"="1") %>% as.numeric()) %>% 
+                      "Moorea coral reef"="1") %>% as.numeric(),
+         vjust=ifelse(name=="Kiribati giant clam", 0, 0.5)) %>% 
   # Adjust hjust
   mutate(hjust=ifelse(hjust==0, -0.15, 1.15))
 
@@ -86,8 +87,8 @@ world <- rnaturalearth::ne_countries(scale="small", returnclass = "sf") %>%
 # Theme
 my_theme <-  theme(axis.text=element_blank(),
                    axis.title=element_blank(),
-                   legend.text=element_text(size=8),
-                   legend.title=element_text(size=9),
+                   legend.text=element_text(size=9),
+                   legend.title=element_text(size=10),
                    # Gridlines
                    panel.grid.major = element_blank(), 
                    panel.grid.minor = element_blank(),
@@ -102,7 +103,7 @@ g <- ggplot() +
   geom_sf(data=world, fill="grey80", color="white", lwd=0.2) +
   # Fisheries
   geom_sf(data=data_sf, mapping=aes(size=scale, fill=type), pch=21, stroke=0.3, color="grey20") +
-  geom_sf_text(data=data_sf, mapping=aes(label=name_label, hjust=hjust), size=2.5, lineheight=0.8) +
+  geom_sf_text(data=data_sf, mapping=aes(label=name_label, hjust=hjust, vjust=vjust), size=2.5, lineheight=0.8) +
   # geom_point(data=data, mapping=aes(x=long_dd, y=lat_dd, size=scale, color=type)) +
   # geom_text(data=data, mapping=aes(x=long_dd, y=lat_dd, label=name_label, hjust=hjust), size=2.5, lineheight=0.8) +
   # Labels
