@@ -1,0 +1,83 @@
+---
+title: "05-network-figs"
+author: "Whitney Friedman"
+date: "4/4/2022"
+output: html_document
+---
+
+! NEED TO RE-RUN WITH UPDATED SHEETS !
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Load things
+
+```{r}
+library(here)
+source(here("case_study_analysis","00-load-libraries.R"))
+load(here("case_study_analysis", "clean_data","attribute_table_clean.Rdata")) # from 01-prep-attribute-tables.Rmd
+
+library(vegan)
+library(igraph)
+library(ggraph)
+```
+
+
+# Create networks
+- Calculate some metric of similarity / dissimilarity between case studies. 
+  Right now, using r2
+- Then, use that to weight the 'edges' of a graph where each case study is a 
+  'node'. 
+- Tl;dR. This is quite similar to the hclust etc approaches we've already done.
+- Node size could be the sum score across all attributes
+- Could also do edges by 'importance' rather than by attribute score
+- Or, multiple importance x attribute
+
+```{r}
+net_tbl <- attribs %>% 
+  select(case_study, attribute_id, score) %>% 
+  pivot_wider(names_from = case_study, values_from = score)
+
+net_tbl <- attribs %>% 
+  mutate(across(c(importance,score), ~as.numeric(.))) %>% 
+  mutate(attrib_imp = importance*score) %>% 
+  select(case_study, attribute_id, attrib_imp) %>% 
+  pivot_wider(names_from = case_study, values_from = attrib_imp)
+
+
+net_r <- net_tbl %>% select(-attribute_id) %>% 
+  as.matrix() %>% 
+  cor(use = "pairwise.complete.obs")
+
+graph_r <- net_r %>% 
+  as_tibble(rownames = "from") %>% 
+  pivot_longer(cols = -(from), names_to = "to", values_to = "weight") %>% 
+  mutate(across(c(from, to), ~str_trim(., side = "both"))) %>% 
+  mutate(match = if_else(from == to, 1, 0)) %>% 
+  distinct(.keep_all = T) %>% 
+  filter(match == 0) %>% 
+  select(-match) %>% 
+  mutate(weight = scale(weight)^2) %>% 
+  graph_from_data_frame(directed = F)
+
+ggraph(graph_r, layout = 'fr', maxiter = 1000) + 
+    geom_edge_link0(aes(width = weight/10), color = "gray30")+
+    geom_node_point(aes(fill = name), size = 10, shape = 21)+
+    geom_node_text(aes(label = name))+
+    theme_graph()
+
+# tidygraph
+# https://mr.schochastics.net/material/tidynetanar/
+graph_r <- as_tbl_graph(net_r)
+
+graph_r %>% 
+  #mutate(community = as.factor(group_louvain())) %>% 
+  ggraph("stress") + 
+  geom_edge_link0(colour = "gray")+
+  geom_node_point(aes(fill = name),shape = 21, size = 10)+
+  geom_node_text(aes(label = name))+
+  theme_graph()
+
+```
+
