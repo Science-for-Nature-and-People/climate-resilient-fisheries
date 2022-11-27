@@ -101,24 +101,24 @@ data <- data_orig %>%
                         "Zhao_Moorea_coral_reef_fishery_Case_Study.xlsx"="Zhao")) %>% 
   # Add case studies
   mutate(case_study=recode(authors,
-                           "Aguion"="Galicia stalked barnacles",
+                           "Aguion"="Galicia stalked barnacle",
                            "Burden"="US West Coast Pacific sardine",
-                           "Dickey-Collas"="NE Atlantic pelagic",
+                           "Dickey-Collas"="NE Atlantic small pelagics",
                            "Eurich"="Kiribati giant clam",
                            "Free"="California Dungeness crab",
                            "Mangubhai/Friedman"="Fiji nearshore",
-                           "Golden"="Madagascar reef fish",
-                           "Hollowed/Kasperski"="Bering Sea groundfish",
-                           "Yuga/Gaku"="Japan common squid",
-                           "Kleisner/Cunningham"="Juan Fernandez Islands",
+                           "Golden"="Madagascar nearshore",
+                           "Hollowed/Kasperski"="Alaska Bering Sea groundfish",
+                           "Yuga/Gaku"="Hokkaido set-net",
+                           "Kleisner/Cunningham"="Juan Fernandez Islands demersal",
                            "Lau"="Madang reef fish",
                            "Mason"="Iceland groundfish",
-                           "Mills"="Maine lobster",
+                           "Mills"="Maine American lobster",
                            "Pecl"="Tasmania rock lobster",
                            "Schmidt"="Senegal small pelagics",
-                           "Tokunaga"="Japan spiny lobster",
-                           "Westfall"="US Atlantic pelagic longline",
-                           "Zhao"="Moorea coral reef")) %>% 
+                           "Tokunaga"="Mie spiny lobster",
+                           "Westfall"="US Atlantic and Gulf migratory pelagics",
+                           "Zhao"="Moorea reef fish")) %>% 
   # Arrange
   select(filename, authors, everything())
   
@@ -146,7 +146,7 @@ sort(unique(data$filename))
 saveRDS(data, file=file.path(outdir, "case_study_attribute_score_data.Rds"))
 
 # For Meghan's data - Chris, I was getting an error running it as is
-save(data, file = here("case_study_analysis","mf_clustering_analysis","data","case_study_attribute_score_data.Rdata"))
-data %>% write_csv(here("case_study_analysis","mf_clustering_analysis","data","case_study_attribute_score_data.csv"))
+# save(data, file = here("case_study_analysis","mf_clustering_analysis","data","case_study_attribute_score_data.Rdata"))
+# data %>% write_csv(here("case_study_analysis","mf_clustering_analysis","data","case_study_attribute_score_data.csv"))
 
 
