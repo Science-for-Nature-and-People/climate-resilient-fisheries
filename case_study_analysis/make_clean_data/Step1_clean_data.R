@@ -108,7 +108,7 @@ data <- data_orig %>%
                            "Free"="California Dungeness crab",
                            "Mangubhai/Friedman"="Fiji nearshore",
                            "Golden"="Madagascar nearshore",
-                           "Hollowed/Kasperski"="Alaska Bering Sea groundfish",
+                           "Hollowed/Kasperski"="US Bering Sea groundfish",
                            "Yuga/Gaku"="Hokkaido set-net",
                            "Kleisner/Cunningham"="Juan Fernandez Islands demersal",
                            "Lau"="Madang reef fish",
