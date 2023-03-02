@@ -106,12 +106,13 @@ g <- ggplot(data_ordered, aes(y=attribute, x=prop, fill=quality)) +
   labs(x="Percent of case studies", y="") +
   scale_x_continuous(labels = scales::percent) +
   # Legend
-  scale_fill_manual(name="Data quality", values=c(RColorBrewer::brewer.pal(6, "Blues"))) +
+  scale_fill_manual(name="Data quality", values=c(RColorBrewer::brewer.pal(6, "Blues")),
+                    guide = guide_legend(reverse = TRUE)) +
   # Theme
   theme_bw() + my_theme
 g
 
 # Export plot
-ggsave(g, filename=file.path(plotdir, "Fig2_attribute_quality.png"), 
+ggsave(g, filename=file.path(plotdir, "FigS1_attribute_quality.png"), 
        width=4.5, height=4.5, units="in", dpi=600)
 

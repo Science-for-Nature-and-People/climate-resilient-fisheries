@@ -118,7 +118,8 @@ g1 <- ggplot(data_ordered1, aes(y=attribute, x=prop, fill=importance)) +
   labs(x="Percent of case studies", y="", tag="A") +
   scale_x_continuous(labels = scales::percent) +
   # Legend
-  scale_fill_manual(name="Importance", values=c(RColorBrewer::brewer.pal(3, "Blues"))) +
+  scale_fill_manual(name="Importance", values=c(RColorBrewer::brewer.pal(3, "Blues")),
+                    guide = guide_legend(reverse = TRUE)) +
   # Theme
   theme_bw() + my_theme
 g1
@@ -131,7 +132,8 @@ g2 <- ggplot(data_ordered2, aes(y=attribute, x=prop, fill=score)) +
   labs(x="Percent of case studies", y="", tag="B") +
   scale_x_continuous(labels = scales::percent) +
   # Legend
-  scale_fill_manual(name="Score", values=c(RColorBrewer::brewer.pal(4, "Blues"))) +
+  scale_fill_manual(name="Score", values=c(RColorBrewer::brewer.pal(4, "Blues")),
+                    guide = guide_legend(reverse = TRUE)) +
   # Theme
   theme_bw() + my_theme
 g2
@@ -141,6 +143,6 @@ g <- gridExtra::grid.arrange(g1, g2, nrow=1)
 g
 
 # Export plot
-ggsave(g, filename=file.path(plotdir, "FigX_attribute_importance_score.png"), 
+ggsave(g, filename=file.path(plotdir, "Fig2_attribute_importance_score.png"), 
        width=6.5, height=4.5, units="in", dpi=600)
 
