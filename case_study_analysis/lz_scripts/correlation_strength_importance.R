@@ -31,6 +31,11 @@ data <- data_orig %>%
 
 
 
+
+cor.test(data$score, data$importance_numeric, method = "spearman",
+         exact = FALSE) 
+
+
 cor_meta<- data %>% select(dimension, attribute) %>% 
   distinct()
 
