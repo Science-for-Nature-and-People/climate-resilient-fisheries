@@ -8,7 +8,9 @@ rm(list = ls())
 # Packages
 library(ggplot2)
 library(tidyverse)
+library(ggtext)
 library(here)
+library(glue)
 # Directories
 datadir <- "case_study_analysis/clean_data"
 plotdir <- "case_study_analysis/lz_scripts"
@@ -101,43 +103,32 @@ my_theme <-  theme(axis.text=element_text(size=6),
                    legend.background = element_rect(fill=alpha('blue', 0)))
 
 
+
+cor_data$attribute <- as.factor(cor_data$attribute) 
+cor_data<- cor_data %>% mutate(attribute=fct_reorder(attribute,ab_cor))
+
+            
+bold.attribute <- c("Leadership and initiative", "Flexible and agile infrastructure", "Adult mobility", "Population modularity",            
+                     "Habitat diversity",   
+                     "Technology transfer",              
+                     "Plasticity",                       
+                     "Larval dispersal",                 
+                     "Social diversity",                  
+                     "Species diversity",   
+                     "Place attachment")    
+
+bold.labels <- ifelse(levels(cor_data$attribute) %in% bold.attribute, yes = "bold", no = "plain")
+
+
 corr_plot<- ggplot(data = cor_data, aes(x = attribute, y = cor, size = ab_cor)) + 
   geom_point(color='black', shape=21, aes(fill=dimension, alpha=ab_cor)) + 
   scale_fill_manual(values = c( "Ecological" = "#72B077", "Governance" = "#C25866", "Socio-economic" = "#D6B65D")) + 
- scale_y_continuous(limits = c(-.5, 1), breaks = c(-1, -0.5, 0, 0.5, 1))+
-  theme_bw() + my_theme +  guides(size = "none") + coord_flip() +facet_wrap(~dimension+significance)+
-  ylab(" Spearman rank correlation between strength and importance") +
-  geom_hline(yintercept = 0, linetype = 'dashed', col = 'grey')+ geom_hline(yintercept = .5, linetype = 'dashed', col = 'red')
+ scale_y_continuous(limits = c(-.5, 1), breaks = c(-1, -0.5, 0, 0.5,.7, 1))+
+  theme_bw() + my_theme +  theme(axis.text.y = element_text(face = bold.labels)) + guides(size = "none", alpha="none") + coord_flip() +facet_wrap(~dimension)+
+  ylab(" Spearman rank correlation between attribute strength and importance") + 
+  geom_hline(yintercept = 0, linetype = 'dotted', col = 'grey') + geom_hline(yintercept = .5, linetype = 'dashed', col = 'grey50') +geom_hline(yintercept = .7, linetype = 'dashed', col = 'grey19')
 # theme(panel.background = element_rect(fill='transparent'), #transparent panel background
         #plot.background = element_rect(fill='transparent', color=NA))
-
-
-cor_data$significance
-"Leadership and initiative"        
-"Flexible and agile infrastructure"
-"Adult mobility"                    
-"Population modularity"            
-"Habitat diversity"    
-
-"Technology transfer"              
-"Plasticity"                       
-"Larval dispersal"                 
-"Social diversity"                  
-"Species diversity"    
-
-"Place attachment"                 
-
-corr_plot+
-scale_x_discrete(labels = rev(
-  c(expression(paste(bold("Leadership and initiative"))), # adding bold format
-    expression(paste(bold("Flexible and agile infrastructure"))),
-    expression(paste(bold("Adult mobility"   ))),
-    expression(paste(bold("Population modularity"  ))),
-    expression(paste(bold("Habitat diversity"    ))),
-    expression(paste("Technology transfer"   )),
-    expression(paste(bold("Plasticity"))) 
-  )))
-
 
 
 
