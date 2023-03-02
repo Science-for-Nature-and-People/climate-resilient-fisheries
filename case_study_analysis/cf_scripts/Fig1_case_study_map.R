@@ -22,7 +22,9 @@ data_orig <- readxl::read_excel(file.path(datadir, "case_study_meta_data.xlsx"))
 # Format data
 data <- data_orig %>% 
   # Format scale
-  mutate(scale=factor(scale, levels=c("small", "medium", "large"))) %>% 
+  mutate(scale=stringr::str_to_sentence(scale),
+         scale=factor(scale, levels=c("Small", "Large")),
+         type=stringr::str_to_sentence(type)) %>% 
   # Format case study name
   mutate(name_label=recode(name,
                            "Galicia stalked barnacle"="Galicia\nstalked barnacle",
@@ -115,6 +117,7 @@ g <- ggplot() +
   scale_fill_manual(name="Fishery type", values=RColorBrewer::brewer.pal(9, "Blues")[c(2,7)]) +
   # scale_size_ordinal(name="Fishery scale") + 
   scale_size_manual(name="Fishery scale", values=c(2, 4)) +
+  guides(size = guide_legend(order = 1), fill = guide_legend(order = 2)) +
   # Theme
   theme_bw() + my_theme
 g
