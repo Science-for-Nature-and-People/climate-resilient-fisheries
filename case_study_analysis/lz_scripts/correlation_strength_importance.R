@@ -30,12 +30,6 @@ data <- data_orig %>%
   mutate(importance_numeric= as.numeric(as.factor(importance)))
 
 
-
-
-cor.test(data$score, data$importance_numeric, method = "spearman",
-         exact = FALSE) 
-
-
 cor_meta<- data %>% select(dimension, attribute) %>% 
   distinct()
 
@@ -134,7 +128,6 @@ corr_plot<- ggplot(data = cor_data, aes(x = attribute, y = cor, size = ab_cor)) 
   geom_hline(yintercept = 0, linetype = 'dotted', col = 'grey') + geom_hline(yintercept = .5, linetype = 'dashed', col = 'grey50') +geom_hline(yintercept = .7, linetype = 'dashed', col = 'grey19')
 # theme(panel.background = element_rect(fill='transparent'), #transparent panel background
         #plot.background = element_rect(fill='transparent', color=NA))
-
 
 
 
