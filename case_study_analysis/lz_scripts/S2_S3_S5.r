@@ -244,7 +244,7 @@ pairwise_comparison_of_quality<-
 
 
 ####save figure
-ggsave(pairwise_comparison_of_quality, filename=file.path(plotdir, "FigS4_pairwise_comparison_of_quality.png"), 
+ggsave(pairwise_comparison_of_quality, filename=file.path(plotdir, "FigS5_pairwise_comparison_of_quality.png"), 
        width=6, height=5, units="in", dpi=600)
 
 
