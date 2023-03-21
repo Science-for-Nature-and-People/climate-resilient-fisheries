@@ -62,10 +62,8 @@ typology_data<- full_join(typology_data, importance_variance)
 typology_data<- typology_data %>% 
   rename(Dimension= dimension) %>% 
   mutate(precision_score = (1/score_var)) %>% 
-  mutate(precision_importance = (1/importance_var)) %>%  arrange(precision_importance) %>% 
-  #if attribute is in position 1 through 9 (of low precision it is in the upper quartile importance variability for the 38 attributes) 
-  mutate(importance_case_dependency = ifelse(precision_importance > 1.70, "not particularly case-dependent", "upper-quartile case-dependent"))
-
+  mutate(precision_importance = (1/importance_var)) %>%  arrange(precision_importance) 
+ 
 write_csv(typology_data, here("case_study_analysis", "lz_scripts", "typology_data.csv"))
 
 
