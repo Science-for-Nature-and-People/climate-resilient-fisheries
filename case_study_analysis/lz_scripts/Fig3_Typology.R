@@ -97,15 +97,15 @@ mean(typology_data$score_avg)#2.843567
 quad<- ggplot(data = typology_data, aes(x = importance_avg, y = score_avg, size = precision_importance)) + 
   geom_point(color='black', shape=21, aes(fill=Dimension), alpha=.75) + 
   scale_fill_manual(values = c( "Ecological" = "#72B077", "Governance" = "#C25866", "Socio-economic" = "#D6B65D")) + 
-  scale_size_continuous(range = c(2, 10)) +  scale_x_continuous(limits = c(1.5, 3), breaks = c(2, 2.32, 3))+ scale_y_continuous(limits = c(2, 3.8), breaks = c(2, 2.84, 3))+
+  scale_size_continuous(range = c(2, 10)) +  scale_x_continuous(limits = c(1, 3), breaks = c(1, 2, 3))+ scale_y_continuous(limits = c(2, 4), breaks = c(2,  3, 4))+
   #geom_text(aes(label = attribute), size = 2, vjust = 1, hjust = .5) +  
   theme_bw() + my_theme +  guides(size = "none")+
-    xlab("Cross-case average attribute importance") +
-  ylab("Cross-case average attribute score") +
+    xlab("Importance") + #this is Cross-case average attribute importance
+  ylab("Score") + # this is Cross-case average attribute score
   geom_hline(yintercept = mean(typology_data$score_avg), linetype = 'dashed', col = 'grey') + geom_vline(xintercept = mean(typology_data$importance_avg), linetype = 'dashed', col = 'grey') +
   theme(panel.background = element_rect(fill='transparent'), #transparent panel background
         plot.background = element_rect(fill='transparent', color=NA))
 
 #add back in geom_text(aes(label = attribute), size = 2, vjust = 1, hjust = .5) to see attribute labels. Version here saved without labels and labels added in manually afterwards 
-ggsave(quad, filename=file.path(plotdir, "typology_without_labels.png"), 
+ggsave(quad, filename=file.path(plotdir, "Typology_without_labels.png"), 
        width=5.5, height=4.5, units="in", dpi=600)
