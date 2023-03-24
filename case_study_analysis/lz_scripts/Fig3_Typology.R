@@ -88,11 +88,11 @@ my_theme <-  theme(axis.text=element_text(size=6),
                    legend.position="bottom",
                    legend.background = element_rect(fill=alpha('blue', 0)))
 
-my_theme2 <-  theme(axis.text=element_text(size=9), # for JE
-                   axis.title=element_text(size=10),
-                   legend.text=element_text(size=10),
-                   legend.title=element_text(size=10),
-                   strip.text=element_text(size=10),
+my_theme2 <-  theme(axis.text=element_text(size=10), # for JE
+                   axis.title=element_text(size=11),
+                   legend.text=element_text(size=11),
+                   legend.title=element_text(size=11),
+                   strip.text=element_text(size=11),
                    # Gridlines
                    panel.grid.major = element_blank(), 
                    panel.grid.minor = element_blank(),
@@ -119,13 +119,14 @@ quad <- ggplot(data = typology_data, aes(x = importance_avg, y = score_avg, size
   geom_hline(yintercept = mean(typology_data$score_avg), linetype = 'dashed', col = 'grey') + geom_vline(xintercept = mean(typology_data$importance_avg), linetype = 'dashed', col = 'grey') +
   theme(panel.background = element_rect(fill='transparent'), #transparent panel background
         plot.background = element_rect(fill='transparent', color=NA)) +
-  theme(axis.text = element_text(color="black"))
+  theme(axis.text = element_text(color="black")) +
+  guides(fill = guide_legend(override.aes = list(size=5)))
 
 #add back in geom_text(aes(label = attribute), size = 2, vjust = 1, hjust = .5) to see attribute labels. Version here saved without labels and labels added in manually afterwards 
 ggsave(quad, filename=file.path(plotdir, "Typology_without_labels.png"), 
-       width=5.51181, height=5.51181, units="in", dpi=600)
+       width=5.51181, height=5.51181, units="in", dpi=600) # JE use these width/height next time (so it doesn't skew the axes)
 
-# JE
-tiff("Typology_without_labels_JE.tiff", height = 5.51181, width = 5.51181, units = 'in', compression = "lzw", res = 600)
+# JE, to match LZ's size
+tiff("Typology_without_labels_JE_short.tiff", height = 4.5, width = 5.5, units = 'in', compression = "lzw", res = 600)
 grid.arrange(quad, ncol=1) # https://cran.r-project.org/web/packages/gridExtra/vignettes/arrangeGrob.html
 dev.off()
