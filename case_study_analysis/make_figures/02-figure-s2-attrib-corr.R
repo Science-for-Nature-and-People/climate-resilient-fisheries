@@ -1,5 +1,5 @@
-# 02-figure-s7.R
-# Code to create figure S7 - attribute correlations
+# 02-figure-s2-corrplot.R
+# Code to create figure S2 - attribute correlations
 # W. Friedman // 03-2023
 
 # Setup
