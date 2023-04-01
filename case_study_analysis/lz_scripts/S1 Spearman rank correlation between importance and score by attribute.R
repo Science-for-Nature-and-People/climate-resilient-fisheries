@@ -141,5 +141,5 @@ S1<- ggplot(data = cor_data, aes(x = attribute, y = cor, size = ab_cor)) +
 
 
 #add back in geom_text(aes(label = attribute), size = 2, vjust = 1, hjust = .5) to see attribute labels. Version here saved without labels and labels added in manually afterwards 
-ggsave(S1, filename=file.path(plotdir, "S1.png"), 
+ggsave(S1, filename=file.path(plotdir, "FigS1_rank_correlations_importance_score.png"), 
        width=5.5, height=5, units="in", dpi=600)
