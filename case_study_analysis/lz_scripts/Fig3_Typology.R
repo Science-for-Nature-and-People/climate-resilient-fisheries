@@ -61,7 +61,6 @@ typology_data<- full_join(typology_data, importance_variance)
 
 #add precision columns where precision = 1/ variance
 
-
 typology_data<- typology_data %>% 
   rename(Dimension= dimension) %>% 
   mutate(precision_score = (1/score_var)) %>% 
