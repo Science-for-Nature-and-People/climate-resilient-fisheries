@@ -11,7 +11,7 @@ library(tidyverse)
 library(here)
 library(gridExtra) # for JE
 library(ggrepel) # for JE
-
+library(grDevices) #also added
 # Directories
 datadir <- "case_study_analysis/clean_data"
 plotdir <- "case_study_analysis/lz_scripts"
@@ -66,6 +66,8 @@ typology_data<- typology_data %>%
   mutate(precision_score = (1/score_var)) %>% 
   mutate(precision_importance = (1/importance_var)) %>%  arrange(precision_importance) 
  
+typology_data$precision_importance_scaled <- (typology_data$precision_importance - min(typology_data$precision_importance)) / (max(typology_data$precision_importance) - min(typology_data$precision_importance))
+
 write_csv(typology_data, here("case_study_analysis", "lz_scripts", "typology_data.csv"))
 
 
@@ -106,26 +108,35 @@ mean(typology_data$score_avg)#2.843567
 
 ################ add overall average score for attributes and overall average importance for attributes to figure. 
 
-quad <- ggplot(data = typology_data, aes(x = importance_avg, y = score_avg, size = precision_importance)) + 
+quad <- ggplot(data = typology_data, aes(x = importance_avg, y = score_avg, size = precision_importance_scaled)) + 
   geom_point(color='black', shape=21, aes(fill=Dimension), alpha=.75) + 
-  scale_fill_manual(values = c( "Ecological" = "#72B077", "Governance" = "#C25866", "Socio-economic" = "#D6B65D")) + 
-  scale_size_continuous(range = c(2, 10)) +  scale_x_continuous(limits = c(1, 3), breaks = c(1, 2, 3))+ scale_y_continuous(limits = c(2, 4), breaks = c(2,  3, 4))+
-  # geom_text(aes(label = attribute), size = 2, vjust = 1, hjust = .5) +  # LZ
-  # geom_text_repel(aes(label = attribute), size = 2.5, segment.size = 0.1, segment.angle = 180) +  # JE
-  theme_bw() + my_theme2 +  guides(size = "none")+
-    xlab("Importance") + #this is Cross-case average attribute importance
-  ylab("Score") + # this is Cross-case average attribute score
-  geom_hline(yintercept = mean(typology_data$score_avg), linetype = 'dashed', col = 'grey') + geom_vline(xintercept = mean(typology_data$importance_avg), linetype = 'dashed', col = 'grey') +
-  theme(panel.background = element_rect(fill='transparent'), #transparent panel background
-        plot.background = element_rect(fill='transparent', color=NA)) +
+  scale_fill_manual(values = c("Ecological" = "#72B077", "Governance" = "#C25866", "Socio-economic" = "#D6B65D"), name = "Dimension") + 
+  scale_size_continuous(range = c(2, 10), name = "Rating consistency", breaks = c(0, 0.5, 1)) + 
+  scale_x_continuous(limits = c(1.5, 3), breaks = c(2, 3)) + 
+  scale_y_continuous(limits = c(2, 4), breaks = c(2, 3, 4)) +
+  theme_bw() + my_theme2 +  
+  xlab("Importance") + 
+  ylab("Score") + 
+  geom_hline(yintercept = mean(typology_data$score_avg), linetype = 'dashed', col = '#333333') + 
+  geom_vline(xintercept = mean(typology_data$importance_avg), linetype = 'dashed', col = '#333333')+
+  theme(panel.background = element_rect(fill='transparent'),
+        plot.background = element_rect(fill='transparent', color=NA),
+        legend.box = "vertical",  # Ensuring legends are stacked vertically
+        legend.box.just = "center") + 
   theme(axis.text = element_text(color="black")) +
-  guides(fill = guide_legend(override.aes = list(size=5)))
+  guides(fill = guide_legend(override.aes = list(size=5)), 
+         size = guide_legend(override.aes = list(shape = 21, fill = "white")))
+
 
 #add back in geom_text(aes(label = attribute), size = 2, vjust = 1, hjust = .5) to see attribute labels. Version here saved without labels and labels added in manually afterwards 
 ggsave(quad, filename=file.path(plotdir, "Typology_without_labels.png"), 
        width=5.51181, height=5.51181, units="in", dpi=600) # JE use these width/height next time (so it doesn't skew the axes)
 
+
 # JE, to match LZ's size
+
 tiff("Typology_without_labels_JE_short.tiff", height = 4.5, width = 5.5, units = 'in', compression = "lzw", res = 600)
 grid.arrange(quad, ncol=1) # https://cran.r-project.org/web/packages/gridExtra/vignettes/arrangeGrob.html
 dev.off()
+
+
