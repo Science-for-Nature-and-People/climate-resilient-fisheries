@@ -32,4 +32,4 @@ The [SNAPP Working Group on Climate Resilient Fisheries](https://snappartnership
 ### 3. scripts
 - This folder contains R scripts used for analysis and visualization, generating the manuscript's four main figures.
 
-*Note*: If interested in supplemental analyses and figures, please contact us. We can provide additional code or data as needed. Check our associated publication, *Mason et al. 2023*, [here](https://doi.org/10.1111/faf.12630).
+*Note*: If interested in supplemental analyses and figures, please contact us. We can provide additional code or data as needed. Check our associated publication, *Mason et al. 2022*, [here](https://doi.org/10.1111/faf.12630).
