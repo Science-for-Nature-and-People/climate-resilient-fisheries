@@ -1,8 +1,8 @@
 
 
-##Repository Overview for doi:10.1111/faf.12790
+**Repository Overview for doi:10.1111/faf.12790**
 
-#About
+**About**
 
 This repository contains the data and scripts used for generating the four main figures featured in our manuscript [Diverse pathways for climate resilience in marine fishery  systems](https://doi.org/10.1111/faf.12790) published in _Fish and Fisheries_. This publication is a product of the [SNAPP Working Group on climate-resilient fisheries](https://snappartnership.net/teams/climate-resilient-fisheries/). 
 
@@ -13,7 +13,7 @@ The SNAPP Working Group on Climate Resilient Fisheries was lead by Kathy Mills (
 3. How can practitioners diagnose system resilience and identify ways in which resilience can be supported in order to enhance sustainability, economic benefits, and human well-being and equity?
 
 
-#Below is a breakdown of the repository's three key folders and their contents:
+**Below is a breakdown of the repository's three key folders and their contents:**
 
 1. clean_data
 The clean_data folder houses the cleaned dataset and metadata essential for our analysis. 
