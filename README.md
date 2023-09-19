@@ -2,14 +2,14 @@
 
 **Overview**
 
-This repository contains the data and scripts used for generating the four main figures featured in our manuscript [Diverse pathways for climate resilience in marine fishery  systems](https://doi.org/10.1111/faf.12790) published in _Fish and Fisheries_ (doi:10.1111/faf.12790). This publication is a product of the [SNAPP Working Group on climate-resilient fisheries](https://snappartnership.net/teams/climate-resilient-fisheries/). 
+This repository contains the data and scripts used for generating the four main figures featured in our manuscript [Diverse pathways for climate resilience in marine fishery  systems](https://doi.org/10.1111/faf.12790) published in _Fish and Fisheries_ (doi:10.1111/faf.12790). This publication is a product of the SNAPP Working Group on Climate Resilient Fisheries. 
 
 Our associated resilience planning tool is available at: https://ClimateResilientFisheries.net/
 
 
 **About the SNAPP Working Group on Climate Resilient Fisheries**
 
-The *SNAPP Working Group on Climate Resilient Fisheries* was lead by Kathy Mills (GMRI), Kristin Kleisner (EDF), and Patrick Sullivan (Cornell) and includes fisheries experts and practitioners from nearly every continent. The goal of the working group was to address the following three questions:
+The [SNAPP Working Group on Climate Resilient Fisheries](https://snappartnership.net/teams/climate-resilient-fisheries/) was lead by Kathy Mills (GMRI), Kristin Kleisner (EDF), and Patrick Sullivan (Cornell) and includes fisheries experts and practitioners from nearly every continent. The goal of the working group was to address the following three questions:
 
 1. What key features make fisheries inherently resilient to the effects of climate change?
 2. What approaches and tools confer resilience for fishery systems affected by climate change?
