@@ -6,35 +6,30 @@ This repository contains the data and scripts used for generating the four main 
 
 Our associated resilience planning tool is available at: https://ClimateResilientFisheries.net/
 
-
 ## About the SNAPP Working Group on Climate Resilient Fisheries
 
-The [SNAPP Working Group on Climate Resilient Fisheries](https://snappartnership.net/teams/climate-resilient-fisheries/) was lead by Kathy Mills (GMRI), Kristin Kleisner (EDF), and Patrick Sullivan (Cornell) and includes fisheries experts and practitioners from nearly every continent. The goal of the working group was to address the following three questions:
+The [SNAPP Working Group on Climate Resilient Fisheries](https://snappartnership.net/teams/climate-resilient-fisheries/) was led by Kathy Mills (GMRI), Kristin Kleisner (EDF), and Patrick Sullivan (Cornell) and included fisheries experts and practitioners from nearly every continent. The working group's goals were to address the following questions:
 
 1. What key features make fisheries inherently resilient to the effects of climate change?
 2. What approaches and tools confer resilience for fishery systems affected by climate change?
-3. How can practitioners diagnose system resilience and identify ways in which resilience can be supported in order to enhance sustainability, economic benefits, and human well-being and equity?
+3. How can practitioners diagnose system resilience and identify ways to support it to enhance sustainability, economic benefits, and human well-being and equity?
 
+## Repository Breakdown
 
-## Below is a breakdown of the repository's three key folders and their contents:
+### 1. clean_data
+- This folder contains the cleaned dataset and metadata crucial for our analysis.
+   - **case_study_attribute_score_data** - Dataset Description:
+     - **case_study**: Represents one of 18 fishery system case studies across diverse geographies, target species, fishery scales, and management contexts.
+     - **attribute**: Describes one of the 38 specific attributes assessed for resilience against climate stressors.
+     - **score**: Indicates the strength of each attribute within a system, recorded on a 4-option scale: very low (1), low (2), moderate (3), high (4).
+     - **dimension**: Categorizes the broader dimension or category to which an attribute belongs.
 
-1. clean_data
-- The clean_data folder houses the cleaned dataset and metadata essential for our analysis.
-- - case_study_attribute_score_data - Dataset Description
---- Key Variables:
----- case_study: Represents one of 18 fishery system case studies from diverse geographies, target species, fishery scales, and management contexts.
+*Note: Derived metrics are annotated in the code.*
 
----- attribute: Contains one of the 38 specific attributes assessed in relation to resilience against climate stressors.
+### 2. figures
+- This folder contains graphical representations derived from our data, which includes the visualizations for the main manuscript's four figures.
 
----- score: Represents the strength of each attribute within a focal system, recorded using a 4-option rating scale: very low (1), low (2), moderate (3), and high (4).
+### 3. scripts
+- This folder contains R scripts used for analysis and visualization, generating the manuscript's four main figures.
 
-Derived metrics are annotated in the code.
-
----- dimension: Categorical variable indicating the broader dimension (or category) to which an attribute belongs.
-
-2. figures
-- Within the figures folder, you'll find graphical representations or plots derived from our data. This includes the visualizations that form the basis for the four main figures in the manuscript.
-3. scripts
-- The scripts folder is home to the R scripts responsible for analysis, and visualization. These scripts generate the 4 figures found in the main manuscript.
-
-Note: Should you have interest in the supplemental analyses and figures, please reach out. We can provide access to additional code or data as needed. Our other associated publication *Mason et al. 2023* is available at (https://doi.org/10.1111/faf.12630). 
+*Note*: If interested in supplemental analyses and figures, please contact us. We can provide additional code or data as needed. Check our associated publication, *Mason et al. 2023*, [here](https://doi.org/10.1111/faf.12630).
