@@ -19,10 +19,10 @@ The [SNAPP Working Group on Climate Resilient Fisheries](https://snappartnership
 **Below is a breakdown of the repository's three key folders and their contents:**
 
 1. clean_data
-*The clean_data folder houses the cleaned dataset and metadata essential for our analysis. 
+-The clean_data folder houses the cleaned dataset and metadata essential for our analysis. 
 2. figures
-*Within the figures folder, you'll find graphical representations or plots derived from our data. This includes the visualizations that form the basis for the four main figures in the manuscript.
+-Within the figures folder, you'll find graphical representations or plots derived from our data. This includes the visualizations that form the basis for the four main figures in the manuscript.
 3. scripts
-*The scripts folder is home to the R scripts responsible for analysis, and visualization. These scripts generate the 4 figures found in the main manuscript.
+-The scripts folder is home to the R scripts responsible for analysis, and visualization. These scripts generate the 4 figures found in the main manuscript.
 
 Note: Should you have interest in the supplemental analyses and figures, please reach out. We can provide access to additional code or data as needed. Our other associated publication *Mason et al. 2023* is available at (https://doi.org/10.1111/faf.12630). 
