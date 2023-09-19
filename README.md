@@ -3,6 +3,7 @@
 **Overview**
 
 This repository contains the data and scripts used for generating the four main figures featured in our manuscript [Diverse pathways for climate resilience in marine fishery  systems](https://doi.org/10.1111/faf.12790) published in _Fish and Fisheries_ (doi:10.1111/faf.12790). This publication is a product of the [SNAPP Working Group on climate-resilient fisheries](https://snappartnership.net/teams/climate-resilient-fisheries/). 
+
 Our associated resilience planning tool is available at: https://ClimateResilientFisheries.net/
 
 
