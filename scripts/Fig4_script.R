@@ -10,11 +10,13 @@ library(ggplot2)
 library(tidyverse)
 
 # Directories
-datadir <- "case_study_analysis/clean_data"
-plotdir <- "case_study_analysis/cf_scripts/figures"
+datadir <- "clean_data"
+plotdir <- "figures"
 
 # Read data
-data_orig <- readRDS(file.path(datadir, "case_study_attribute_score_data.Rds"))
+data_orig <- readRDS(file.path(datadir, "case_study_attribute_score_data.Rds")) %>% 
+  mutate(case_study=recode(case_study,
+                           "US Atlantic and Gulf migratory pelagics"="US Atlantic & Gulf migratory pelagics"))
 
 
 # Cluster analysis
@@ -47,47 +49,39 @@ clusters <- data_mat %>%
   # Calculate cluster
   stats::hclust(method = "ward.D2")
 
-# Megan's version
-# My version is a bit cleaner and produces the same results
-if(F){
-  data_mat_mf <- data_orig %>% 
-    # Simplify
-    select(case_study, attribute, score) %>% 
-    # Spread
-    pivot_wider(names_from = attribute, values_from = score) %>% 
-    # Make a matrix by taking case study to column name
-    column_to_rownames(var = "case_study") %>% 
-    # Scale data
-    mutate(across(everything(),~scale(.x))) %>% 
-    # Repalve NAs with zeroes (Megan wrote this, I don't think we need it)
-    mutate(across(everything(), ~replace_na(.x, 0))) %>% # REVIEW
-    # Convert to matrix
-    as.matrix() 
-  
-  score_hc <- data_mat_mf %>% 
-    # Calculate distance matrix
-    stats::dist() %>% 
-    # Calculate cluster
-    stats::hclust(method = "ward.D2")
-  
-  # Experimental plots
-  plot(score_hc)
-  plot(as.phylo(score_hc), type = "unrooted", cex = 0.6,
-       no.margin = TRUE)
-  ggdendro::ggdendrogram(score_hc, rotate = F, theme_dendro = FALSE)
-  
-  # Plot a more finalized verson for the synthesisi paper
-  plot(score_hc, ylab="", yaxt="n", sub="", main="")
-  
-}
-
 # Build data
 ################################################################################
 
 # Format data
 data <- data_orig %>% 
   # Simplify
-  select(case_study, dimension, attribute, score)
+  select(case_study, dimension, attribute, score) %>% 
+  # Add group
+  mutate(group=recode(case_study,
+                      "Senegal small pelagics"="1",               
+                      "Moorea reef fish"="1",                        
+                      "US Atlantic & Gulf migratory pelagics"="1",   
+                      "Kiribati giant clam"="2",                       
+                      "Madagascar nearshore"="2",                    
+                      "Fiji nearshore"="2",                         
+                      "Madang reef fish"="2",                        
+                      "Tasmania rock lobster"="3",                   
+                      "US West Coast Pacific sardine"="3",           
+                      "Iceland groundfish"="3",                     
+                      "NE Atlantic small pelagics"="3",           
+                      "Hokkaido set-net"="4",                      
+                      "Juan Fernandez Islands demersal"="4",          
+                      "Mie spiny lobster"="4",                  
+                      "Alaska Bering Sea groundfish"="5",          
+                      "Maine American lobster"="5",                  
+                      "California Dungeness crab"="5",              
+                      "Galicia stalked barnacle"="5") %>% as.numeric())
+
+# Average data 
+data_avg <- data %>% 
+  group_by(group, case_study, dimension) %>% 
+  summarize(score=mean(score)) %>% 
+  ungroup()
 
 # Average score by case study
 stats_case <- data %>% 
@@ -138,7 +132,6 @@ stats_score <- data_ordered %>%
 my_theme <-  theme(axis.text=element_text(size=6),
                    axis.title=element_text(size=8),
                    plot.tag=element_text(size=8),
-                   axis.title.y=element_blank(),
                    legend.text=element_text(size=6),
                    legend.title=element_text(size=8),
                    strip.text=element_text(size=8),
@@ -151,73 +144,76 @@ my_theme <-  theme(axis.text=element_text(size=6),
                    # Legend
                    legend.background = element_rect(fill=alpha('blue', 0)))
 
-# Plot bars
-g1 <- ggplot(stats_score, aes(y=attribute, x=prop, fill=score)) +
-  facet_grid(dimension~., space="free_y", scale="free_y") +
-  geom_bar(stat="identity") +
-  # Labels
-  labs(x="Percent of case studies", y="", tag="A") +
-  scale_x_continuous(labels = scales::percent) +
-  # Legend
-  scale_fill_manual(name="Score", values=RColorBrewer::brewer.pal(4, "Blues")) +
-  guides(fill = guide_legend(title.position="top")) +
-  # Theme
-  theme_bw() + my_theme +
-  theme(legend.position="none")
-g1
-
 # Plot raster
-g2 <- ggplot(data_ordered, aes(y=attribute, x=case_study, fill=score)) +
-  facet_grid(dimension~., space="free_y", scale="free_y") +
+g_ras <- ggplot(data_ordered, aes(y=case_study, x=attribute, fill=score)) +
+  facet_grid(.~dimension, space="free_x", scale="free_x") +
   geom_tile() +
   # Add lines
-  geom_vline(xintercept = c(3.5, 11.5, 14.5),
+  geom_hline(yintercept = c(3.5, 11.5, 14.5),
              color="black", linetype="dashed") + #
-  geom_vline(xintercept = c(7.5),
+  geom_hline(yintercept = c(7.5),
              color="black", linetype="solid") + #
   # Labels
-  labs(x=" \n ", y="", tag="B") +
+  labs(x="", y="", tag="A") +
   # Legend
   scale_fill_manual(name="Score", values=RColorBrewer::brewer.pal(4, "Blues")) +
   # Theme
   theme_bw() + my_theme +
-  theme(axis.text=element_blank(),
-        legend.position = "none")
-g2
+  theme(axis.title = element_blank(),
+        axis.text.x = element_text(angle = 45, vjust = 1, hjust=1, size=5),
+        legend.key.size = unit(0.3, "cm"),
+        legend.margin = margin(t=-2, b=-2, r=0, l=0),
+        legend.position = "top")
+g_ras
 
 # Plot clusters
-g3 <- ggdendro::ggdendrogram(clusters, rotate = F, theme_dendro = FALSE) +
+g_clus <- ggdendro::ggdendrogram(clusters, rotate = T, theme_dendro = FALSE, lwd=0.5) +
   # Add lines
   geom_vline(xintercept = c(3.5, 7.5, 11.5, 14.5), 
              color="blue", linetype=c("dashed", "solid", "dashed", "dashed")) +
   # Labels
-  labs(x="", y="", tag="C") +
+  labs(x="", y="", tag="B") +
   # Cluster number
   annotate(geom="text", x=c(2, 5.6, 9.6, 13, 16.6), y=12.5, label=1:5, color="blue", size=2.8) + # -17 for beneath
-  coord_cartesian(ylim=c(0, NA), clip="off") +
+  # coord_cartesian(ylim=c(0, NA), clip="off") +
   # Theme
   theme_bw() + my_theme +
-  theme(axis.text.y=element_blank(),
+  theme(panel.border = element_blank(),
+        axis.line = element_blank(),
+        axis.text=element_blank(),
+        axis.ticks = element_blank(),
+        axis.title = element_blank(),
         axis.ticks.y=element_blank(),
         # axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1), # vertical
-        axis.text.x = element_text(angle = 45, vjust = 0.95, hjust=1), # diagonal
-        plot.margin = margin(0, 0.75, 0, 0.2, "cm"))
-g3
+        plot.margin = margin(t = 1.2, r = 0.5, b=2, l=0, "cm"))
+g_clus
+
+# Plot boxplot
+g_box <- ggplot(data, aes(x=group, y=score, group=group)) +
+  facet_wrap(~dimension) +
+  geom_boxplot(fill="grey90", lwd=0.2) +
+  geom_point(data=data_avg, mapping=aes(x=group, y=score, group=group)) +
+  # Labels
+  labs(x="Group", y="Score", tag="C") +
+  # Theme
+  theme_bw() + my_theme +
+  theme(plot.margin = margin(t=0, b=0, r=0.2, l=3.2, "cm"))
+g_box
 
 # Blank plot
 g_blank <- ggplot() + theme_void()
-g_blank <- cowplot::get_legend(g1 +theme(legend.position = c(0.55, 0.9), 
-                                         legend.direction = "horizontal"))
-
 
 # Merge data
 layout_matrix <- matrix(c(1,2,
                           3,4), byrow=T, ncol=2)
-g <- gridExtra::grid.arrange(g1, g2, g_blank, g3, 
-                             layout_matrix=layout_matrix, heights=c(0.6, 0.4))
+g <- gridExtra::grid.arrange(g_ras,  g_clus, 
+                             g_box, g_blank, 
+                             layout_matrix=layout_matrix,
+                             widths=c(0.85,0.15),
+                             heights=c(0.7, 0.3))
 g
 
 # Export plot
-ggsave(g, filename=file.path(plotdir, "Fig4_attribute_scores_raster_prop_clusters.png"), 
-       width=6.5, height=6.5, units="in", dpi=600)
+ggsave(g, filename=file.path(plotdir, "Figure_4.png"), 
+       width=6.5, height=5, units="in", dpi=600)
 
