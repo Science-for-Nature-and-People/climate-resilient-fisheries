@@ -5,9 +5,23 @@ rm(list = ls())
 # Setup
 ################################################################################
 
-# Packages
-library(ggplot2)
-library(tidyverse)
+#Load packages if needed
+load_required_packages <- function() {
+  packages <- c("tidyverse", "readRDS", "stringr", "ggdendro", "RColorBrewer", "gridExtra")
+  for (pkg in packages) {
+    if (!require(pkg, character.only = TRUE)) {
+      cat(pkg, "not found. Installing...\n")
+      install.packages(pkg)
+      library(pkg, character.only = TRUE)
+    } else {
+      cat(pkg, "loaded successfully!\n")
+    }
+  }
+}
+
+load_required_packages()
+
+
 
 # Directories
 datadir <- "clean_data"

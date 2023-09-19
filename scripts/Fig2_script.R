@@ -6,12 +6,24 @@ rm(list = ls())
 ################################################################################
 
 # Packages
-library(ggplot2)
-library(tidyverse)
+load_required_packages <- function() {
+  packages <- c("ggplot2", "tidyverse", "RColorBrewer", "gridExtra", "scales", "stringr")
+  for (pkg in packages) {
+    if (pkg %in% rownames(installed.packages())) {
+      library(pkg, character.only = TRUE)
+    } else {
+      message(paste("Installing and loading package:", pkg))
+      install.packages(pkg)
+      library(pkg, character.only = TRUE)
+    }
+  }
+}
+load_required_packages()
+
 
 # Directories
-datadir <- "case_study_analysis/clean_data"
-plotdir <- "case_study_analysis/cf_scripts/figures"
+datadir <- "clean_data"
+plotdir <- "figures"
 
 # Read data
 data_orig <- readRDS(file.path(datadir, "case_study_attribute_score_data.Rds"))
@@ -143,6 +155,6 @@ g <- gridExtra::grid.arrange(g1, g2, nrow=1)
 g
 
 # Export plot
-ggsave(g, filename=file.path(plotdir, "Fig2_attribute_importance_score.png"), 
+ggsave(g, filename=file.path(plotdir, "Figure_2.png"), 
        width=6.5, height=4.5, units="in", dpi=600)
 

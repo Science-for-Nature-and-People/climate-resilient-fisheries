@@ -2,15 +2,34 @@
 # Clear workspace
 rm(list = ls())
 
+
 # Setup
 ################################################################################
 
 # Packages
 library(tidyverse)
 
+#load required packages if needed
+load_required_packages <- function() {
+  packages <- c("tidyverse", "readxl", "stringr", "sf", "rnaturalearth", "RColorBrewer")
+  for (pkg in packages) {
+    if (!require(pkg, character.only = TRUE)) {
+      cat(pkg, "not found. Installing...\n")
+      install.packages(pkg)
+      library(pkg, character.only = TRUE)
+    } else {
+      cat(pkg, "loaded successfully!\n")
+    }
+  }
+}
+
+load_required_packages()
+
+#Note that if you are having trouble installing sf package because of timing out you can try options(timeout = 1200) before install.packages("sf")
+
 # Directories
-datadir <- "case_study_analysis/cf_scripts/data"
-plotdir <- "case_study_analysis/cf_scripts/figures"
+datadir <- "clean_data"
+plotdir <- "figures"
 
 # Read data
 data_orig <- readxl::read_excel(file.path(datadir, "case_study_meta_data.xlsx")) 
@@ -123,7 +142,7 @@ g <- ggplot() +
 g
 
 # Export plot
-ggsave(g, filename=file.path(plotdir, "Fig1_case_study_map.png"), 
+ggsave(g, filename=file.path(plotdir, "Figure_1.png"), 
        width=6.5, height=3.25, units="in", dpi=600)
  
 
