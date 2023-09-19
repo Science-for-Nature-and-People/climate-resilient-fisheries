@@ -19,7 +19,19 @@ The [SNAPP Working Group on Climate Resilient Fisheries](https://snappartnership
 ## Below is a breakdown of the repository's three key folders and their contents:
 
 1. clean_data
-- The clean_data folder houses the cleaned dataset and metadata essential for our analysis. 
+- The clean_data folder houses the cleaned dataset and metadata essential for our analysis.
+- - case_study_attribute_score_data - Dataset Description
+--- Key Variables:
+---- case_study: Represents one of 18 fishery system case studies from diverse geographies, target species, fishery scales, and management contexts.
+
+---- attribute: Contains one of the 38 specific attributes assessed in relation to resilience against climate stressors.
+
+---- score: Represents the strength of each attribute within a focal system, recorded using a 4-option rating scale: very low (1), low (2), moderate (3), and high (4).
+
+Derived metrics are annotated in the code.
+
+---- dimension: Categorical variable indicating the broader dimension (or category) to which an attribute belongs.
+
 2. figures
 - Within the figures folder, you'll find graphical representations or plots derived from our data. This includes the visualizations that form the basis for the four main figures in the manuscript.
 3. scripts
