@@ -1,16 +1,19 @@
 
 
-**Repository Overview for doi:10.1111/faf.12790**
-
 **About**
 
-This repository contains the data and scripts used for generating the four main figures featured in our manuscript [Diverse pathways for climate resilience in marine fishery  systems](https://doi.org/10.1111/faf.12790) published in _Fish and Fisheries_. This publication is a product of the [SNAPP Working Group on climate-resilient fisheries](https://snappartnership.net/teams/climate-resilient-fisheries/). 
+This repository contains the data and scripts used for generating the four main figures featured in our manuscript [Diverse pathways for climate resilience in marine fishery  systems](https://doi.org/10.1111/faf.12790) published in _Fish and Fisheries_ (doi:10.1111/faf.12790). This publication is a product of the [SNAPP Working Group on climate-resilient fisheries](https://snappartnership.net/teams/climate-resilient-fisheries/). 
 
-The SNAPP Working Group on Climate Resilient Fisheries was lead by Kathy Mills (GMRI), Kristin Kleisner (EDF), and Patrick Sullivan (Cornell) and includes fisheries experts and practitioners from nearly every continent. The goal of the working group was to address the following three questions:
+The *SNAPP Working Group on Climate Resilient Fisheries* was lead by Kathy Mills (GMRI), Kristin Kleisner (EDF), and Patrick Sullivan (Cornell) and includes fisheries experts and practitioners from nearly every continent. The goal of the working group was to address the following three questions:
 
 1. What key features make fisheries inherently resilient to the effects of climate change?
 2. What approaches and tools confer resilience for fishery systems affected by climate change?
 3. How can practitioners diagnose system resilience and identify ways in which resilience can be supported in order to enhance sustainability, economic benefits, and human well-being and equity?
+
+
+You can check out our other associated publication Mason et al. 2023 [here](https://doi.org/10.1111/faf.12630). 
+
+We also created a resilience planning support tool available at: https://ClimateResilientFisheries.net/
 
 
 **Below is a breakdown of the repository's three key folders and their contents:**
