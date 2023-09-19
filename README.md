@@ -7,7 +7,7 @@ This repository contains the data and scripts used for generating the four main 
 Our associated resilience planning tool is available at: https://ClimateResilientFisheries.net/
 
 
-# About the SNAPP Working Group on Climate Resilient Fisheries
+## About the SNAPP Working Group on Climate Resilient Fisheries
 
 The [SNAPP Working Group on Climate Resilient Fisheries](https://snappartnership.net/teams/climate-resilient-fisheries/) was lead by Kathy Mills (GMRI), Kristin Kleisner (EDF), and Patrick Sullivan (Cornell) and includes fisheries experts and practitioners from nearly every continent. The goal of the working group was to address the following three questions:
 
@@ -16,7 +16,7 @@ The [SNAPP Working Group on Climate Resilient Fisheries](https://snappartnership
 3. How can practitioners diagnose system resilience and identify ways in which resilience can be supported in order to enhance sustainability, economic benefits, and human well-being and equity?
 
 
-# Below is a breakdown of the repository's three key folders and their contents:
+## Below is a breakdown of the repository's three key folders and their contents:
 
 1. clean_data
 - The clean_data folder houses the cleaned dataset and metadata essential for our analysis. 
