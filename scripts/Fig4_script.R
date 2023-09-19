@@ -7,7 +7,7 @@ rm(list = ls())
 
 #Load packages if needed
 load_required_packages <- function() {
-  packages <- c("tidyverse", "readRDS", "stringr", "ggdendro", "RColorBrewer", "gridExtra")
+  packages <- c("tidyverse", "stringr", "ggdendro", "RColorBrewer", "gridExtra")
   for (pkg in packages) {
     if (!require(pkg, character.only = TRUE)) {
       cat(pkg, "not found. Installing...\n")

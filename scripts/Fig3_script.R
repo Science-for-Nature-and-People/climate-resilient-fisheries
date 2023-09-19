@@ -1,24 +1,29 @@
-
 # Clear workspace
 rm(list = ls())
 
 # Setup
 ################################################################################
+#Load packages
+load_required_packages <- function() {
+  packages <- c("tidyverse", "stringr", "ggplot2", "here")
+  for (pkg in packages) {
+    if (pkg %in% rownames(installed.packages())) {
+      library(pkg, character.only = TRUE)
+    } else {
+      message(paste("Installing and loading package:", pkg))
+      install.packages(pkg)
+      library(pkg, character.only = TRUE)
+    }
+  }
+}
+load_required_packages()
 
-# Packages
-library(ggplot2)
-library(tidyverse)
-library(here)
-library(gridExtra) # for JE
-library(ggrepel) # for JE
-library(grDevices) #also added
 # Directories
-datadir <- "case_study_analysis/clean_data"
-plotdir <- "case_study_analysis/lz_scripts"
+datadir <- "clean_data"
+plotdir <- "figures"
 
 # Read data
 data_orig <- readRDS(file.path(datadir, "case_study_attribute_score_data.Rds"))
-
 
 # Build data for typology
 ################################################################################
@@ -30,9 +35,7 @@ data <- data_orig %>%
          importance=factor(importance, levels=c("Low", "Medium", "High"))) %>% 
   mutate(importance_numeric= as.numeric(as.factor(importance)))
 
-
-# Calculate average attribute score, variance  and average attribute importance and variance 
-
+# Calculate average attribute score, variance, and average attribute importance and variance 
 score_average <- data %>%
   group_by(dimension, attribute) %>% 
   summarize(score_avg=mean(score, na.rm=T)) %>% 
@@ -53,43 +56,21 @@ importance_variance<- data %>%
   summarize(importance_var=var(importance_numeric, na.rm=T)) %>% 
   ungroup()
 
-#combine into one cross-case dataset
+# Combine into one cross-case dataset
 typology_data <- full_join(score_average, score_variance)
-typology_data<- full_join(typology_data, importance_average)
-typology_data<- full_join(typology_data, importance_variance)
+typology_data <- full_join(typology_data, importance_average)
+typology_data <- full_join(typology_data, importance_variance)
 
-
-#add precision columns where precision = 1/ variance
-
-typology_data<- typology_data %>% 
+# Add consistency columns where consistency = 1/ variance
+typology_data <- typology_data %>% 
   rename(Dimension= dimension) %>% 
-  mutate(precision_score = (1/score_var)) %>% 
-  mutate(precision_importance = (1/importance_var)) %>%  arrange(precision_importance) 
- 
-typology_data$precision_importance_scaled <- (typology_data$precision_importance - min(typology_data$precision_importance)) / (max(typology_data$precision_importance) - min(typology_data$precision_importance))
+  mutate(consistency_score = (1/score_var)) %>% 
+  mutate(consistency_importance = (1/importance_var)) %>%  arrange(consistency_importance) 
 
-write_csv(typology_data, here("case_study_analysis", "lz_scripts", "typology_data.csv"))
+typology_data$consistency_importance_scaled <- (typology_data$consistency_importance - min(typology_data$consistency_importance)) / (max(typology_data$consistency_importance) - min(typology_data$consistency_importance))
 
-
-typology_data <- read.csv('typology_data.csv') # for JE
-
-#######################################################3
-#create theme
-my_theme <-  theme(axis.text=element_text(size=6),
-                   axis.title=element_text(size=7),
-                   legend.text=element_text(size=6),
-                   legend.title=element_text(size=7),
-                   strip.text=element_text(size=7),
-                   # Gridlines
-                   panel.grid.major = element_blank(), 
-                   panel.grid.minor = element_blank(),
-                   panel.background = element_blank(), 
-                   axis.line = element_line(colour = "black"),
-                   # Legend
-                   legend.position="bottom",
-                   legend.background = element_rect(fill=alpha('blue', 0)))
-
-my_theme2 <-  theme(axis.text=element_text(size=10), # for JE
+# Create theme
+my_theme2 <- theme(axis.text=element_text(size=10),
                    axis.title=element_text(size=11),
                    legend.text=element_text(size=11),
                    legend.title=element_text(size=11),
@@ -104,11 +85,10 @@ my_theme2 <-  theme(axis.text=element_text(size=10), # for JE
                    legend.background = element_rect(fill=alpha('blue', 0)))
 
 mean(typology_data$importance_avg) #2.323099
-mean(typology_data$score_avg)#2.843567
+mean(typology_data$score_avg) #2.843567
 
-################ add overall average score for attributes and overall average importance for attributes to figure. 
-
-quad <- ggplot(data = typology_data, aes(x = importance_avg, y = score_avg, size = precision_importance_scaled)) + 
+################ Add overall average score for attributes and overall average importance for attributes to figure. 
+quad <- ggplot(data = typology_data, aes(x = importance_avg, y = score_avg, size = consistency_importance_scaled)) + 
   geom_point(color='black', shape=21, aes(fill=Dimension), alpha=.75) + 
   scale_fill_manual(values = c("Ecological" = "#72B077", "Governance" = "#C25866", "Socio-economic" = "#D6B65D"), name = "Dimension") + 
   scale_size_continuous(range = c(2, 10), name = "Rating consistency", breaks = c(0, 0.5, 1)) + 
@@ -118,7 +98,7 @@ quad <- ggplot(data = typology_data, aes(x = importance_avg, y = score_avg, size
   xlab("Importance") + 
   ylab("Score") + 
   geom_hline(yintercept = mean(typology_data$score_avg), linetype = 'dashed', col = '#333333') + 
-  geom_vline(xintercept = mean(typology_data$importance_avg), linetype = 'dashed', col = '#333333')+
+  geom_vline(xintercept = mean(typology_data$importance_avg), linetype = 'dashed', col = '#333333') +
   theme(panel.background = element_rect(fill='transparent'),
         plot.background = element_rect(fill='transparent', color=NA),
         legend.box = "vertical",  # Ensuring legends are stacked vertically
@@ -127,16 +107,6 @@ quad <- ggplot(data = typology_data, aes(x = importance_avg, y = score_avg, size
   guides(fill = guide_legend(override.aes = list(size=5)), 
          size = guide_legend(override.aes = list(shape = 21, fill = "white")))
 
-
-#add back in geom_text(aes(label = attribute), size = 2, vjust = 1, hjust = .5) to see attribute labels. Version here saved without labels and labels added in manually afterwards 
-ggsave(quad, filename=file.path(plotdir, "Typology_without_labels.png"), 
-       width=5.51181, height=5.51181, units="in", dpi=600) # JE use these width/height next time (so it doesn't skew the axes)
-
-
-# JE, to match LZ's size
-
-tiff("Typology_without_labels_JE_short.tiff", height = 4.5, width = 5.5, units = 'in', compression = "lzw", res = 600)
-grid.arrange(quad, ncol=1) # https://cran.r-project.org/web/packages/gridExtra/vignettes/arrangeGrob.html
-dev.off()
-
-
+# Add back in geom_text(aes(label = attribute), size = 2, vjust = 1, hjust = .5) to see attribute labels. Version here saved without labels or panels. Panles and labels were added in manually afterwards 
+ggsave(quad, filename=file.path(plotdir, "Figure_3_no_labels.png"), 
+       width=5.51181, height=5.51181, units="in", dpi=600) 
